@@ -1,5 +1,7 @@
 import React from "react";
-import styles from "../styles/Home.module.css";
+import Navbar from "@/components/Navbar/Navbar.jsx"
+import SecHero from "@/components/SecHero/SecHero.jsx" 
+import styles from "./Home.module.css";
 
 const Home = () => {
   // Placeholder events
@@ -8,29 +10,23 @@ const Home = () => {
     { id: 2, title: "AI Workshop", date: "April 10, 2025" },
     { id: 3, title: "Startup Networking Night", date: "May 5, 2025" },
   ];
+  
+
 
   return (
     <div className={styles.container}>
           {/* Navbar */}
-          <nav className={styles.navbar}>
-            <div className={styles.logo}>TCSA LOGO</div>
-            <ul className={styles.navLinks}>
-              <li>Events</li>
-              <li>Resources</li>
-              <li>Join us</li>
-              <li>Our Team</li>
-            </ul>
-          </nav>
+          <Navbar/>
 
           {/* Hero Section */}
-          <section className={styles.hero}>
-            <h1>TELFER CHINESE STUDENT ASSOCIATION</h1>
-            <p className={styles.welcomeMessage}>
-              <strong>Welcome message:</strong> Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-            </p>
-            <button className={styles.button}>View Events</button>
-            
-          </section>
+
+          <SecHero
+            title="TERFER CHINESE STUDENT ASSOCIATION" 
+            message="Welcome message: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua." 
+            showBtn={true}  
+            btnText="Get Started" 
+            btnLink="/services" 
+          />
 
           {/* About Section */}
           <section className={styles.about}>
