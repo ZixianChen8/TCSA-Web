@@ -1,0 +1,162 @@
+:root{
+    color-scheme: light;
+    padding: 0;
+}
+
+html, body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    overflow-x: hidden;
+}
+
+.container {
+    font-family: Arial, sans-serif;
+    width: 100%;
+    max-width: 100%;
+    margin: 0;
+  }
+  
+  /* Navbar */
+  .navbar {
+    display: flex;
+    justify-content: space-between;
+    padding: 15px 30px;
+  }
+  
+  .navLinks {
+    list-style: none;
+    display: flex;
+    gap: 20px;
+  }
+  
+  /* Hero Section */
+  .hero {
+    background: #e0e0e0;
+    text-align: center;
+    padding: 80px 20px;
+  }
+  
+  
+  /* About Section */
+  .about {
+    background: #000;
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    padding: 50px;
+  }
+  
+  .aboutMedia {
+    background: grey;
+    width: 50%;
+    text-align: center;
+  }
+  
+  /* Events */
+  .events {
+    padding: 50px;
+  }
+  
+  .eventList {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+  }
+  
+  .eventCard {
+    background: #f9f9f9;
+    padding: 20px;
+    border-radius: 10px;
+    width: 300px;
+  }
+  
+  .eventImage {
+    background: lightgrey;
+    height: 100px;
+    margin-bottom: 10px;
+  }
+  
+  /* Sponsors */
+  .sponsors {
+    text-align: center;
+    padding: 50px;
+  }
+  
+  .sponsorLogos {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+  }
+  
+  .sponsorCircle {
+    width: 50px;
+    height: 50px;
+    background: black;
+    border-radius: 50%;
+  }
+  
+  /* Contact */
+  .contact {
+    padding: 50px;
+    background: #f5f5f5;
+  }
+  
+  .contactContent {
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .contactForm {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 50%;
+  }
+  
+  .contactForm input, .contactForm textarea {
+    padding: 10px;
+    width: 100%;
+  }
+  
+  /* Footer */
+  .footer {
+    background: #e0e0e0;
+    text-align: center;
+    padding: 20px;
+  }
+  
+  .footerLinks {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    padding: 10px 0;
+  }
+  
+  .footerSocial {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    padding: 10px 0;
+  }
+  
+  .socialIcon {
+    width: 30px;
+    height: 30px;
+    background: lightgray;
+    border-radius: 50%;
+  }
+  
+  /* Buttons */
+  .button {
+    background-color: black;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+  }
+  
+  .button:hover {
+    background-color: grey;
+  }

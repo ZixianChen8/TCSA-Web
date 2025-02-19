@@ -1,17 +1,21 @@
 import React, { useEffect, useState } from 'react';
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom"; // Import Router components
 import './App.css'
+
+import Home from "./pages/Home.jsx";
 
 
 function App() {
   const [message, setMessage] = useState("")
 
   return (
-      <div>
-        <h1>React+Django</h1>
-        <p>{message}</p>
-      </div>
+      <Router>
+        <Routes>
+          <Route path="/" element={<Home />} />
+        </Routes>
+      </Router>
   );
 }
 
