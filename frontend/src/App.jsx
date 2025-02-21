@@ -7,6 +7,7 @@ import './App.css'
 import Home from "./pages/PageHome/Home.jsx";
 import PageEvents from './pages/PageEvents/PageEvents.jsx';
 import PageJoinus from './pages/PageJoinus/PageJoinus.jsx'
+import PageOurTeam from './pages/PageOurTeam/PageOurTeam.jsx'
 
 function App() {
   console.log("App is rendering");
@@ -16,13 +17,14 @@ function App() {
 
   return (
       
-      <Router>
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/events" element={<PageEvents />} />
-          <Route path="/joinus" element={<PageJoinus />} />
-        </Routes>
-      </Router>
+      
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/events" element={<PageEvents />} />
+        <Route path="/joinus" element={<PageJoinus />} />
+        <Route path="/ourteam" element={<PageOurTeam />} />
+      </Routes>
+      
       
   );
 }
