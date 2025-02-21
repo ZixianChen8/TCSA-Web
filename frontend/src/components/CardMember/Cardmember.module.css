@@ -1,0 +1,54 @@
+.card {
+    width: 250px;
+    padding: 20px;
+    text-align: center;
+    border: 1px solid #e0e0e0;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
+    position: relative;
+    margin: 1rem;;
+  }
+  
+  
+  .title {
+    font-size: 20px;
+    font-weight: 600;
+    margin: 10px 0;
+    color: #333;
+  }
+  
+  .divider {
+    width: 60%;
+    margin: 0 auto;
+    border: 0.5px solid #e0e0e0;
+  }
+  
+  .avatar {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin: 15px 0;
+  }
+  
+  .name {
+    font-size: 18px;
+    font-weight: 500;
+    color: #444;
+    margin: 10px 0;
+  }
+  
+  .position {
+    font-size: 16px;
+    font-weight: bold;
+    color: #333;
+    margin: 5px 0;
+  }
+  
+  .location,
+  .phone {
+    font-size: 14px;
+    color: #777;
+    margin: 2px 0;
+  }
