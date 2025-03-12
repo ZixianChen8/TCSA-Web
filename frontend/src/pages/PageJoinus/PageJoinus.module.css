@@ -1,0 +1,51 @@
+.content{
+    display: flex;
+    flex-direction: column;
+}
+.benefitsSection {
+    padding: 2rem;
+    text-align: left;
+  }
+  
+  .heading {
+    font-size: 32px;
+    font-weight: bold;
+    margin-bottom: 2rem;
+  }
+  
+  .benefitGrid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+  }
+  
+  .benefitCard {
+    background-color: white;
+    border-radius: 8px;
+    padding: 1rem;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    font-family: Arial, sans-serif;
+  }
+  
+  .benefitTitle {
+    font-size: 18px;
+    font-weight: bold;
+    margin: 0 0 0.5rem 0;
+    color: #000;
+  }
+  
+  .benefitDescription {
+    font-size: 14px;
+    color: #333;
+    line-height: 1.5;
+  }
+  
+  .benefitDescription strong {
+    font-weight: bold;
+  }
+
+
+.jobSection{
+    display: flex;
+    justify-content: space-between;
+}

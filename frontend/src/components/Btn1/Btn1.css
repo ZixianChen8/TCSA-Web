@@ -1,0 +1,68 @@
+/* src/components/Button.css */
+
+/* Base Styles */
+.button {
+    border-radius: 1rem;
+    font-weight: 600;
+    transition: all 0.2s ease-in-out;
+    outline: none;
+    cursor: pointer;
+
+  }
+  
+  /* Size Variants */
+  .button-sm {
+    padding: 0.25rem 0.75rem;
+    font-size: 0.875rem;
+  }
+  
+  .button-md {
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+  }
+  
+  .button-lg {
+    padding: 0.75rem 1.5rem;
+    font-size: 1.125rem;
+  }
+  
+  /* Variant Styles */
+  .button-primary {
+    background-color: #2563eb;
+    color: white;
+  }
+  .button-primary:hover {
+    background-color: #1d4ed8;
+  }
+  .button-primary:focus {
+    box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.4);
+  }
+  
+  .button-secondary {
+    background-color: #4b5563;
+    color: white;
+  }
+  .button-secondary:hover {
+    background-color: #374151;
+  }
+  .button-secondary:focus {
+    box-shadow: 0 0 0 2px rgba(75, 85, 99, 0.4);
+  }
+  
+  .button-outline {
+    border: 1px solid #d1d5db;
+    color: #374151;
+    background-color: transparent;
+  }
+  .button-outline:hover {
+    background-color: #f3f4f6;
+  }
+  .button-outline:focus {
+    box-shadow: 0 0 0 2px rgba(209, 213, 219, 0.4);
+  }
+  
+  /* Disabled State */
+  .button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }

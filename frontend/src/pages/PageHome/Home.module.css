@@ -17,26 +17,9 @@ html, body {
     margin: 0;
   }
   
-  /* Navbar */
-  .navbar {
-    display: flex;
-    justify-content: space-between;
-    padding: 15px 30px;
-  }
+
   
-  .navLinks {
-    list-style: none;
-    display: flex;
-    gap: 20px;
-  }
-  
-  /* Hero Section */
-  .hero {
-    background: #e0e0e0;
-    text-align: center;
-    padding: 80px 20px;
-  }
-  
+
   
   /* About Section */
   .about {
