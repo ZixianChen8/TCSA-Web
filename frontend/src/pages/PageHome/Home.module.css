@@ -40,12 +40,56 @@ body {
 /* Events */
 .events {
   padding: 50px;
+  background: #fff;
+}
+
+.events h2 {
+  text-align: center;
+  margin-bottom: 30px;
 }
 
 .eventList {
-  display: flex;
-  gap: 20px;
-  justify-content: center;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 30px;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.eventCardWrapper {
+  height: 100%;
+  min-height: 300px;
+}
+
+.loading, .error, .noEvents {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: 2rem;
+  font-size: 1.2rem;
+}
+
+.error {
+  color: #dc3545;
+  background-color: #f8d7da;
+  border: 1px solid #f5c6cb;
+  border-radius: 4px;
+}
+
+.noEvents {
+  color: #666;
+}
+
+@media (max-width: 1024px) {
+  .eventList {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .eventList {
+    grid-template-columns: 1fr;
+  }
 }
 
 .eventCard {

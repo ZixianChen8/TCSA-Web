@@ -1,23 +1,47 @@
 import { React, useState, useEffect, useRef } from "react";
 import Navbar from "@/components/Navbar/Navbar.jsx"
 import SecHero from "@/components/SecHero/SecHero.jsx"
+import CardEvent from "@/components/CardEvent/CardEvent.jsx"
+import axios from 'axios';
 import styles from "./Home.module.css";
 
 
 const Home = () => {
-  // Placeholder events
-  const events = [
-    { id: 1, title: "Tech Conference 2025", date: "March 15, 2025" },
-    { id: 2, title: "AI Workshop", date: "April 10, 2025" },
-    { id: 3, title: "Startup Networking Night", date: "May 5, 2025" },
-  ];
-  // Gallery images
+  const [events, setEvents] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
+  // Fetch events from the backend
+  useEffect(() => {
+    const fetchEvents = async () => {
+      try {
+        const response = await axios.get('http://127.0.0.1:8000/api/events/');
+        if (Array.isArray(response.data)) {
+          // Sort events by date and take the first 3
+          const sortedEvents = response.data
+            .sort((a, b) => new Date(a.date) - new Date(b.date))
+            .slice(0, 3);
+          setEvents(sortedEvents);
+          setError(null);
+        } else {
+          setError('Invalid data format received from server');
+        }
+      } catch (error) {
+        console.error('Error fetching events:', error);
+        setError('Failed to load events');
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchEvents();
+  }, []);
+
+  // Gallery images
   const galleryImages = [
     "/gallery_images/image1.jpg",
     "/gallery_images/image2.jfif",
     "/gallery_images/image3.jfif",
-  
   ];
 
   const galleryRef = useRef(null);
@@ -79,14 +103,14 @@ const Home = () => {
       <section className={styles.events}>
         <h2>Upcoming Events</h2>
         <div className={styles.eventList}>
-          {Array(3).fill().map((_, index) => (
-            <div key={index} className={styles.eventCard}>
-              <div className={styles.eventImage}></div>
-              <div className={styles.eventContent}>
-                <h3>Event title</h3>
-                <p>Description: Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                <button className={styles.button}>More Info</button>
-              </div>
+          {loading && <p className={styles.loading}>Loading events...</p>}
+          {error && <p className={styles.error}>{error}</p>}
+          {!loading && !error && events.length === 0 && (
+            <p className={styles.noEvents}>No upcoming events at the moment.</p>
+          )}
+          {!loading && !error && events.map((event) => (
+            <div key={event.id} className={styles.eventCardWrapper}>
+              <CardEvent event={event} />
             </div>
           ))}
         </div>
