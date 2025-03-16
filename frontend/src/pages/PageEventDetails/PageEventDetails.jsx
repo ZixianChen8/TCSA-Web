@@ -57,7 +57,10 @@ const PageEventDetails = () => {
     setRegistering(true);
     setMessage('');
     
+    console.log('Submitting registration form:', formData);
+    
     try {
+      console.log(`Posting to http://127.0.0.1:8000/api/events/${id}/register/`);
       const response = await axios.post(
         `http://127.0.0.1:8000/api/events/${id}/register/`,
         formData,
@@ -66,6 +69,7 @@ const PageEventDetails = () => {
         }
       );
       
+      console.log('Registration successful!', response.data);
       setMessage('Registration successful! You are now registered for this event.');
       // Clear the form
       setFormData({
@@ -76,7 +80,8 @@ const PageEventDetails = () => {
       });
     } catch (err) {
       console.error("Error submitting form:", err);
-      setMessage('Registration failed. Please try again later.');
+      console.error("Error details:", err.response?.data || err.message);
+      setMessage(`Registration failed: ${err.response?.data?.error || err.message || 'Unknown error'}`);
     } finally {
       setRegistering(false);
     }
