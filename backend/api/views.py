@@ -16,7 +16,7 @@ def get_data(request):
     return Response(data)
 
 class EventListAPIView(generics.ListAPIView):
-    queryset = Event.objects.all().order_by('date')
+    queryset = Event.objects.all().order_by('start_date')
     serializer_class = EventSerializer
 
     def list(self, request, *args, **kwargs):
@@ -30,7 +30,7 @@ class EventListAPIView(generics.ListAPIView):
                 print(f"\nEvent details:")
                 print(f"- ID: {event.id}")
                 print(f"- Title: {event.title}")
-                print(f"- Date: {event.date}")
+                print(f"- Start Date: {event.start_date}")
                 print(f"- Location: {event.location}")
                 print(f"- Organizer: {event.organizer}")
                 print(f"- Description: {event.description[:50]}...")

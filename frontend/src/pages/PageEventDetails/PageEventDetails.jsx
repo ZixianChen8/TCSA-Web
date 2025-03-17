@@ -14,8 +14,7 @@ const PageEventDetails = () => {
   const [formData, setFormData] = useState({
     first_name: '',
     last_name: '',
-    phone: '',
-    wechat_id: '',
+    email: '',
   });
   const [message, setMessage] = useState('');
   const [registering, setRegistering] = useState(false);
@@ -75,7 +74,7 @@ const PageEventDetails = () => {
       setFormData({
         first_name: '',
         last_name: '',
-        phone: '',
+        email: '',
         wechat_id: '',
       });
     } catch (err) {
@@ -160,23 +159,14 @@ const PageEventDetails = () => {
               />
             </div>
             <div className={styles.formGroup}>
-              <label htmlFor="phone">Phone:</label>
+              <label htmlFor="email">Email</label>
               <input 
-                type="tel" 
-                id="phone"
-                name="phone" 
-                value={formData.phone}
+                type="email" 
+                id="email"
+                name="email" 
+                value={formData.email}
                 onChange={handleChange}
-              />
-            </div>
-            <div className={styles.formGroup}>
-              <label htmlFor="wechat_id">WeChat ID:</label>
-              <input 
-                type="text" 
-                id="wechat_id"
-                name="wechat_id" 
-                value={formData.wechat_id}
-                onChange={handleChange}
+                required
               />
             </div>
             <button 
