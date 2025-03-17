@@ -2,6 +2,7 @@ import { React, useState, useEffect, useRef } from "react";
 import Navbar from "@/components/Navbar/Navbar.jsx"
 import SecHero from "@/components/SecHero/SecHero.jsx"
 import CardEvent from "@/components/CardEvent/CardEvent.jsx"
+import TeamPyramid from "@/components/TeamPyramid/TeamPyramid.jsx"
 import axios from 'axios';
 import styles from "./Home.module.css";
 
@@ -79,24 +80,24 @@ const Home = () => {
       {/* Navbar */}
       <Navbar />
 
-      {/* Hero Section */}
-
+      {/* Hero Section with About Content */}
       <SecHero
         title="TERFER CHINESE STUDENT ASSOCIATION"
-        message="welcome my brother"
-        showBtn={true}
-        btnText="Get Started"
-        btnLink="/services"
+        message={
+          <>
+            <p>Welcome to TCSA</p>
+            <p><strong>Mission statement:</strong> Explain the club's goals and how we support Chinese international students.</p>
+            <div style={{ marginTop: '1rem' }}>
+              <button className={styles.button}>Join us</button>
+            </div>
+          </>
+        }
+        showBtn={false}
       />
 
-      {/* About Section */}
-      <section className={styles.about}>
-        <div className={styles.aboutContent}>
-          <h2>About us</h2>
-          <p><strong>Mission statement:</strong> Explain the club's goals and how we support Chinese international students.</p>
-          <button className={styles.button}>Join us</button>
-        </div>
-        <div className={styles.aboutMedia}>Video or photo media</div>
+      {/* Team Pyramid */}
+      <section className={styles.teamPyramid}>
+        <TeamPyramid />
       </section>
 
       {/* Upcoming Events */}
@@ -115,6 +116,7 @@ const Home = () => {
           ))}
         </div>
       </section>
+
 
       {/* Gallery Section */}
       <section className={styles.gallery}>

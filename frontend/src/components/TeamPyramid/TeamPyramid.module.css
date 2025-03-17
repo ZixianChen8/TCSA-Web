@@ -1,0 +1,42 @@
+.pyramidContainer {
+  margin: 60px 0;
+  text-align: center;
+}
+
+.sectionTitle {
+  margin-bottom: 40px !important;
+  font-weight: 600 !important;
+}
+
+.pyramid {
+  position: relative;
+  width: 600px;
+  height: 400px;
+  margin: 0 auto;
+}
+
+.loadingContainer,
+.errorContainer,
+.emptyContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 300px;
+}
+
+/* Media query for responsiveness */
+@media (max-width: 640px) {
+  .pyramid {
+    width: 100%;
+    transform: scale(0.9);
+  }
+}
+
+@media (max-width: 480px) {
+  .pyramid {
+    transform: scale(0.7);
+    transform-origin: top center;
+    height: 650px;
+  }
+} 

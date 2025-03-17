@@ -1,0 +1,46 @@
+.infoBox {
+  position: absolute;
+  width: 250px;
+  z-index: 20;
+  animation: fadeIn 0.2s ease-in-out;
+}
+
+/* Positioning classes */
+.right {
+  left: 50px;
+  top: 0;
+}
+
+.left {
+  right: 50px;
+  top: 0;
+}
+
+.top {
+  bottom: 50px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.bottom {
+  top: 50px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.description {
+  max-height: 100px;
+  overflow-y: auto;
+  margin-top: 8px;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+} 

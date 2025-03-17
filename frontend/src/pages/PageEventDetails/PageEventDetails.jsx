@@ -75,7 +75,6 @@ const PageEventDetails = () => {
         first_name: '',
         last_name: '',
         email: '',
-        wechat_id: '',
       });
     } catch (err) {
       console.error("Error submitting form:", err);

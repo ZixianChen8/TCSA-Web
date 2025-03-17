@@ -1,6 +1,6 @@
 # serializers.py
 from rest_framework import serializers
-from .models import Event, Participant
+from .models import Event, Participant, Member
 
 # Serializer for Event Model (used for fetching event details)
 class EventSerializer(serializers.ModelSerializer):
@@ -28,3 +28,10 @@ class ParticipantSerializer(serializers.ModelSerializer):
         if value and not value.strip():
             raise serializers.ValidationError("Email cannot be empty if provided.")
         return value
+
+# Serializer for Member Model (used for team display)
+class MemberSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Member
+        fields = ['id', 'first_name', 'last_name', 'email', 'position', 
+                  'description', 'pfp_url', 'department']

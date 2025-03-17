@@ -5,8 +5,8 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework import generics, status
 
-from .models import Event, Participant
-from .serializers import EventSerializer, ParticipantSerializer
+from .models import Event, Participant, Member
+from .serializers import EventSerializer, ParticipantSerializer, MemberSerializer
 
 @api_view(['GET'])
 def get_data(request):
@@ -100,4 +100,24 @@ class EventRegistrationAPIView(generics.GenericAPIView):
         else:
             print(f"Validation errors: {serializer.errors}")
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+# API view to get all team members
+class TeamMemberListAPIView(generics.ListAPIView):
+    queryset = Member.objects.all()
+    serializer_class = MemberSerializer
+
+    def list(self, request, *args, **kwargs):
+        try:
+            queryset = self.get_queryset()
+            print(f"\nFetching team members from database...")
+            print(f"Found {queryset.count()} team members")
+            
+            serializer = self.get_serializer(queryset, many=True)
+            return Response(serializer.data)
+        except Exception as e:
+            print(f"Error in TeamMemberListAPIView: {str(e)}")
+            return Response(
+                {"error": "Failed to fetch team members"},
+                status=status.HTTP_500_INTERNAL_SERVER_ERROR
+            )
 

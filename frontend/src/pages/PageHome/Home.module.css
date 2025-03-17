@@ -18,23 +18,9 @@ body {
   margin: 0;
 }
 
-
-
-
-
-/* About Section */
-.about {
-  background: #000;
-  color: white;
-  display: flex;
-  justify-content: space-between;
+.teamPyramid {
   padding: 50px;
-}
-
-.aboutMedia {
-  background: grey;
-  width: 50%;
-  text-align: center;
+  background: #fff;
 }
 
 /* Events */
