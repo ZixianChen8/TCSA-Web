@@ -1,0 +1,20 @@
+# Django and Django REST framework
+Django==5.0.2
+djangorestframework==3.14.0
+django-cors-headers==4.3.1
+
+# Database
+psycopg2-binary==2.9.9  # PostgreSQL adapter (optional if using SQLite)
+
+# API and Networking
+requests==2.31.0
+urllib3==2.2.0
+
+# Development and Testing
+python-dotenv==1.0.1
+pytest==8.0.0
+pytest-django==4.8.0
+
+# Production (optional but recommended)
+gunicorn==21.2.0
+whitenoise==6.6.0  # For serving static files 
