@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Avatar } from '@mui/material';
-import MemberInfoBox from '../MemberInfoBox/MemberInfoBox';
+import MemberInfoBox from '../../MemberInfoBox/MemberInfoBox';
 import styles from './TeamMember.module.css';
 
 const TeamMember = ({ member, position }) => {

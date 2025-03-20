@@ -1,8 +1,9 @@
-import { React, useState, useEffect, useRef } from "react";
+import { React, useState, useEffect} from "react";
 import Navbar from "@/components/Navbar/Navbar.jsx"
 import SecHero from "@/components/SecHero/SecHero.jsx"
 import CardEvent from "@/components/CardEvent/CardEvent.jsx"
-import TeamPyramid from "@/components/TeamPyramid/TeamPyramid.jsx"
+import TeamPyramid from "@/components/PageHome/TeamPyramid/TeamPyramid.jsx"
+import Gallery from "@/components/PageHome/Gallery/Gallery.jsx"
 import axios from 'axios';
 import styles from "./Home.module.css";
 
@@ -37,43 +38,6 @@ const Home = () => {
 
     fetchEvents();
   }, []);
-
-  // Gallery images
-  const galleryImages = [
-    "/gallery_images/image1.jpg",
-    "/gallery_images/image2.jfif",
-    "/gallery_images/image3.jfif",
-  ];
-
-  const galleryRef = useRef(null);
-  const [direction, setDirection] = useState("right");
-  
-  const scrollGallery = () => {
-    if (galleryRef.current) {
-      const scrollAmount = 320; // Adjust based on image width
-      if (direction === "right") {
-        galleryRef.current.scrollLeft += scrollAmount;
-        if (
-          galleryRef.current.scrollLeft + galleryRef.current.clientWidth >=
-          galleryRef.current.scrollWidth
-        ) {
-          setDirection("left");
-        }
-      } else {
-        galleryRef.current.scrollLeft -= scrollAmount;
-        if (galleryRef.current.scrollLeft <= 0) {
-          setDirection("right");
-        }
-      }
-    }
-  };
-
-  // Auto-slide effect
-  useEffect(() => {
-    const interval = setInterval(() => scrollGallery("right"), 3000); // Change every 3 seconds
-    return () => clearInterval(interval);
-  }, []);
-
 
   return (
     <div className={styles.container}>
@@ -117,20 +81,11 @@ const Home = () => {
         </div>
       </section>
 
-
       {/* Gallery Section */}
-      <section className={styles.gallery}>
-        <h2>Gallery</h2>
-        <div className={styles.galleryWrapper}>
-          <button className={styles.galleryBtn} onClick={() => scrollGallery("left")}>&#9665;</button>
-          <div className={styles.gallerySlider} ref={galleryRef}>
-            {galleryImages.map((src, index) => (
-              <div key={index} className={styles.galleryItem} style={{ backgroundImage: `url(${src})` }}></div>
-            ))}
-          </div>
-          <button className={styles.galleryBtn} onClick={() => scrollGallery("right")}>&#9655;</button>
-        </div>
+      <section className={styles.Gallery}>
+        <Gallery />
       </section>
+    
 
       {/* Sponsors Section */}
       <section className={styles.sponsors}>
