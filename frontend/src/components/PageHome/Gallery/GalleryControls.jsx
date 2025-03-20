@@ -9,7 +9,7 @@ const GalleryControls = ({ hover, onScroll }) => {
           onClick={() => onScroll("left")}
           sx={{
             position: "absolute", 
-            left: 20, 
+            left: 10, 
             color: "white", 
             background: "rgba(0,0,0,0.5)", 
             "&:hover": { background: "rgba(255,255,255,0.3)" }
