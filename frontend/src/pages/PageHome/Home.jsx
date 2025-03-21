@@ -1,7 +1,7 @@
 import { React, useState, useEffect} from "react";
-import Navbar from "@/components/Navbar/Navbar.jsx"
 import SecHero from "@/components/SecHero/SecHero.jsx"
 import CardEvent from "@/components/CardEvent/CardEvent.jsx"
+import Navbar from "@/components/Navbar/Navbar.jsx"
 import TeamPyramid from "@/components/PageHome/TeamPyramid/TeamPyramid.jsx"
 import Gallery from "@/components/PageHome/Gallery/Gallery.jsx"
 import axios from 'axios';
@@ -41,8 +41,11 @@ const Home = () => {
 
   return (
     <div className={styles.container}>
+
       {/* Navbar */}
+      <section className={styles.navbar}>
       <Navbar />
+      </section>
 
       {/* Hero Section with About Content */}
       <SecHero
@@ -52,11 +55,11 @@ const Home = () => {
             <p>Welcome to TCSA</p>
             <p><strong>Mission statement:</strong> Explain the club's goals and how we support Chinese international students.</p>
             <div style={{ marginTop: '1rem' }}>
-              <button className={styles.button}>Join us</button>
             </div>
           </>
         }
-        showBtn={false}
+        btnText="Join us"
+        showBtn={true}
       />
 
       {/* Team Pyramid */}

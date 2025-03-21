@@ -34,7 +34,7 @@ const Gallery = () => {
 
     setTimeout(() => {
       setIsButtonDisabled(false); 
-    }, 1000);
+    }, 700);
 
     setAutoScrollEnabled(false); 
     setTimeout(() => setAutoScrollEnabled(true), 5000);
