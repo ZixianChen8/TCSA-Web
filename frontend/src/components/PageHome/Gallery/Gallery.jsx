@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, use } from "react";
 import { Paper, Typography, Box } from "@mui/material";
 import GalleryControls from "./GalleryControls";
 import GalleryImages from "./GalleryImages";
@@ -7,6 +7,7 @@ const Gallery = () => {
   const [hover, setHover] = useState(false);
   const [direction, setDirection] = useState("right"); // Track scroll direction
   const [autoScrollEnabled, setAutoScrollEnabled] = useState(true); // Auto-scroll state
+  const [isButtonDisabled, setIsButtonDisabled] = useState(false); // Track button state
   const galleryRef = useRef(null);
 
   // Scrolling function (manual & auto)
@@ -24,28 +25,37 @@ const Gallery = () => {
     }
   };
 
-  // Handle manual click (disables auto-scroll for 5 seconds)
+  // Handle manual click (disables auto-scroll for 5 seconds) and Track button state
   const handleManualScroll = (dir) => {
-    scrollGallery(dir);
-    setAutoScrollEnabled(false); // Disable auto-scroll
-    setTimeout(() => setAutoScrollEnabled(true), 5000); // Re-enable after 5s
+    if (isButtonDisabled) return; 
+
+    setIsButtonDisabled(true); 
+    scrollGallery(dir); 
+
+    setTimeout(() => {
+      setIsButtonDisabled(false); 
+    }, 1000);
+
+    setAutoScrollEnabled(false); 
+    setTimeout(() => setAutoScrollEnabled(true), 5000);
   };
 
-  // Auto-scroll every 4 seconds (only if enabled)
+  // Auto-scroll every 5 seconds (only if enabled)
   useEffect(() => {
     if (!autoScrollEnabled) return; // Skip auto-scroll when disabled
 
-    const interval = setInterval(() => scrollGallery(direction), 4000);
+    const interval = setInterval(() => scrollGallery(direction), 5000);
     return () => clearInterval(interval); // Cleanup on unmount
   }, [direction, autoScrollEnabled]); // Rerun when direction or autoScrollEnabled changes
 
+
   return (
-    <Paper 
-      elevation={3} 
+    <Paper
+      elevation={3}
       sx={{
-        width: "100vw", 
-        height: "60vh", 
-        backgroundColor: "black", 
+        width: "100vw",
+        height: "60vh",
+        backgroundColor: "black",
         position: "relative",
         overflow: "hidden",
         display: "flex",
@@ -57,8 +67,8 @@ const Gallery = () => {
       onMouseLeave={() => setHover(false)}
     >
       {/* Title */}
-      <Typography 
-        variant="h4" 
+      <Typography
+        variant="h4"
         sx={{
           position: "absolute",
           top: 10,
@@ -72,7 +82,7 @@ const Gallery = () => {
       </Typography>
 
       {/* Image Slider + Controls */}
-      <Box 
+      <Box
         sx={{
           display: "flex",
           width: "100%",
