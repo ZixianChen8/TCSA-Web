@@ -15,8 +15,8 @@ const PageOurTeam = () => {
             <header>
                 <Navbar/>
                 <SecHero
-                    title="MEET THE TEAM"
-                    message="the gang" 
+                    title="ALUMNI"
+                    message="Formal members" 
                     showBtn={false}  
                     btnText="Get Started" 
                     btnLink="/services" 

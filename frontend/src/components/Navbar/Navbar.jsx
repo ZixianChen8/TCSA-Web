@@ -35,7 +35,7 @@ const Navbar = () => {
           <Button href="/events" sx={{ color: "black" }}>Events</Button>
           <Button href="#" sx={{ color: "black"}}>Resources</Button>
           <Button href="/joinus" sx={{ color: "black" }}>Join us</Button>
-          <Button href="/ourteam" sx={{ color: "black" }}>Our Teams</Button>
+          <Button href="/ourteam" sx={{ color: "black" }}>Alumni</Button>
         </Box>
       </Toolbar>
     </AppBar>
