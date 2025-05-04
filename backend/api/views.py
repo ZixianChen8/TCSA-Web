@@ -5,8 +5,8 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework import generics, status
 
-from .models import Event, Participant, Member
-from .serializers import EventSerializer, ParticipantSerializer, MemberSerializer
+from .models import Event, Member
+from .serializers import EventSerializer, MemberSerializer
 
 @api_view(['GET'])
 def get_data(request):
@@ -71,35 +71,6 @@ class EventDetailAPIView(generics.RetrieveAPIView):
                 {"error": "Failed to load event details. Please try again later."},
                 status=status.HTTP_404_NOT_FOUND
             )
-
-# Handle event registration by creating a Participant and adding it to the Event's participants list
-class EventRegistrationAPIView(generics.GenericAPIView):
-    serializer_class = ParticipantSerializer
-
-    def post(self, request, *args, **kwargs):
-        event_id = kwargs.get('id')
-        print(f"\n=== EVENT REGISTRATION REQUEST ===")
-        print(f"Event ID: {event_id}")
-        print(f"Request data: {request.data}")
-        
-        try:
-            event = Event.objects.get(id=event_id)
-            print(f"Found event: {event.title}")
-        except Event.DoesNotExist:
-            print(f"Event with ID {event_id} not found")
-            return Response({"error": "Event not found."}, status=status.HTTP_404_NOT_FOUND)
-        
-        serializer = self.get_serializer(data=request.data)
-        if serializer.is_valid():
-            print(f"Data is valid: {serializer.validated_data}")
-            participant = serializer.save()
-            print(f"Created participant: {participant.first_name} {participant.last_name} (ID: {participant.id})")
-            event.participants.add(participant)
-            print(f"Added participant to event. Current participant count: {event.participants.count()}")
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
-        else:
-            print(f"Validation errors: {serializer.errors}")
-            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 # API view to get all team members
 class TeamMemberListAPIView(generics.ListAPIView):

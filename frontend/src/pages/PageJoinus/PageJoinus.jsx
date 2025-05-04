@@ -1,9 +1,13 @@
 import CardJob from '@/components/CardJob/CardJob.jsx';
+import CardBenefit from '@/components/CardBenefit/CardBenefit.jsx';
 
 import Navbar from "@/components/Navbar/Navbar.jsx"
 import SecHero from "@/components/SecHero/SecHero.jsx"
 
+import { FaLock } from 'react-icons/fa';
+
 import styles from "./PageJoinus.module.css"
+
 
 
 const PageJoinus = () => {
@@ -46,14 +50,21 @@ const PageJoinus = () => {
             <div className={styles.content}>
                 <section className={styles.benefitsSection}>
                     <h2 className={styles.heading}>Benefits</h2>
-                    <div className={styles.benefitGrid}>
-                        {benefits.map((benefit, index) => (
-                            <div className={styles.benefitCard} key={index}>
-                                <h3 className={styles.benefitTitle}>{benefit.title}</h3>
-                                <p className={styles.benefitDescription}>{benefit.description}</p>
-                            </div>
+
+                    <div className={styles.benefitsCards}>
+                        {benefits.map(({ title, description }, index) => (
+                          <CardBenefit
+                            key={index}
+                            className={styles.cardBenefit}
+                            spotlightColor="rgba(0, 229, 255, 0.2)"
+                            icon={<FaLock size={32} />}
+                            title={title}
+                            description={description}
+                          />
                         ))}
                     </div>
+                    
+
                 </section>
 
                 <section className={styles.jobSection}>

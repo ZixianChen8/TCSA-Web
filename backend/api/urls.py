@@ -1,12 +1,10 @@
 from django.urls import path
-from .views import get_data, EventDetailAPIView, EventRegistrationAPIView, EventListAPIView, TeamMemberListAPIView
-
+from .views import get_data, EventDetailAPIView, EventListAPIView, TeamMemberListAPIView
 
 urlpatterns = [
     path('data/', get_data, name='get_data'),
     path('events/', EventListAPIView.as_view(), name='event_list'),
     path('events/<int:id>/', EventDetailAPIView.as_view(), name='event_detail'),
-    path('events/<int:id>/register/', EventRegistrationAPIView.as_view(), name='event_register'),
     path('team/', TeamMemberListAPIView.as_view(), name='team_list'),
 ]
 

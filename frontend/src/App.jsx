@@ -9,6 +9,7 @@ import PageEvents from './pages/PageEvents/PageEvents.jsx';
 import PageJoinus from './pages/PageJoinus/PageJoinus.jsx'
 import PageOurTeam from './pages/PageOurTeam/PageOurTeam.jsx'
 import PageEventDetails from './pages/PageEventDetails/PageEventDetails.jsx'
+import PageSponsors from './pages/PageSponsors/PageSponsors.jsx';
 
 function App() {
   console.log("App is rendering");
@@ -25,7 +26,7 @@ function App() {
         <Route path="/joinus" element={<PageJoinus />} />
         <Route path="/ourteam" element={<PageOurTeam />} />
         <Route path="events/:id" element={<PageEventDetails />} />
-        
+        <Route path="/sponsors" element={<PageSponsors />} />
       </Routes>
       
       

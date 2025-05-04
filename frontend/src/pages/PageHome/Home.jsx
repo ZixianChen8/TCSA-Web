@@ -1,4 +1,4 @@
-import { React, useState, useEffect} from "react";
+import { React, useState, useEffect, useRef } from "react";
 import SecHero from "@/components/SecHero/SecHero.jsx"
 import CardEvent from "@/components/CardEvent/CardEvent.jsx"
 import Navbar from "@/components/Navbar/Navbar.jsx"
@@ -6,6 +6,7 @@ import TeamPyramid from "@/components/PageHome/TeamPyramid/TeamPyramid.jsx"
 import Gallery from "@/components/PageHome/Gallery/Gallery.jsx"
 import axios from 'axios';
 import styles from "./Home.module.css";
+import emailjs from '@emailjs/browser'
 
 
 const Home = () => {
@@ -38,6 +39,31 @@ const Home = () => {
 
     fetchEvents();
   }, []);
+
+
+    const form = useRef();
+  
+    const sendEmail = (e) => {
+      e.preventDefault();
+  
+      emailjs
+        .sendForm(
+          import.meta.env.VITE_EMAILJS_SERVICE_ID,
+          import.meta.env.VITE_EMAILJS_TEMPLATE_ID,
+          form.current,
+          import.meta.env.VITE_EMAILJS_PUBLIC_KEY
+        )
+        .then(
+          (result) => {
+            alert('Message sent successfully!');
+          },
+          (error) => {
+            alert('An error occurred, please try again.');
+          }
+        );
+  
+      e.target.reset();
+      }
 
   return (
     <div className={styles.container}>
@@ -92,11 +118,15 @@ const Home = () => {
 
       {/* Sponsors Section */}
       <section className={styles.sponsors}>
-        <h2>Our Sponsors</h2>
+        <h2>Our Sponsors & Partners</h2>
         <div className={styles.sponsorLogos}>
-          {Array(5).fill().map((_, index) => (
-            <div key={index} className={styles.sponsorCircle}></div>
-          ))}
+            <img src="/sponsor_logos/logo1.png"/>
+            <img src="/sponsor_logos/logo2.jpg"/>
+            <img src="/sponsor_logos/logo3.jpg"/>
+            <img src="/sponsor_logos/logo4.png"/>
+            <img src="/sponsor_logos/logo5.png"/>
+            <img src="/sponsor_logos/logo5.webp"/>
+            <img src="/sponsor_logos/logo6.avif"/>
         </div>
       </section>
 
@@ -109,12 +139,13 @@ const Home = () => {
             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
             <p>📧 example@email.com</p>
           </div>
-          <form className={styles.contactForm}>
-            <input type="text" placeholder="Enter your name" />
-            <input type="email" placeholder="Enter your email address" />
-            <textarea placeholder="Enter your message"></textarea>
+
+          <form ref={form} onSubmit={sendEmail} className={styles.contactForm}>
+            <input type="text" name="sender_name" placeholder="Enter your name" required/>
+            <textarea name="message" placeholder="Enter your message, please leave your contact information if you wish to receive a reply from us!" required></textarea>
             <button type="submit" className={styles.button}>Send</button>
           </form>
+
         </div>
       </section>
 
