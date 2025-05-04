@@ -19,8 +19,10 @@ body {
 }
 
 .teamPyramid {
-  padding: 100px;
+  padding: 0.5rem, 2rem, -5rem, 2rem;
   background: #fff;
+  height: 100%;
+
 }
 
 /* Events */
