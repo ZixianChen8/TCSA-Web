@@ -3,11 +3,13 @@
   display: flex;
   align-items: flex-start;
   justify-content: center;
+  position: relative;
 }
 
 .pyramid-svg {
   width: 100%;
   max-width: 1400px;
+  /* removed pointer-events: none so hover still registers on the <g> elements */
 }
 
 .pyramid-line {
@@ -23,4 +25,24 @@
 
 .pyramid-node {
   fill: #333333;
+}
+
+/* popup card wrapper */
+
+.popcardContainer {
+  position: absolute;
+  z-index: 10;
+  /* transform-origin: right center; */
+  animation: fadeIn 0.2s ease-out forwards;
+  pointer-events: none; 
+  transform-origin: bottom center;
+
+}
+
+@keyframes fadeIn {
+  0% { opacity: 0; }
+  100% {
+    opacity: 1;
+    /* no transform here */
+  }
 }
