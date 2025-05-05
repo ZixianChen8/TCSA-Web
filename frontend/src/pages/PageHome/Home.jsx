@@ -141,8 +141,8 @@ const Home = () => {
           </div>
 
           <form ref={form} onSubmit={sendEmail} className={styles.contactForm}>
-            <input type="text" name="sender_name" placeholder="Enter your name" required/>
-            <textarea name="message" placeholder="Enter your message, please leave your contact information if you wish to receive a reply from us!" required></textarea>
+            <input type="text" name="sender_name" placeholder="Enter your contact information" required/>
+            <textarea name="message" placeholder="Enter your message" required></textarea>
             <button type="submit" className={styles.button}>Send</button>
           </form>
 

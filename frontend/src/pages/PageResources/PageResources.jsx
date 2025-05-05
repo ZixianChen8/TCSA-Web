@@ -71,7 +71,7 @@ function PageResources() {
           </>
         }
         btnText="Join us"
-        showBtn={true}
+        showBtn={false}
       />
 
 

@@ -1,29 +1,21 @@
-import { useRef } from "react";
-import styles from "./CardBenefit.module.css";
+// Card.jsx
+import React from 'react';
+import styles from './CardBenefit.module.css';
 
-const CardBenefit = ({ children, className = "", spotlightColor = "rgba(255, 255, 255, 0.25)", icon, title, description }) => {
-  const divRef = useRef(null);
-
-  const handleMouseMove = (e) => {
-    const rect = divRef.current.getBoundingClientRect();
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
-
-    divRef.current.style.setProperty("--mouse-x", `${x}px`);
-    divRef.current.style.setProperty("--mouse-y", `${y}px`);
-    divRef.current.style.setProperty("--spotlight-color", spotlightColor);
-  };
-
+const CardBenefit = () => {
   return (
-    <div
-      ref={divRef}
-      onMouseMove={handleMouseMove}
-      className={`${styles.cardSpotlight} ${className}`}
-    >
-      {icon && <div className={styles.icon}>{icon}</div>}
-      {title && <div className={styles.benefitTitle}>{title}</div>}
-      {description && <div className={styles.benefitDescription}>{description}</div>}
-      {children}
+    <div className={styles.card}>
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+        <path d="M20 5H4V19L13.2923 9.70649C13.6828 9.31595 14.3159 9.31591 14.7065 9.70641L20 15.0104V5ZM2 3.9934C2 3.44476 2.45531 3 2.9918 3H21.0082C21.556 3 22 3.44495 22 3.9934V20.0066C22 20.5552 21.5447 21 21.0082 21H2.9918C2.44405 21 2 20.5551 2 20.0066V3.9934ZM8 11C6.89543 11 6 10.1046 6 9C6 7.89543 6.89543 7 8 7C9.10457 7 10 7.89543 10 9C10 10.1046 9.10457 11 8 11Z" />
+      </svg>
+      <div className={styles.card__content}>
+        <p className={styles.card__title}>Benefit</p>
+        <p className={styles.card__description}>
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+          incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
+          exercitation ullamco.
+        </p>
+      </div>
     </div>
   );
 };

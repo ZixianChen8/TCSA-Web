@@ -19,7 +19,7 @@ body {
 }
 
 .teamPyramid {
-  padding: 0.5rem, 2rem, -5rem, 2rem;
+  padding: 0.5rem, 2rem, rem, 2rem;
   background: #fff;
   height: 100%;
 
@@ -142,6 +142,12 @@ body {
 .contactForm textarea {
   padding: 10px;
   width: 100%;
+}
+
+.contactForm textarea {
+  padding: 10px;
+  width: 100%;
+  min-height: 150px;
 }
 
 /* Footer */
