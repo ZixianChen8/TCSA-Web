@@ -1,7 +1,8 @@
     import React, { useState, useRef, useEffect } from 'react'; // Import useRef and useEffect
     import styles from './TeamPyramid.module.css';
     // Assuming TeamMember component exists and is imported correctly
-    import TeamMember from '@/components/PageHome/TeamMember/TeamMember.jsx'; 
+import TeamMember from '@/components/PageHome/TeamMember/TeamMember.jsx'; 
+import { computePosition, offset, flip, shift } from '@floating-ui/dom';
 
 
     export default function TeamPyramid() {
@@ -33,17 +34,11 @@
       const [hoveredPerson, setHoveredPerson] = useState(null);
 
       // --- Ref for Timeout ---
-      // Stores the timeout ID for the delayed hide action
-      const hideTimeoutRef = useRef(null);
       const containerRef = useRef(null);
+      const tooltipRef = useRef(null);
+      const [isHovering, setIsHovering] = useState(false);
+      const lastMouseEvent = useRef({ x: 0, y: 0 });
 
-      // --- Cleanup Timeout on Unmount ---
-      // Ensures the timeout is cleared if the component is removed from the DOM
-      useEffect(() => {
-        return () => {
-          clearTimeout(hideTimeoutRef.current);
-        };
-      }, []); // Empty dependency array: runs only on mount and unmount
 
       // --- Helper Functions ---
       const getLeaderIdForMember = (memberId) => {
@@ -100,43 +95,56 @@
         return false;
       };
 
-      // --- Event Handlers with Delay ---
       // Handles mouse entering a node area
       const handleMouseEnter = (personData, event) => {
-        // Clear any pending hide timeout
-        clearTimeout(hideTimeoutRef.current);
-        // Calculate pixel position of the node within the container
-        const rect = containerRef.current.getBoundingClientRect();
-        const xPx = rect.left + (personData.x / 100) * rect.width;
-        const yPx = rect.top + (personData.y / 60) * rect.height;
-        // Set the hover state immediately
-        setHoveredPerson({ data: personData.data, xPx, yPx });
-        // Update leader/member specific hover states for line highlighting
-        if (personData.data.department) { // Leader
-            setHoveredLeaderId(personData.data.id);
-            setHoveredMemberId(null);
-        } else if (personData.data.leaderId) { // Member
-            setHoveredMemberId(personData.data.id);
-            // Also set leader ID if needed for highlighting lines to leader
-            setHoveredLeaderId(personData.data.leaderId); 
-        } else { // Executive
-             setHoveredLeaderId(null);
-             setHoveredMemberId(null);
+        lastMouseEvent.current = { x: event.clientX, y: event.clientY };
+        setHoveredPerson(personData.data);
+        setIsHovering(true);
+        if (personData.data.department) {
+          setHoveredLeaderId(personData.data.id);
+          setHoveredMemberId(null);
+        } else if (personData.data.leaderId) {
+          setHoveredMemberId(personData.data.id);
+          setHoveredLeaderId(personData.data.leaderId);
+        } else {
+          setHoveredLeaderId(null);
+          setHoveredMemberId(null);
         }
       };
 
       // Handles mouse leaving a node area
       const handleMouseLeave = () => {
-        // Clear any previous timeout
-        clearTimeout(hideTimeoutRef.current);
-        
-        // Set a new timeout to hide the card after a delay
-        hideTimeoutRef.current = setTimeout(() => {
-          setHoveredPerson(null);
-          setHoveredLeaderId(null);
-          setHoveredMemberId(null);
-        }, 150); // 150ms delay, adjust as needed
+        setIsHovering(false);
       };
+
+      useEffect(() => {
+        if (!isHovering) return;
+        const virtualEl = {
+          getBoundingClientRect: () => {
+            const { x, y } = lastMouseEvent.current;
+            return { width: 0, height: 0, x, y, top: y, bottom: y, left: x, right: x };
+          }
+        };
+        const onMouseMove = e => {
+          lastMouseEvent.current = { x: e.clientX, y: e.clientY };
+          computePosition(virtualEl, tooltipRef.current, {
+            placement: 'right-start',
+            middleware: [offset(5), flip(), shift()],
+          }).then(({ x, y }) => {
+            Object.assign(tooltipRef.current.style, {
+              left: `${x}px`,
+              top: `${y}px`,
+              visibility: 'visible'
+            });
+          });
+        };
+        document.addEventListener('mousemove', onMouseMove);
+        onMouseMove(lastMouseEvent.current);
+        return () => {
+          document.removeEventListener('mousemove', onMouseMove);
+          if (tooltipRef.current) tooltipRef.current.style.visibility = 'hidden';
+        };
+      }, [isHovering]);
       
       // --- Component Rendering ---
       return (
@@ -201,26 +209,21 @@
             ))}
           </svg>
 
-          {/* --- Popup Card --- */}
-          {/* Rendered based on hoveredPerson state */}
-          {hoveredPerson && (
-            <div
-              className={styles.popcardContainer}
-              style={{
-                position: 'absolute',
-                left: `${hoveredPerson.xPx}px`,
-                top: `${hoveredPerson.yPx}px`,
-                transform: 'translate(-50%, -100%)',
-              }}
-            >
+          {/* --- Tooltip Popup --- */}
+          <div
+            ref={tooltipRef}
+            className={styles.popcardContainer}
+            style={{ position: 'absolute', visibility: 'hidden' }}
+          >
+            {hoveredPerson && (
               <TeamMember
-                name={hoveredPerson.data.name}
-                email={hoveredPerson.data.email}
-                quote={hoveredPerson.data.quote}
-                department={hoveredPerson.data.department} 
+                name={hoveredPerson.name}
+                email={hoveredPerson.email}
+                quote={hoveredPerson.quote}
+                department={hoveredPerson.department}
               />
-            </div>
-          )}
+            )}
+          </div>
         </div>
       );
     }
