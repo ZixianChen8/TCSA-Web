@@ -4,6 +4,7 @@ import CardEvent from "@/components/CardEvent/CardEvent.jsx"
 import Navbar from "@/components/Navbar/Navbar.jsx"
 import TeamPyramid from "@/components/PageHome/TeamPyramid/TeamPyramid.jsx"
 import Gallery from "@/components/PageHome/Gallery/Gallery.jsx"
+import Footer from '@/components/Footer/Footer.jsx'
 import axios from 'axios';
 import styles from "./Home.module.css";
 import emailjs from '@emailjs/browser'
@@ -150,22 +151,7 @@ const Home = () => {
       </section>
 
       {/* Footer */}
-      <footer className={styles.footer}>
-        <div className={styles.footerLinks}>
-          <span>TCSA</span>
-          <span>Events</span>
-          <span>Resources</span>
-          <span>Join us</span>
-          <span>Our Team</span>
-          <span>Contact us</span>
-        </div>
-        <div className={styles.footerSocial}>
-          {Array(5).fill().map((_, index) => (
-            <div key={index} className={styles.socialIcon}></div>
-          ))}
-        </div>
-        <p>© XXXXXXXXX Privacy - Terms</p>
-      </footer>
+      <Footer />
     </div>
   );
 };
