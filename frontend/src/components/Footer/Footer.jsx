@@ -7,7 +7,7 @@ const Footer = () => (
   <footer className={styles.footer}>
     <div className={styles.top}>
       <ul className={styles.nav}>
-        <li><a href="#">TCSA</a></li>
+        <li><a href="/">TCSA</a></li>
         <li><a href="/events">Events</a></li>
         <li><a href="/resources">Resources</a></li>
         <li><a href="/joinus">Join us</a></li>

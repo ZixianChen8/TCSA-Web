@@ -3,6 +3,7 @@ import CardBenefit from '@/components/CardBenefit/CardBenefit.jsx';
 
 import Navbar from "@/components/Navbar/Navbar.jsx"
 import SecHero from "@/components/SecHero/SecHero.jsx"
+import Footer from '@/components/Footer/Footer.jsx'
 
 import { FaLock } from 'react-icons/fa';
 
@@ -79,7 +80,8 @@ const PageJoinus = () => {
                 </section>
 
             </div>
-
+            {/* Footer */}
+            <Footer />
         </main>
 
     )

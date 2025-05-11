@@ -5,6 +5,8 @@ import CardEvent from '@/components/CardEvent/CardEvent.jsx'
 
 import Navbar from "@/components/Navbar/Navbar.jsx"
 import SecHero from "@/components/SecHero/SecHero.jsx" 
+import Footer from '@/components/Footer/Footer.jsx'
+
 
 import Icon from "@/components/Icon/Icon.jsx"; // Import reusable Icon component
 
@@ -94,6 +96,8 @@ const PageEvents = () => {
                     </div>
                 )}
             </div>
+            {/* Footer */}
+            <Footer />
         </main>
     );
 }

@@ -2,6 +2,8 @@ import React from 'react';
 import styles from './PageResources.module.css';
 import Navbar from '../../components/Navbar/Navbar';
 import SecHero from "@/components/SecHero/SecHero.jsx"
+import Footer from '@/components/Footer/Footer.jsx'
+
 
 
 // Sample data - in a real app, this might come from an API
@@ -84,6 +86,8 @@ function PageResources() {
           />
         ))}
       </div>
+      {/* Footer */}
+      <Footer />
     </>
   );
 }

@@ -1,5 +1,7 @@
 import Navbar from "@/components/Navbar/Navbar.jsx"
 import SecHero from "@/components/SecHero/SecHero.jsx" 
+import Footer from '@/components/Footer/Footer.jsx'
+
 
 import CardMember from "@/components/CardMember/CardMember.jsx"
 
@@ -11,7 +13,7 @@ const PageOurTeam = () => {
     
     
     return (
-        <div className="root">
+        <main>
             <header>
                 <Navbar/>
                 <SecHero
@@ -25,9 +27,13 @@ const PageOurTeam = () => {
 
             <div className={styles.content}>
                 <CardMember />
+                
             </div>
+            
+            <Footer />
 
-        </div>
+        </main>
+        
     )
 }
 export default PageOurTeam;

@@ -4,6 +4,8 @@ import SponsorCard from '@/components/CardSponsor/CardSponsor.jsx';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Navbar from '@/components/Navbar/Navbar';
+import Footer from '@/components/Footer/Footer.jsx'
+
 import styles from './PageSponsors.module.css';
 
 // Sample sponsor data (replace with your actual data)
@@ -35,23 +37,29 @@ function PageSponsors() {
         <Navbar />
       </section>
 
-      <Box sx={{ padding: 3, display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-        <Typography variant="h4" component="h1" gutterBottom sx={{ textAlign: 'center' }}>
-          Our Sponsors & Partners
-        </Typography>
-        <Box sx={{ display: 'flex', flexDirection: 'column', gap: 3, alignItems: 'center', width: '100%' }}>
-          {sponsors.map((sponsor) => (
-            <SponsorCard
-              key={sponsor.id}
-              name={sponsor.name}
-              description={sponsor.description}
-              logo={sponsor.logo}
-              socialLink={sponsor.socialLink}
-              learnMoreLink={sponsor.learnMoreLink}
-            />
-          ))}
+      <div className={styles.content}> 
+        <Box sx={{ padding: 3, display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+          <Typography variant="h4" component="h1" gutterBottom sx={{ textAlign: 'center' }}>
+            Our Sponsors & Partners
+          </Typography>
+          <Box sx={{ display: 'flex', flexDirection: 'column', gap: 3, alignItems: 'center', width: '100%' }}>
+            {sponsors.map((sponsor) => (
+              <SponsorCard
+                key={sponsor.id}
+                name={sponsor.name}
+                description={sponsor.description}
+                logo={sponsor.logo}
+                socialLink={sponsor.socialLink}
+                learnMoreLink={sponsor.learnMoreLink}
+              />
+            ))}
+          </Box>
         </Box>
-      </Box>
+        
+
+      </div>
+      <Footer />
+
     </>
   );
 }
