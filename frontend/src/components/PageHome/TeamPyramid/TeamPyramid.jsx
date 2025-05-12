@@ -7,8 +7,10 @@ import { computePosition, offset, flip, shift } from '@floating-ui/dom';
 
     export default function TeamPyramid() {
       // --- State for Team Data ---
-      const [executives, setExecutives] = useState([
+      const [advisors, setAdvisors] = useState([
         { id: 1, name: 'President', email: 'president@uottawa.ca', quote: 'Good design is obvious. Great design is transparent.' },
+      ]);
+      const [executives, setExecutives] = useState([
         { id: 2, name: 'Vice President', email: 'vp@uottawa.ca', quote: 'Success is best when it\'s shared.' }
       ]);
       const [departmentLeaders, setDepartmentLeaders] = useState([
@@ -48,6 +50,11 @@ import { computePosition, offset, flip, shift } from '@floating-ui/dom';
       
       // --- Position Calculations ---
       // (Using the original calculations provided)
+      const getTopMostLevelPositions = () => {
+        return advisors.map((advisor) => ({
+          ...advisor, x: 50, y: 0 // centered at top
+        }));
+      };
       const getTopLevelPositions = () => {
         const centerX = 50;
         const spacing = 12;
@@ -59,7 +66,7 @@ import { computePosition, offset, flip, shift } from '@floating-ui/dom';
       };
       const getMiddleLevelPositions = () => {
         const centerX = 50;
-        const spacing = 20;
+        const spacing = 30;
         const numNodes = departmentLeaders.length;
         const startX = centerX - ((numNodes - 1) * spacing) / 2;
         return departmentLeaders.map((leader, index) => ({
@@ -76,6 +83,7 @@ import { computePosition, offset, flip, shift } from '@floating-ui/dom';
         }));
       };
       
+      const topMostLevel = getTopMostLevelPositions();
       const topLevel = getTopLevelPositions();
       const middleLevel = getMiddleLevelPositions();
       const bottomLevel = getBottomLevelPositions();
@@ -92,6 +100,7 @@ import { computePosition, offset, flip, shift } from '@floating-ui/dom';
         if (hoveredLeaderId === leaderId) return true;
         if (memberId && hoveredMemberId === memberId) return true;
         if (hoveredMemberId && getLeaderIdForMember(hoveredMemberId) === leaderId) return true;
+        if (hoveredPerson && !hoveredPerson.department && !hoveredPerson.leaderId) return true; // if hovering advisor
         return false;
       };
 
@@ -115,6 +124,9 @@ import { computePosition, offset, flip, shift } from '@floating-ui/dom';
       // Handles mouse leaving a node area
       const handleMouseLeave = () => {
         setIsHovering(false);
+        setHoveredLeaderId(null);
+        setHoveredMemberId(null);
+        setHoveredPerson(null);
       };
 
       useEffect(() => {
@@ -149,9 +161,45 @@ import { computePosition, offset, flip, shift } from '@floating-ui/dom';
       // --- Component Rendering ---
       return (
         <div className={styles.pyramidContainer} ref={containerRef}>
-          <svg viewBox="0 0 100 60" className={styles.pyramidSvg}>
+          <svg viewBox="0 -10 100 60" className={styles.pyramidSvg}>
             {/* --- Lines --- */}
             {/* (Original line rendering logic using isLineHighlighted) */}
+            {/* Optional: Advisor to Executive connecting lines */}
+            {topLevel.map(exec => (
+              <line
+                key={`advisor-line-${exec.id}`}
+                x1={topMostLevel[0].x} y1={topMostLevel[0].y + 5}
+                x2={exec.x} y2={exec.y - 3}
+                stroke="#000000"
+                strokeWidth="0.3"
+                className={styles.pyramidLine}
+              />
+            ))}
+            {topLevel.length === 1 && topMostLevel.length === 1 && (
+              <line
+                key={`advisor-connection-${topMostLevel[0].id}-${topLevel[0].id}`}
+                x1={topMostLevel[0].x} y1={topMostLevel[0].y + 8}
+                x2={topLevel[0].x} y2={topLevel[0].y - 5}
+                stroke={isHovering ? "#3B82F6" : "#000000"}
+                strokeWidth={isHovering ? "0.5" : "0.3"}
+                className={isHovering ? `${styles.pyramidLine} ${styles.highlighted}` : styles.pyramidLine}
+              />
+            )}
+            {topLevel.map(exec => (
+              middleLevel.map(leader => {
+                const highlighted = isLineHighlighted(leader.id);
+                return (
+                  <line
+                    key={`exec-leader-line-${exec.id}-${leader.id}`}
+                    x1={exec.x} y1={exec.y + 4.5}
+                    x2={leader.x} y2={leader.y - 2.5}
+                    stroke={highlighted ? "#3B82F6" : "#000000"}
+                    strokeWidth={highlighted ? "0.5" : "0.3"}
+                    className={highlighted ? `${styles.pyramidLine} ${styles.highlighted}` : styles.pyramidLine}
+                  />
+                );
+              })
+            ))}
             {middleLevel.map(leader => {
               const members = membersByLeader[leader.id] || [];
               return members.map(member => {
@@ -161,7 +209,7 @@ import { computePosition, offset, flip, shift } from '@floating-ui/dom';
                 return (
                   <line 
                     key={`${leader.id}-${member.id}`}
-                    x1={leader.x} y1={leader.y + 3} 
+                    x1={leader.x} y1={leader.y + 4} 
                     x2={memberPos.x} y2={memberPos.y - 3} 
                     stroke={highlighted ? "#3B82F6" : "#000000"}
                     strokeWidth={highlighted ? "0.5" : "0.3"}
@@ -169,12 +217,19 @@ import { computePosition, offset, flip, shift } from '@floating-ui/dom';
                   />
                 );
               });
-            })}
-            {middleLevel.length > 1 && ( <line x1={middleLevel[0].x} y1={middleLevel[0].y - 8} x2={middleLevel[middleLevel.length - 1].x} y2={middleLevel[0].y - 8} stroke="#000000" strokeWidth="0.3" className={styles.pyramidLine} /> )}
-            {middleLevel.map(leader => ( <line key={`vert-${leader.id}`} x1={leader.x} y1={leader.y - 8} x2={leader.x} y2={leader.y - 3} stroke="#000000" strokeWidth="0.3" className={styles.pyramidLine} /> ))}
-            
+            })}            
             {/* --- Nodes --- */}
-            {/* Using original shapes and classes, but updated event handlers */}
+            {/* Top-most level (Advisor) */}
+            {topMostLevel.map(advisor => (
+              <g
+                key={`advisor-${advisor.id}`}
+                onMouseEnter={(e) => handleMouseEnter({ data: advisor, x: advisor.x, y: advisor.y }, e)}
+                onMouseLeave={handleMouseLeave}
+              >
+                <rect x={advisor.x - 4} y={advisor.y - 3} width={8} height={8} fill="#333333" rx={0} className={styles.pyramidNode} />
+              </g>
+            ))}
+            {/* Executives */}
             {topLevel.map(exec => (
               <g
                 key={`exec-${exec.id}`}
@@ -227,4 +282,3 @@ import { computePosition, offset, flip, shift } from '@floating-ui/dom';
         </div>
       );
     }
-    
