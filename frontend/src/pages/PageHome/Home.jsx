@@ -11,10 +11,12 @@ import styles from "./Home.module.css";
 import emailjs from '@emailjs/browser'
 
 
+
 const Home = () => {
   const [events, setEvents] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+
 
   // Fetch events from the backend
   useEffect(() => {

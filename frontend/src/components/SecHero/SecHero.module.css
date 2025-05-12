@@ -5,6 +5,14 @@
     padding: 0 50px;
 }
 
+.splitTitle {
+    font-size: 3.5rem;
+    font-weight: bold;
+    text-align: center;
+    color: black;
+    letter-spacing: 0.05em;
+  }
+
 .heroContent{
     display: flex;
     flex-direction: column;

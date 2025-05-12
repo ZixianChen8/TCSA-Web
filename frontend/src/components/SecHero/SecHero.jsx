@@ -1,17 +1,53 @@
 import Btn1 from "../Btn1/Btn1.jsx"
 import styles from "./SecHero.module.css"
+import SplitText from "../Anim_SplitText/Anim_SplitText.jsx";
 
 const SecHero = ({title, message, showBtn, btnText, btnLink}) => {
 
     let displayTitle;
-    if (title == "TERFER CHINESE STUDENT ASSOCIATION") {
+    if (title == "TELFER CHINESE STUDENT ASSOCIATION") {
         let words = title.split(" ");
         let firstWord = words.shift();
         let rest = words.join(" ");
 
-        displayTitle = firstWord + "\n" + rest;
+        displayTitle = (
+            <>
+                <SplitText
+                    text={firstWord}
+                    className={styles.splitTitle}
+                    delay={50}
+                    animationFrom={{ opacity: 0, transform: 'translate3d(0,10px,0)' }}
+                    animationTo={{ opacity: 1, transform: 'translate3d(0,0,0)' }}
+                    easing="easeOutCubic"
+                    threshold={0.2}
+                    rootMargin="-50px"
+                />
+                <br />
+                <SplitText
+                    text={rest}
+                    className={styles.splitTitle}
+                    delay={50}
+                    animationFrom={{ opacity: 0, transform: 'translate3d(0,10px,0)' }}
+                    animationTo={{ opacity: 1, transform: 'translate3d(0,0,0)' }}
+                    easing="easeOutCubic"
+                    threshold={0.2}
+                    rootMargin="-50px"
+                />
+            </>
+        );
     } else {
-        displayTitle = title;
+        displayTitle = (
+            <SplitText
+                text={title}
+                className={styles.splitTitle}
+                delay={50}
+                animationFrom={{ opacity: 0, transform: 'translate3d(0,10px,0)' }}
+                animationTo={{ opacity: 1, transform: 'translate3d(0,0,0)' }}
+                easing="easeOutCubic"
+                threshold={0.2}
+                rootMargin="-50px"
+            />
+        );
     }
 
     //If showBtn is true then display a button
