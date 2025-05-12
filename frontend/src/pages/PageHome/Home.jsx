@@ -4,6 +4,7 @@ import CardEvent from "@/components/CardEvent/CardEvent.jsx"
 import Navbar from "@/components/Navbar/Navbar.jsx"
 import TeamPyramid from "@/components/PageHome/TeamPyramid/TeamPyramid.jsx"
 import Gallery from "@/components/PageHome/Gallery/Gallery.jsx"
+import CircularGallery from '@/components/PageHome/CircularGallery/CircularGallery.jsx'
 import Footer from '@/components/Footer/Footer.jsx'
 import axios from 'axios';
 import styles from "./Home.module.css";
@@ -75,80 +76,89 @@ const Home = () => {
       </section>
 
       {/* Hero Section with About Content */}
-      <SecHero
-        title="TERFER CHINESE STUDENT ASSOCIATION"
-        message={
-          <>
-            <p>Welcome to TCSA</p>
-            <p><strong>Mission statement:</strong> Explain the club's goals and how we support Chinese international students.</p>
-            <div style={{ marginTop: '1rem' }}>
-            </div>
-          </>
-        }
-        btnText="Join us"
-        showBtn={true}
-      />
+      <section className={styles.hero}>
+        <SecHero
+          title="TELFER CHINESE STUDENT ASSOCIATION"
+          message={
+            <>
+              <p>Welcome to TCSA</p>
+              <p><strong>Mission statement:</strong> Explain the club's goals and how we support Chinese international students.</p>
+              <div style={{ marginTop: '1rem' }}>
+              </div>
+            </>
+          }
+          btnText="Join us"
+          showBtn={true}
+        />
 
-      {/* Team Pyramid */}
-      <section className={styles.teamPyramid}>
-        <TeamPyramid />
       </section>
 
-      {/* Upcoming Events */}
-      <section className={styles.events}>
-        <h2>Upcoming Events</h2>
-        <div className={styles.eventList}>
-          {loading && <p className={styles.loading}>Loading events...</p>}
-          {error && <p className={styles.error}>{error}</p>}
-          {!loading && !error && events.length === 0 && (
-            <p className={styles.noEvents}>No upcoming events at the moment.</p>
-          )}
-          {!loading && !error && events.map((event) => (
-            <div key={event.id} className={styles.eventCardWrapper}>
-              <CardEvent event={event} />
-            </div>
-          ))}
-        </div>
-      </section>
+      <main>
+        {/* Team Pyramid */}
+        <section className={styles.teamPyramid}>
+          <TeamPyramid />
+        </section>
 
-      {/* Gallery Section */}
-      <section className={styles.Gallery}>
-        <Gallery />
-      </section>
-    
-
-      {/* Sponsors Section */}
-      <section className={styles.sponsors}>
-        <h2>Our Sponsors & Partners</h2>
-        <div className={styles.sponsorLogos}>
-            <img src="/sponsor_logos/logo1.png"/>
-            <img src="/sponsor_logos/logo2.jpg"/>
-            <img src="/sponsor_logos/logo3.jpg"/>
-            <img src="/sponsor_logos/logo4.png"/>
-            <img src="/sponsor_logos/logo5.png"/>
-            <img src="/sponsor_logos/logo5.webp"/>
-            <img src="/sponsor_logos/logo6.avif"/>
-        </div>
-      </section>
-
-      {/* Contact Section */}
-      <section className={styles.contact}>
-        <h2>Contact</h2>
-        <div className={styles.contactContent}>
-          <div className={styles.contactInfo}>
-            <h3>Get in touch with us</h3>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-            <p>📧 example@email.com</p>
+        {/* Upcoming Events */}
+        <section className={styles.events}>
+          <h2>Upcoming Events</h2>
+          <div className={styles.eventList}>
+            {loading && <p className={styles.loading}>Loading events...</p>}
+            {error && <p className={styles.error}>{error}</p>}
+            {!loading && !error && events.length === 0 && (
+              <p className={styles.noEvents}>No upcoming events at the moment.</p>
+            )}
+            {!loading && !error && events.map((event) => (
+              <div key={event.id} className={styles.eventCardWrapper}>
+                <CardEvent event={event} />
+              </div>
+            ))}
           </div>
+        </section>
 
-          <form ref={form} onSubmit={sendEmail} className={styles.contactForm}>
-            <input type="text" name="sender_name" placeholder="Enter your contact information" required/>
-            <textarea name="message" placeholder="Enter your message" required></textarea>
-            <button type="submit" className={styles.button}>Send</button>
-          </form>
+        {/* Gallery Section */}
+        <section className={styles.Gallery}>
+          <div style={{ height: '600px', position: 'relative' }}>
+            <CircularGallery bend={3} textColor="#ffffff" borderRadius={0.05} />
+          </div>
+        </section>
+      
 
-        </div>
-      </section>
+        {/* Sponsors Section */}
+        <section className={styles.sponsors}>
+          <h2>Our Sponsors & Partners</h2>
+          <div className={styles.sponsorLogos}>
+              <img src="/sponsor_logos/logo1.png"/>
+              <img src="/sponsor_logos/logo2.jpg"/>
+              <img src="/sponsor_logos/logo3.jpg"/>
+              <img src="/sponsor_logos/logo4.png"/>
+              <img src="/sponsor_logos/logo5.png"/>
+              <img src="/sponsor_logos/logo5.webp"/>
+              <img src="/sponsor_logos/logo6.avif"/>
+          </div>
+        </section>
+
+        {/* Contact Section */}
+        <section className={styles.contact}>
+          <h2>Contact</h2>
+          <div className={styles.contactContent}>
+            <div className={styles.contactInfo}>
+              <h3>Get in touch with us</h3>
+              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+              <p>📧 example@email.com</p>
+            </div>
+
+            <form ref={form} onSubmit={sendEmail} className={styles.contactForm}>
+              <input type="text" name="sender_name" placeholder="Enter your contact information" required/>
+              <textarea name="message" placeholder="Enter your message" required></textarea>
+              <button type="submit" className={styles.button}>Send</button>
+            </form>
+
+          </div>
+        </section>
+      </main>
+
+
 
       {/* Footer */}
       <Footer />
