@@ -52,8 +52,7 @@ const StyledWrapper = styled.div`
     width: 50px;
     font-family: 'Titillium Web', sans-serif;
     color: #333;
-    border-radius: 10px;
-    box-shadow: 0px 10px 10px rgba(0,0,0,0.1);
+    border-radius: 0px;
     background: white;
     margin: 5px;
     transition: 0.3s;
