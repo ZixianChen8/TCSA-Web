@@ -2,52 +2,19 @@
     display: flex;
     flex-direction: column;
 }
-.benefitsSection {
+/* .benefitsSection {
     display: flex;
     flex-direction: column;
     padding: 2rem;
     text-align: left;
     gap: 1rem;
-  }
+  } */
 
   .heading {
     font-size: 32px;
     font-weight: bold;
     margin-bottom: 2rem;
   }
-  
-  .benefitsCards{
-    display: flex;
-    flex-direction: row;
-    gap: 3rem;
-    
-  }
-
-  .cardBenefit {
-    width: 100%;
-    height: 250px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    font-family: Arial, sans-serif;
-    padding: 2rem;
-  }
-  
-  .benefitTitle {
-    font-size: 18px;
-    font-weight: bold;
-    margin: 0 0 0.5rem 0;
-    color: #000;
-  }
-  
-  .benefitDescription {
-    font-size: 14px;
-    color: #333;
-    line-height: 1.5;
-  }
-  
-  .benefitDescription strong {
-    font-weight: bold;
-  }
-
 
 .jobSection{
     padding: 2rem;
@@ -56,5 +23,130 @@
 }
 .jobGrid{
   display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 2rem;
 }
 
+/* Benefit Section */
+
+/* src/BenefitsDisplaySection.module.css */
+.benefitsSection {
+  max-width: 1450px; /* Or the width you prefer for this section */
+  margin: 40px auto; /* Center the section and add some top/bottom margin */
+  padding: 20px;
+}
+
+.benefitItem {
+  display: flex;
+  align-items: center;
+  min-height: 500px;
+  margin-bottom: 40px; /* Space between benefit items */
+  gap: 30px; /* Space between image and text within an item */
+
+}
+
+/* Last item should not have margin-bottom if it's the end of the section */
+.benefitItem:last-child {
+  margin-bottom: 0;
+}
+
+.benefitItem.reverseOrder { /* Note: CSS Modules will make this unique */
+  flex-direction: row-reverse;
+}
+
+.benefitImageContainer {
+  flex: 0.5; /* Takes up 1 part of the available space */
+  max-width: 50%;
+  height: 100%;
+}
+
+.benefitImage {
+  width: 100%;
+  height: 100%;
+  border-radius: 15px;
+  background-color: #d3d3d3; /* Placeholder color */
+  aspect-ratio: 1 / 0.85; /* Or your desired aspect ratio */
+  object-fit: cover; /* Ensures images cover the area well */
+  display: block; /* Removes any extra space below the image */
+}
+
+.benefitTextContainer {
+  flex: 0.6; /* Takes up 1.5 parts, giving more room for text */
+  max-width: 60%;
+  margin-left: 100px;
+}
+
+.benefitTextContainer h2 {
+  font-size: 4em;
+  font-weight: 800;
+  font-style: italic;
+  margin-top: 0; /* Remove default top margin from h2 */
+  margin-bottom: 0;
+  color: #333;
+  text-align: left;
+
+}
+
+.benefitTextContainer p {
+  font-size: 1.1rem;
+  font-weight: 600;
+  line-height: 1.6;
+  color: #555;
+  text-align: left;
+  margin: 0;
+  max-width: 80%;
+
+}
+
+
+/* Responsive adjustments for the entire section */
+@media (max-width: 768px) {
+  .benefitItem,
+  .benefitItem.reverseOrder {
+    flex-direction: column; /* Stack items vertically */
+    text-align: center;
+  }
+
+  .benefitImageContainer,
+  .benefitTextContainer {
+    max-width: 100%; /* Allow full width */
+    margin-bottom: 20px;
+  }
+
+  /* Re-order for mobile if text should come first when stacked */
+  .benefitItem.reverseOrder .benefitImageContainer {
+     order: -1; /* If you want image on top in reversed stacked view, remove or set to 1 */
+  }
+
+
+  .benefitImageContainer {
+    max-width: 80%; /* Or control image size as preferred on mobile */
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .benefitsSection {
+    padding: 15px;
+    margin: 20px auto;
+  }
+}
+
+
+
+/* how to apply section */
+
+.howToApply{
+  margin: 5rem 0 10rem 0;
+}
+
+.howToApply h2 {
+  font-weight: 800;
+  font-size: 2rem;
+}
+
+.howToApply p{
+  font-size: 1.5rem;
+  font-weight: 500;
+  margin: 0;
+}

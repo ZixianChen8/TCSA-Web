@@ -4,6 +4,7 @@ import Navbar from '../../components/Navbar/Navbar';
 import SecHero from "@/components/SecHero/SecHero.jsx"
 import Footer from '@/components/Footer/Footer.jsx'
 
+import SimpleSlideshow from '@/components/SimpleSlideshow/SimpleSlideshow.jsx';
 
 
 // Sample data - in a real app, this might come from an API
@@ -42,6 +43,9 @@ const resourcesData = [
 
 // Reusable component for a single resource item
 function ResourceItem({ title, description }) {
+
+
+
   return (
     <div className={styles.resourceItem}>
       <h3 className={styles.resourceTitle}>{title}</h3>
@@ -55,6 +59,11 @@ function ResourceItem({ title, description }) {
 
 // Main Page component
 function PageResources() {
+
+  const OPTIONS = { loop: true }
+  const SLIDE_COUNT = 5
+  const SLIDES = Array.from(Array(SLIDE_COUNT).keys())
+
   return (
     <>
       <section className={styles.navbar}>
@@ -63,6 +72,11 @@ function PageResources() {
 
 
       {/* Hero Section with About Content */}
+
+      <section className={styles.hero}>
+
+
+      </section>
       <SecHero
         title="RESOURCES"
         message={
@@ -75,7 +89,14 @@ function PageResources() {
         btnText="Join us"
         showBtn={false}
       />
-
+      
+      
+      {/* Slideshow */}
+      <div className="theme-light">
+        <SimpleSlideshow slides={SLIDES} options={OPTIONS} />
+      </div>
+      
+      
 
       <div className={styles.pageResourcesContainer}>
         {resourcesData.map(resource => (

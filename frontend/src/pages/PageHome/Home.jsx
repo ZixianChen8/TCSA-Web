@@ -98,12 +98,13 @@ const Home = () => {
       <main>
         {/* Team Pyramid */}
         <section className={styles.teamPyramid}>
+          <h2>OUR TEAM STRUCTURE</h2>
           <TeamPyramid />
         </section>
 
         {/* Upcoming Events */}
         <section className={styles.events}>
-          <h2>Upcoming Events</h2>
+          <h2>UPCOMING EVENTS</h2>
           <div className={styles.eventList}>
             {loading && <p className={styles.loading}>Loading events...</p>}
             {error && <p className={styles.error}>{error}</p>}

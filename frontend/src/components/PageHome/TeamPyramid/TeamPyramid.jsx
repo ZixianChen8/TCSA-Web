@@ -95,14 +95,42 @@ import { computePosition, offset, flip, shift } from '@floating-ui/dom';
       });
       
       // --- Highlight Logic ---
-      // Determines if a line should be highlighted based on current hover state
       const isLineHighlighted = (leaderId, memberId = null) => {
-        if (hoveredLeaderId === leaderId) return true;
-        if (memberId && hoveredMemberId === memberId) return true;
-        if (hoveredMemberId && getLeaderIdForMember(hoveredMemberId) === leaderId) return true;
-        if (hoveredPerson && !hoveredPerson.department && !hoveredPerson.leaderId) return true; // if hovering advisor
+
+
+
+        // When hovering a specific member
+        if (hoveredMemberId !== null) {
+          // If we're checking a member line, only highlight if it's the hovered member
+          if (memberId !== null) {
+            return hoveredMemberId === memberId;
+          }
+          // If we're checking a leader line, highlight if it's the leader of the hovered member
+          return hoveredLeaderId === leaderId;
+        }
+        
+        // When hovering a leader
+        if (hoveredLeaderId !== null) {
+          // Highlight all lines connected to this leader
+          if (leaderId === hoveredLeaderId) {
+            return true;
+          }
+          // Also highlight member lines if the member belongs to the hovered leader
+          if (memberId !== null) {
+            const member = teamMembers.find(m => m.id === memberId);
+            return member && member.leaderId === hoveredLeaderId;
+          }
+        }
+        
+        // For top-level connections (advisor-to-exec)
+        if (hoveredPerson && !hoveredPerson.department && !hoveredPerson.leaderId) {
+          return true;
+        }
+        
         return false;
       };
+
+
 
       // Handles mouse entering a node area
       const handleMouseEnter = (personData, event) => {
@@ -160,8 +188,14 @@ import { computePosition, offset, flip, shift } from '@floating-ui/dom';
       
       // --- Component Rendering ---
       return (
+
+        
+
         <div className={styles.pyramidContainer} ref={containerRef}>
-          <svg viewBox="0 -10 100 60" className={styles.pyramidSvg}>
+
+
+
+          <svg viewBox="0 -5 100 60" className={styles.pyramidSvg}>
             {/* --- Lines --- */}
             {/* (Original line rendering logic using isLineHighlighted) */}
             {/* Optional: Advisor to Executive connecting lines */}
@@ -209,7 +243,7 @@ import { computePosition, offset, flip, shift } from '@floating-ui/dom';
                 return (
                   <line 
                     key={`${leader.id}-${member.id}`}
-                    x1={leader.x} y1={leader.y + 4} 
+                    x1={leader.x} y1={leader.y + 3.8} 
                     x2={memberPos.x} y2={memberPos.y - 3} 
                     stroke={highlighted ? "#3B82F6" : "#000000"}
                     strokeWidth={highlighted ? "0.5" : "0.3"}

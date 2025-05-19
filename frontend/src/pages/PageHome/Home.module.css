@@ -3,6 +3,13 @@
   padding: 0;
 }
 
+h2 {
+  text-align: center;
+  font-weight: 800;
+  font-size: 2rem;
+  margin: 0 0 2rem 0;
+}
+
 html,
 body {
   margin: 0;
@@ -12,7 +19,7 @@ body {
 }
 
 .container {
-  font-family: Arial, sans-serif;
+  font-family: Poppins, sans-serif;
   width: 100%;
   max-width: 100%;
   margin: 0;
@@ -23,30 +30,38 @@ body {
 }
 
 .hero{
-  min-height: 600px;
+  min-height: 900px;
+  font-weight: 600;
+  font-style: italic;
+  background-color: #f5f5f5;
 }
 
 .main{
   
 }
 
+/* Pyramid */
+
 .teamPyramid {
-  padding: 0.5rem, 2rem, 0rem, 2rem;
-  background: #fff;
+  background: white;
   height: 100%;
 
 }
 
+.teamPyramid h2{
+  margin-top: 2rem;
+}
+
+
+
 /* Events */
 .events {
+  margin: 4rem 0;
   padding: 50px;
   background: #fff;
 }
 
-.events h2 {
-  text-align: center;
-  margin-bottom: 30px;
-}
+
 
 .eventList {
   display: grid;
@@ -136,6 +151,11 @@ body {
 .contact {
   padding: 50px;
   background: #f5f5f5;
+}
+
+.contact h2 {
+  font-weight: 300;
+  font-style: italic;
 }
 
 .contactContent {

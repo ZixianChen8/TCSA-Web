@@ -24,12 +24,13 @@ const theme = createTheme({
       contrastText: "#ffffff",
     },
     background: {
-      default: "#f5f5f5",
+      default: "white",
       paper: "#ffffff",
     },
   },
   typography: {
     fontFamily: [
+      'Poppins',
       '-apple-system',
       'BlinkMacSystemFont',
       '"Segoe UI"',

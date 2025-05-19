@@ -1,0 +1,65 @@
+/* src/BenefitSection.module.css */
+.benefitSection { /* Class names are now locally scoped */
+  display: flex;
+  align-items: center;
+  margin-bottom: 40px;
+  padding: 20px;
+  gap: 30px;
+  /* background-color: #f0f0f0; remove if body has it */
+}
+
+.benefitSection.reverse { /* This will become something like BenefitSection_benefitSection__abc12 BenefitSection_reverse__def34 */
+  flex-direction: row-reverse;
+}
+
+.benefitImageContainer {
+  flex: 1;
+  max-width: 40%;
+}
+
+.benefitImage {
+  width: 100%;
+  height: auto;
+  border-radius: 15px;
+  background-color: #d3d3d3;
+  aspect-ratio: 1 / 0.75;
+  object-fit: cover;
+}
+
+.benefitTextContainer {
+  flex: 1.5;
+  max-width: 60%;
+}
+
+.benefitTextContainer h2 { /* Child selectors still work within the module */
+  font-size: 2em;
+  margin-bottom: 10px;
+  color: #333;
+}
+
+.benefitTextContainer p {
+  font-size: 1em;
+  line-height: 1.6;
+  color: #555;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .benefitSection,
+  .benefitSection.reverse { /* Apply to both original and reversed states */
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .benefitImageContainer,
+  .benefitTextContainer {
+    max-width: 100%;
+    margin-bottom: 20px;
+  }
+
+  .benefitImageContainer {
+    max-width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}

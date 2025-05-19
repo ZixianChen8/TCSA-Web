@@ -69,3 +69,8 @@
   top: 0;
   z-index: 100;
 }
+
+/* Slideshow */
+.slideShow{
+  min-height: 400px;
+}
