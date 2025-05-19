@@ -53,6 +53,7 @@ const PageEvents = () => {
             <header>
                 <Navbar/>
                 <SecHero
+                    className={styles.coreHero}
                     title="Events"
                     message="Join our upcoming events!" 
                     showBtn={false}  

@@ -2,7 +2,7 @@ import Btn1 from "../Btn1/Btn1.jsx"
 import styles from "./SecHero.module.css"
 import SplitText from "../Anim_SplitText/Anim_SplitText.jsx";
 
-const SecHero = ({title, message, showBtn, btnText, btnLink}) => {
+const SecHero = ({title, message, showBtn, btnText, btnLink, className}) => {
 
     let displayTitle;
     if (title == "TELFER CHINESE STUDENT ASSOCIATION") {
@@ -65,7 +65,7 @@ const SecHero = ({title, message, showBtn, btnText, btnLink}) => {
     }
 
     return (
-        <section className={styles.hero}>
+        <section className={`${styles.hero} ${className || ''}`}>
             <div className={styles.heroContent}>
                 <h1>{displayTitle}</h1>
                 <p className={styles.welcomeMessage}>{message}</p>

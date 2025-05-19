@@ -27,6 +27,7 @@ const PageJoinus = () => {
             <header>
                 <Navbar />
                 <SecHero
+                    className={styles.coreHero}
                     title="JOIN US TODAY"
                     message="join the gang man"
                     showBtn={false}

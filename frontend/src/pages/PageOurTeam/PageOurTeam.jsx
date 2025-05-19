@@ -17,6 +17,7 @@ const PageOurTeam = () => {
             <header>
                 <Navbar/>
                 <SecHero
+                    className={styles.coreHero}
                     title="ALUMNI"
                     message="Formal members" 
                     showBtn={false}  
