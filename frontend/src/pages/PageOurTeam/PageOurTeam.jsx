@@ -1,5 +1,5 @@
 import Navbar from "@/components/Navbar/Navbar.jsx"
-import SecHero from "@/components/SecHero/SecHero.jsx" 
+import SecHero2 from "@/components/SecHero2/SecHero2.jsx" 
 import Footer from '@/components/Footer/Footer.jsx'
 
 
@@ -16,13 +16,9 @@ const PageOurTeam = () => {
         <main>
             <header>
                 <Navbar/>
-                <SecHero
-                    className={styles.coreHero}
-                    title="ALUMNI"
-                    message="Formal members" 
-                    showBtn={false}  
-                    btnText="Get Started" 
-                    btnLink="/services" 
+                <SecHero2
+                title="MEET THE ALUMNI "
+                subtitle="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla id nisl condimentum, volutpat dolor et, tincidunt tortor. Maecenas finibus est eu justo pulvinar blandit."
                 />
             </header>
 

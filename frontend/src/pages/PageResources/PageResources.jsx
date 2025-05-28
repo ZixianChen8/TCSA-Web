@@ -1,11 +1,12 @@
 import React from 'react';
 import styles from './PageResources.module.css';
 import Navbar from '../../components/Navbar/Navbar';
-import SecHero from "@/components/SecHero/SecHero.jsx"
+import SecHero2 from "@/components/SecHero2/SecHero2.jsx"
 import Footer from '@/components/Footer/Footer.jsx'
 import CardResource from '@/components/CardResource/CardResource.jsx'
 
 import SimpleSlideshow from '@/components/SimpleSlideshow/SimpleSlideshow.jsx';
+import Divider from '@mui/material/Divider';
 
 
 // Main Page component
@@ -25,18 +26,9 @@ function PageResources() {
       {/* Hero Section with About Content */}
 
       <section className={styles.hero}>
-        <SecHero
-          className={styles.coreHero}
-          title="RESOURCES"
-          message={
-            <>
-              <p>useful resources</p>
-              <div style={{ marginTop: '1rem' }}>
-              </div>
-            </>
-          }
-          btnText="Join us"
-          showBtn={false}
+        <SecHero2
+          title="USEFUL RESOURCES"
+          subtitle="For your academic & career journey"
         />
 
       </section>
@@ -49,7 +41,8 @@ function PageResources() {
       </div>
       
       {/* Resource section */}
-
+      
+      <Divider><h2 className={styles.ResourcesTitle}>Explore More</h2></Divider>
       <section className={styles.resources}>
         {Array.from({ length: 15 }).map((_, idx) => (
           <CardResource

@@ -69,6 +69,7 @@ const StyledWrapper = styled.div`
     transition: 0.3s;
     text-align: center;
     margin-left: 5px;
+    font-size: 13px;
   }
 
   .social-btn:hover {

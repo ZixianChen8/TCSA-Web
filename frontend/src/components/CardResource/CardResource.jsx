@@ -1,21 +1,22 @@
 import React from 'react';
 import styles from './CardResource.module.css';
+import Button from '@mui/material/Button';
 
 const CardResource = ({ imageSrc, title, description }) => {
   return (
     <div className={styles.card}>
       <div className={styles.imageContainer}>
         {imageSrc && (
-          <img src={imageSrc} alt={title} className={styles.image} />
+          <img src={"https://picsum.photos/id/5/388/180"} alt={title} className={styles.image} />
         )}
       </div>
       <div className={styles.content}>
         <h3 className={styles.title}>{title}</h3>
         <p className={styles.description}>{description}</p>
       </div>
-      <button className={styles.button}>Learn More</button>
+      <Button variant="contained" className={styles.button}>Learn More</Button>
     </div>
   );
 };
 
-export default CardResource;
+export default CardResource; 

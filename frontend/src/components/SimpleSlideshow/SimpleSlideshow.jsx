@@ -34,17 +34,26 @@ const SimpleSlideshow = (props) => {
         <div className={styles.embla__container}>
           {slides.map((index) => (
             <div className={styles.embla__slide} key={index}>
-              <div className={styles.embla__slide__number}>{index + 1}</div>
+              <div className={styles.embla__slide__content}>
+                
+                <img
+                className="embla__slide__img"
+                src={`https://picsum.photos/id/1/1010/400`}
+                alt="Your alt text"
+                />
+
+
+              </div>
             </div>
           ))}
         </div>
       </div>
 
       <div className={styles.embla__controls}>
-        <div className={styles.embla__buttons}>
+        {/* <div className={styles.embla__buttons}>
           <PrevButton onClick={onPrevButtonClick} disabled={prevBtnDisabled} />
           <NextButton onClick={onNextButtonClick} disabled={nextBtnDisabled} />
-        </div>
+        </div> */}
 
         <div className={styles.embla__dots}>
           {scrollSnaps.map((_, index) => (

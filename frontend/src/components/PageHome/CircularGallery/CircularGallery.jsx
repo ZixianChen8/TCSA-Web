@@ -282,9 +282,12 @@ class Media {
         this.plane.program.uniforms.uViewportSizes.value = [this.viewport.width, this.viewport.height]
       }
     }
+
+    // Here to change the size of the images:
+
     this.scale = this.screen.height / 1500
-    this.plane.scale.y = (this.viewport.height * (800 * this.scale)) / this.screen.height
-    this.plane.scale.x = (this.viewport.width * (1200 * this.scale)) / this.screen.width
+    this.plane.scale.y = (this.viewport.height * (960 * this.scale)) / this.screen.height
+    this.plane.scale.x = (this.viewport.width * (1280 * this.scale)) / this.screen.width
     this.plane.program.uniforms.uPlaneSizes.value = [this.plane.scale.x, this.plane.scale.y]
     this.padding = 2
     this.width = this.plane.scale.x + this.padding
@@ -330,18 +333,18 @@ class App {
   }
   createMedias(items, bend = 1, textColor, borderRadius, font) {
     const defaultItems = [
-      { image: `https://picsum.photos/seed/1/800/600?grayscale`, text: 'Bridge' },
-      { image: `https://picsum.photos/seed/2/800/600?grayscale`, text: 'Desk Setup' },
-      { image: `https://picsum.photos/seed/3/800/600?grayscale`, text: 'Waterfall' },
-      { image: `https://picsum.photos/seed/4/800/600?grayscale`, text: 'Strawberries' },
-      { image: `https://picsum.photos/seed/5/800/600?grayscale`, text: 'Deep Diving' },
-      { image: `https://picsum.photos/seed/16/800/600?grayscale`, text: 'Train Track' },
-      { image: `https://picsum.photos/seed/17/800/600?grayscale`, text: 'Santorini' },
-      { image: `https://picsum.photos/seed/8/800/600?grayscale`, text: 'Blurry Lights' },
-      { image: `https://picsum.photos/seed/9/800/600?grayscale`, text: 'New York' },
-      { image: `https://picsum.photos/seed/10/800/600?grayscale`, text: 'Good Boy' },
-      { image: `https://picsum.photos/seed/21/800/600?grayscale`, text: 'Coastline' },
-      { image: `https://picsum.photos/seed/12/800/600?grayscale`, text: "Palm Trees" }
+      { image: `https://picsum.photos/seed/1/1200/800?grayscale`, text: 'Bridge' },
+      { image: `https://picsum.photos/seed/2/1200/600?grayscale`, text: 'Desk Setup' },
+      { image: `https://picsum.photos/seed/3/1200/600?grayscale`, text: 'Waterfall' },
+      { image: `https://picsum.photos/seed/4/1200/600?grayscale`, text: 'Strawberries' },
+      { image: `https://picsum.photos/seed/5/1200/600?grayscale`, text: 'Deep Diving' },
+      { image: `https://picsum.photos/seed/16/1200/600?grayscale`, text: 'Train Track' },
+      { image: `https://picsum.photos/seed/17/1200/600?grayscale`, text: 'Santorini' },
+      { image: `https://picsum.photos/seed/8/1200/600?grayscale`, text: 'Blurry Lights' },
+      { image: `https://picsum.photos/seed/9/1200/600?grayscale`, text: 'New York' },
+      { image: `https://picsum.photos/seed/10/1200/600?grayscale`, text: 'Good Boy' },
+      { image: `https://picsum.photos/seed/21/1200/600?grayscale`, text: 'Coastline' },
+      { image: `https://picsum.photos/seed/12/1200/600?grayscale`, text: "Palm Trees" }
     ]
     const galleryItems = items && items.length ? items : defaultItems
     this.mediasImages = galleryItems.concat(galleryItems)

@@ -2,7 +2,7 @@ import CardJob from '@/components/CardJob/CardJob.jsx';
 // import CardBenefit from '@/components/CardBenefit/CardBenefit.jsx';
 
 import Navbar from "@/components/Navbar/Navbar.jsx"
-import SecHero from "@/components/SecHero/SecHero.jsx"
+import SecHero2 from "@/components/SecHero2/secHero2.jsx"
 import Footer from '@/components/Footer/Footer.jsx'
 
 // import { FaLock } from 'react-icons/fa';
@@ -26,13 +26,9 @@ const PageJoinus = () => {
         <main>
             <header>
                 <Navbar />
-                <SecHero
-                    className={styles.coreHero}
-                    title="JOIN US TODAY"
-                    message="join the gang man"
-                    showBtn={false}
-                    btnText="Get Started"
-                    btnLink="/services"
+                <SecHero2
+                title="BECOME A MEMBER OF TCSA"
+                subtitle="Join the club"
                 />
             </header>
 
@@ -52,7 +48,7 @@ const PageJoinus = () => {
                     {/* Benefit 2 - Image on the left */}
                     <div className={`${styles.benefitItem} ${styles.reverseOrder}`}>
                         <div className={styles.benefitTextContainer}>
-                        <h2>Benefit 2</h2>
+                        <h2>BENEFIT 2</h2>
                         <p>{placeholderText}</p>
                         </div>
                         <div className={styles.benefitImageContainer}>
@@ -63,7 +59,7 @@ const PageJoinus = () => {
                     {/* Benefit 3 - Image on the right (Assuming it's Benefit 3, as per the pattern) */}
                     <div className={styles.benefitItem}>
                         <div className={styles.benefitTextContainer}>
-                        <h2>Benefit 3</h2>
+                        <h2>BENEFIT 3</h2>
                         <p>{placeholderText}</p>
                         </div>
                         <div className={styles.benefitImageContainer}>

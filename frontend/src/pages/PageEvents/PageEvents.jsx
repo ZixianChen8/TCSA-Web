@@ -4,7 +4,7 @@ import axios from 'axios'; // Import Axios for API requests
 import CardEvent from '@/components/CardEvent/CardEvent.jsx'
 
 import Navbar from "@/components/Navbar/Navbar.jsx"
-import SecHero from "@/components/SecHero/SecHero.jsx" 
+import SecHero2 from "@/components/SecHero2/SecHero2.jsx" 
 import Footer from '@/components/Footer/Footer.jsx'
 
 
@@ -52,13 +52,9 @@ const PageEvents = () => {
         <main>
             <header>
                 <Navbar/>
-                <SecHero
-                    className={styles.coreHero}
-                    title="Events"
-                    message="Join our upcoming events!" 
-                    showBtn={false}  
-                    btnText="Get Started" 
-                    btnLink="/services" 
+                <SecHero2
+                title="EVENTS"
+                subtitle="Check out some great events"
                 />
             </header>
         

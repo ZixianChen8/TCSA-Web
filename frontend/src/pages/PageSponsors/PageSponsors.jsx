@@ -6,6 +6,7 @@ import Typography from '@mui/material/Typography';
 import Navbar from '@/components/Navbar/Navbar';
 import Footer from '@/components/Footer/Footer.jsx'
 
+
 import styles from './PageSponsors.module.css';
 
 // Sample sponsor data (replace with your actual data)

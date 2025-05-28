@@ -76,6 +76,13 @@
 }
 
 /* Slideshow */
+
+.ResourcesTitle{
+  margin-top: 2rem;
+  font-weight: 400;
+  font-style: italic;
+}
+
 .slideShow{
   min-height: 400px;
 }

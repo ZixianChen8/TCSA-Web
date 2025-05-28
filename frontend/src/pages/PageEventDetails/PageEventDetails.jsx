@@ -110,73 +110,97 @@ const PageEventDetails = () => {
   return (
     <div className={styles.container}>
       <Navbar />
+
+    <h2 className={styles.bigTitle}>Asian Culture Festival</h2>
+{/* 
       <SecHero
         title={event?.title || "Event Details"}
         message={event?.description || "Loading event information..."}
         showBtn={false}
-      />
+      /> */}
       
       <div className={styles.content}>
+
         <div className={styles.eventInfo}>
-          <h2>{event?.title}</h2>
+          {/* <h2>{event?.title}</h2> */}
           <p>{event?.description}</p>
           <div className={styles.eventDetails}>
-            <p><strong>Date:</strong> {event?.date}</p>
+            <p><strong>Date: </strong>April 5, 2025</p>
+            {/* <p><strong>Date:</strong> {event?.date}</p> */}
             <p><strong>Location:</strong> {event?.location}</p>
             <p><strong>Organizer:</strong> {event?.organizer}</p>
           </div>
         </div>
-        
-        <div className={styles.registrationForm}>
-          <h3>Register for this Event</h3>
-          {message && (
-            <div className={`${styles.message} ${message.includes('successful') ? styles.success : styles.error}`}>
-              {message}
-            </div>
-          )}
-          <form onSubmit={handleSubmit}>
-            <div className={styles.formGroup}>
-              <label htmlFor="first_name">First Name:</label>
-              <input 
-                type="text" 
-                id="first_name"
-                name="first_name" 
-                value={formData.first_name}
-                onChange={handleChange}
-                required 
-              />
-            </div>
-            <div className={styles.formGroup}>
-              <label htmlFor="last_name">Last Name:</label>
-              <input 
-                type="text" 
-                id="last_name"
-                name="last_name" 
-                value={formData.last_name}
-                onChange={handleChange}
-                required 
-              />
-            </div>
-            <div className={styles.formGroup}>
-              <label htmlFor="email">Email</label>
-              <input 
-                type="email" 
-                id="email"
-                name="email" 
-                value={formData.email}
-                onChange={handleChange}
-                required
-              />
-            </div>
-            <button 
-              type="submit" 
-              className={styles.submitButton}
-              disabled={registering}
-            >
-              {registering ? 'Registering...' : 'Register'}
-            </button>
-          </form>
+
+        <div className={styles.lowLevel}>
+
+          <div className={styles.eventPoster}>
+            {event?.poster ? (
+              <img src={event.poster} alt="Event Poster" className={styles.posterImg} />
+            ) : (
+              <div className={styles.noPoster}>No poster available</div>
+            )}
+          </div>
+
+
+
+
+          <div className={styles.registrationForm}>
+            <h3>Register for this Event</h3>
+            {message && (
+              <div className={`${styles.message} ${message.includes('successful') ? styles.success : styles.error}`}>
+                {message}
+              </div>
+            )}
+            <form onSubmit={handleSubmit}>
+              <div className={styles.formGroup}>
+                <label htmlFor="first_name">First Name:</label>
+                <input 
+                  type="text" 
+                  id="first_name"
+                  name="first_name" 
+                  value={formData.first_name}
+                  onChange={handleChange}
+                  required 
+                />
+              </div>
+              <div className={styles.formGroup}>
+                <label htmlFor="last_name">Last Name:</label>
+                <input 
+                  type="text" 
+                  id="last_name"
+                  name="last_name" 
+                  value={formData.last_name}
+                  onChange={handleChange}
+                  required 
+                />
+              </div>
+              <div className={styles.formGroup}>
+                <label htmlFor="email">Email</label>
+                <input 
+                  type="email" 
+                  id="email"
+                  name="email" 
+                  value={formData.email}
+                  onChange={handleChange}
+                  required
+                />
+              </div>
+              <button 
+                type="submit" 
+                className={styles.submitButton}
+                disabled={registering}
+              >
+                {registering ? 'Registering...' : 'Register'}
+              </button>
+            </form>
+          </div>
+
         </div>
+
+
+
+
       </div>
     </div>
   );

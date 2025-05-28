@@ -84,7 +84,7 @@ const Home = () => {
           message={
             <>
               <p>Welcome to TCSA</p>
-              <p><strong>Mission statement:</strong> Explain the club's goals and how we support Chinese international students.</p>
+              <p><strong>Description text: </strong>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel orci fermentum, dictum mauris in</p>
               <div style={{ marginTop: '1rem' }}>
               </div>
             </>
