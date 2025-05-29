@@ -18,7 +18,7 @@ const Navbar = () => {
           <Button href="/resources" sx={{ color: "black"}}>Resources</Button>
           <Button href="/joinus" sx={{ color: "black" }}>Join us</Button>
           <Button href="/ourteam" sx={{ color: "black" }}>Alumni</Button>
-          <Button href="/sponsors" sx={{ color: "black" }}>Sponsors</Button>
+          <Button href="/sponsors" sx={{ color: "black" }}>Services</Button>
         </Box>
       </Toolbar>
     </AppBar>

@@ -111,7 +111,7 @@ const PageEventDetails = () => {
     <div className={styles.container}>
       <Navbar />
 
-    <h2 className={styles.bigTitle}>Asian Culture Festival</h2>
+    <h2 className={styles.bigTitle}>{event?.title}</h2>
 {/* 
       <SecHero
         title={event?.title || "Event Details"}

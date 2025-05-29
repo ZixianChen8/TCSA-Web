@@ -1,3 +1,5 @@
+
+
 /* Hero section */
 .coreHero{
   height: 400px;
@@ -139,20 +141,76 @@
 }
 
 
-
-/* how to apply section */
-
+/* application form */
 .howToApply{
-  margin: 5rem 0 10rem 0;
+  background-color: #f5f5f5;
+  padding: 2rem 0 0 0;
+}
+
+.applicationForm {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 100%;
+  max-width: 700px;
+}
+
+
+.applicationForm label {
+  font-weight: 600;
+}
+
+.applicationForm input,
+.applicationForm textarea {
+  padding: 10px;
+  width: 100%;
+  font-size: 1rem;
+  
+  border-radius: 2px;
+}
+
+.applicationForm textarea {
+  min-height: 150px;
 }
 
 .howToApply h2 {
   font-weight: 800;
   font-size: 2rem;
+  font-style: italic;
+  text-align: center;
+  margin-bottom: 1rem;
 }
 
-.howToApply p{
-  font-size: 1.5rem;
-  font-weight: 500;
-  margin: 0;
+.applicationContent{
+  display: flex;
+  height: 100%;
+  padding: 50px;
+}
+
+.applicationDescription{
+  margin: 5rem 20rem 5rem 10rem;
+}
+
+
+/* submit button styles */
+.applicationForm button[type="submit"] {
+  background-color: #494949;
+  color: #fff;
+  border: none;
+  padding: 12px 24px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.1s;
+}
+
+.applicationForm button[type="submit"]:hover {
+  background-color: #6c6c6c;
+  transform: scale(1.04);
+}
+
+.applicationForm button[type="submit"]:active {
+  background-color: #343434;
+  transform: scale(0.98);
 }

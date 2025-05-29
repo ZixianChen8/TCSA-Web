@@ -1,3 +1,5 @@
+import { useRef } from 'react';
+import emailjs from '@emailjs/browser';
 import CardJob from '@/components/CardJob/CardJob.jsx';
 // import CardBenefit from '@/components/CardBenefit/CardBenefit.jsx';
 
@@ -20,6 +22,31 @@ const PageJoinus = () => {
     const placeholderImage1 = "https://via.placeholder.com/400x300/E0E0E0/B0B0B0?text=Image+1";
     const placeholderImage2 = "https://via.placeholder.com/400x300/D8D8D8/A8A8A8?text=Image+2";
     const placeholderImage3 = "https://via.placeholder.com/400x300/C0C0C0/909090?text=Image+3";
+
+    const form = useRef();
+
+    const sendEmail = (e) => {
+      e.preventDefault();
+
+      emailjs.sendForm(
+        'YOUR_SERVICE_ID', // Replace with your EmailJS service ID
+        'YOUR_TEMPLATE_ID', // Replace with your EmailJS template ID
+        form.current,
+        {
+          publicKey: 'YOUR_PUBLIC_KEY', // Replace with your EmailJS public key
+        }
+      )
+      .then(
+        () => {
+          alert('Application sent successfully!');
+          form.current.reset();
+        },
+        (error) => {
+          alert('Failed to send application. Please try again later.');
+          console.error('Error:', error);
+        }
+      );
+    };
 
     return (
 
@@ -82,9 +109,34 @@ const PageJoinus = () => {
 
                 <section className={styles.howToApply}>
                     <h2>How to Apply</h2>
-                    <p>To apply, please send an e-mail to this address: tcsaofficial@outlook.com.</p>
-                    <p>Please attach a copy of your resume and specify to which position you wish to apply for.</p>
-                    <p>Once received, we will contact you in X business days. Looking foward to your applications!</p>
+
+
+                    <div className={styles.applicationContent}>
+                        <div className={styles.applicationDescription}>
+                            <p>To apply, please enter your information and attach your resume.</p>
+                        </div>
+
+                        <form ref={form} onSubmit={sendEmail} encType="multipart/form-data" className={styles.applicationForm}>
+                            <label>Name:</label>
+                            <input type="text" name="applicant_name" required />
+
+                            <label>Email:</label>
+                            <input type="email" name="applicant_email" required />
+
+                            <label>Position Applying For:</label>
+                            <input type="text" name="position" required />
+
+                            {/* <label>Upload Resume:</label>
+                            <input type="file" name="resume" required /> */}
+
+                            {/* <label>Anything else we should know?</label>
+                            <textarea name="message" rows="5" required></textarea> */}
+
+                            <button type="submit">Submit Application</button>
+                        </form>
+
+                    </div>
+
                 </section>
 
 
