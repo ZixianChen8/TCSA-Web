@@ -126,8 +126,8 @@ const PageJoinus = () => {
                             <label>Position Applying For:</label>
                             <input type="text" name="position" required />
 
-                            {/* <label>Upload Resume:</label>
-                            <input type="file" name="resume" required /> */}
+                            <label>Upload Resume:</label>
+                            <input type="file" name="resume" required />
 
                             {/* <label>Anything else we should know?</label>
                             <textarea name="message" rows="5" required></textarea> */}

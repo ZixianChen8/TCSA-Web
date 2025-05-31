@@ -6,6 +6,8 @@ import TeamPyramid from "@/components/PageHome/TeamPyramid/TeamPyramid.jsx"
 import Gallery from "@/components/PageHome/Gallery/Gallery.jsx"
 import CircularGallery from '@/components/PageHome/CircularGallery/CircularGallery.jsx'
 import Footer from '@/components/Footer/Footer.jsx'
+import Btn3 from '@/components/Btn3/Btn3.jsx'
+
 import axios from 'axios';
 import styles from "./Home.module.css";
 import emailjs from '@emailjs/browser'
@@ -104,7 +106,17 @@ const Home = () => {
 
         {/* Upcoming Events */}
         <section className={styles.events}>
-          <h2>UPCOMING EVENTS</h2>
+
+          <div className={styles.eventsHeader}>
+            <h2>UPCOMING EVENTS</h2>
+            <div className={styles.moreEventsBtn}>
+              <a href="/"> <Btn3 btnText='M O R E' /> </a>
+              
+            </div>
+            
+          </div>
+
+
           <div className={styles.eventList}>
             {loading && <p className={styles.loading}>Loading events...</p>}
             {error && <p className={styles.error}>{error}</p>}

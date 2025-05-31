@@ -67,7 +67,7 @@ function PageSponsors() {
           /* textAlign prop omitted → defaults to 'left' */
         />
 
-        {/* Center-aligned text */}
+        {/* Left-aligned text */}
         <SectionService
           imageSrc="/images/service-center.png"
           subtitle="Graphic Design"
@@ -79,10 +79,10 @@ function PageSponsors() {
           ]}
           buttonText="Explore Designs"
           buttonLink="/graphic-design"
-          textAlign="center"
+          textAlign="right"
         />
 
-        {/* Right-aligned text */}
+        {/* Center-aligned text */}
         <SectionService
           imageSrc="/images/service-right.png"
           subtitle="Media Campaigns"
@@ -94,10 +94,8 @@ function PageSponsors() {
           ]}
           buttonText="Launch Campaign"
           buttonLink="/media-campaigns"
-          textAlign="right"
+          textAlign="center"
         />
-
-
 
 
       </div>

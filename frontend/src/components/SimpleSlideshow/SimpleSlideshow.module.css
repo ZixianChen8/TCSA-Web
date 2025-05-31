@@ -4,6 +4,7 @@
   --slide-height: 400px;
   --slide-spacing: 1rem;
   --slide-size: 60%;
+  margin-bottom: 2rem;
 }
 .embla__viewport {
   overflow: hidden;
@@ -94,7 +95,7 @@
   cursor: pointer;
   border: 0;
   padding: 0;
-  margin: 1px;
+  margin: 5px;
   width: .8rem;
   height: .8rem;
   display: flex;

@@ -26,8 +26,7 @@
 
 /* Styling for the resource title */
 .resourceTitle {
-  margin-top: 0;
-  margin-bottom: 8px;
+  margin-top: 1rem;
   color: #333;
   font-size: 1.1em;
   font-weight: bold;
@@ -75,16 +74,17 @@
   z-index: 100;
 }
 
-/* Slideshow */
 
 .ResourcesTitle{
-  margin-top: 2rem;
   font-weight: 400;
   font-style: italic;
 }
 
+/* Slideshow */
+
 .slideShow{
   min-height: 400px;
+  
 }
 
 /* Resources grid layout */

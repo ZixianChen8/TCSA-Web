@@ -5,7 +5,8 @@ import TeamMember from '@/components/PageHome/TeamMember/TeamMember.jsx';
 import { computePosition, offset, flip, shift } from '@floating-ui/dom';
 
 
-    export default function TeamPyramid() {
+export default function TeamPyramid() {
+
       // --- State for Team Data ---
       const [advisors, setAdvisors] = useState([
         { id: 1, name: 'President', email: 'president@uottawa.ca', quote: 'Good design is obvious. Great design is transparent.' },
@@ -30,6 +31,14 @@ import { computePosition, offset, flip, shift } from '@floating-ui/dom';
         { id: 14, name: 'Member 9', leaderId: 5, email: 'member9@uottawa.ca', quote: 'It always seems impossible until it’s done.' },
       ]);
       
+      // --- Finance Department Constant ---
+      const financeDepartment = {
+        executive: { id: 18, name: 'VP Finance', email: 'vp.finance@uottawa.ca', quote: 'Budgeting is telling your money where to go.' },
+        members: [
+          { id: 19, name: 'Finance Member', email: 'finance.member@uottawa.ca', quote: 'Accounting is the language of business.' }
+        ]
+      };
+
       // --- State for Hover Effects ---
       const [hoveredLeaderId, setHoveredLeaderId] = useState(null);
       const [hoveredMemberId, setHoveredMemberId] = useState(null);
@@ -96,8 +105,37 @@ import { computePosition, offset, flip, shift } from '@floating-ui/dom';
       
       // --- Highlight Logic ---
       const isLineHighlighted = (leaderId, memberId = null) => {
+        // Special logic for finance department: highlight only finance-related lines when hovering finance member or VP Finance
+        if (
+          hoveredPerson &&
+          (
+            hoveredPerson.id === financeDepartment.executive.id ||
+            financeDepartment.members.some(m => m.id === hoveredPerson.id)
+          )
+        ) {
+          // Highlight finance-specific lines: advisor→VP Finance and VP Finance→member
+          if (
+            leaderId === financeDepartment.executive.id && memberId === null ||
+            leaderId === financeDepartment.executive.id &&
+            memberId !== null &&
+            financeDepartment.members.some(m => m.id === memberId)
+          ) {
+            return true;
+          }
+          return false;
+        }
 
-
+        // Highlight advisor→vice president line when hovering any non-finance leader or member
+        if ((hoveredLeaderId !== null || hoveredMemberId !== null) &&
+            !(hoveredPerson && (
+              hoveredPerson.id === financeDepartment.executive.id ||
+              financeDepartment.members.some(m => m.id === hoveredPerson.id)
+            ))) {
+          // topLevel[0] is the vice president
+          if (leaderId === topLevel[0].id && memberId === null) {
+            return true;
+          }
+        }
 
         // When hovering a specific member
         if (hoveredMemberId !== null) {
@@ -111,19 +149,54 @@ import { computePosition, offset, flip, shift } from '@floating-ui/dom';
         
         // When hovering a leader
         if (hoveredLeaderId !== null) {
+          // If hovering VP (executive), highlight all non-finance connections
+          const isVP = executives.some(exec => exec.id === hoveredLeaderId);
+          if (isVP) {
+            // Don't highlight finance lines
+            if (
+              leaderId === financeDepartment.executive.id ||
+              (memberId !== null && financeDepartment.members.some(m => m.id === memberId))
+            ) {
+              return false;
+            }
+            return true;
+          }
+
           // Highlight all lines connected to this leader
           if (leaderId === hoveredLeaderId) {
             return true;
+            // [PATCH] Additional logic for top-level leader highlight
+            if (topMostLevel[0] && topLevel[0] && topLevel[0].id) {
+              if (
+                leaderId === topLevel[0].id &&
+                memberId === null &&
+                ![financeDepartment.executive.id, ...financeDepartment.members.map(m => m.id)].includes(hoveredLeaderId)
+              ) {
+                return true;
+              }
+            }
           }
           // Also highlight member lines if the member belongs to the hovered leader
           if (memberId !== null) {
             const member = teamMembers.find(m => m.id === memberId);
-            return member && member.leaderId === hoveredLeaderId;
+            if (member && member.leaderId === hoveredLeaderId) {
+              return true;
+              // [PATCH] Additional logic for top-level leader highlight on member line
+              if (
+                topMostLevel[0] && topLevel[0] && topLevel[0].id &&
+                leaderId === topLevel[0].id &&
+                memberId === null &&
+                ![financeDepartment.executive.id, ...financeDepartment.members.map(m => m.id)].includes(member.leaderId)
+              ) {
+                return true;
+              }
+            }
+            return false;
           }
         }
         
         // For top-level connections (advisor-to-exec)
-        if (hoveredPerson && !hoveredPerson.department && !hoveredPerson.leaderId) {
+        if (hoveredPerson && advisors.some(a => a.id === hoveredPerson.id)) {
           return true;
         }
         
@@ -138,12 +211,19 @@ import { computePosition, offset, flip, shift } from '@floating-ui/dom';
         setHoveredPerson(personData.data);
         setIsHovering(true);
         if (personData.data.department) {
+          // Department leader
           setHoveredLeaderId(personData.data.id);
           setHoveredMemberId(null);
         } else if (personData.data.leaderId) {
+          // Team member
           setHoveredMemberId(personData.data.id);
           setHoveredLeaderId(personData.data.leaderId);
+        } else if (executives.some(exec => exec.id === personData.data.id)) {
+          // Executive treated as leader
+          setHoveredLeaderId(personData.data.id);
+          setHoveredMemberId(null);
         } else {
+          // Advisor or other
           setHoveredLeaderId(null);
           setHoveredMemberId(null);
         }
@@ -198,34 +278,62 @@ import { computePosition, offset, flip, shift } from '@floating-ui/dom';
           <svg viewBox="0 -5 100 60" className={styles.pyramidSvg}>
             {/* --- Lines --- */}
             {/* (Original line rendering logic using isLineHighlighted) */}
-            {/* Optional: Advisor to Executive connecting lines */}
-            {topLevel.map(exec => (
-              <line
-                key={`advisor-line-${exec.id}`}
-                x1={topMostLevel[0].x} y1={topMostLevel[0].y + 5}
-                x2={exec.x} y2={exec.y - 3}
-                stroke="#000000"
-                strokeWidth="0.3"
-                className={styles.pyramidLine}
-              />
-            ))}
-            {topLevel.length === 1 && topMostLevel.length === 1 && (
-              <line
-                key={`advisor-connection-${topMostLevel[0].id}-${topLevel[0].id}`}
-                x1={topMostLevel[0].x} y1={topMostLevel[0].y + 8}
-                x2={topLevel[0].x} y2={topLevel[0].y - 5}
-                stroke={isHovering ? "#3B82F6" : "#000000"}
-                strokeWidth={isHovering ? "0.5" : "0.3"}
-                className={isHovering ? `${styles.pyramidLine} ${styles.highlighted}` : styles.pyramidLine}
-              />
-            )}
+
+            {/* Line from president to vp finance (finance line)*/}
+            {(() => {
+              const financeLine1Highlighted = isLineHighlighted(financeDepartment.executive.id, null);
+              return (
+                <line
+                  x1={topMostLevel[0].x}
+                  y1={topMostLevel[0].y + 3}
+                  x2={topMostLevel[0].x + 30}
+                  y2={topMostLevel[0].y + 12}
+                  stroke={financeLine1Highlighted ? "#3B82F6" : "#000000"}
+                  strokeWidth={financeLine1Highlighted ? "0.5" : "0.3"}
+                  className={financeLine1Highlighted ? `${styles.pyramidLine} ${styles.highlighted}` : styles.pyramidLine}
+                />
+              );
+            })()}
+
+            {/* Line from VP Finance node to the member finance  (finance line)*/}
+            {(() => {
+              const financeLine2Highlighted = isLineHighlighted(financeDepartment.executive.id, financeDepartment.members[0].id);
+              return (
+                <line
+                  x1={topMostLevel[0].x + 30}
+                  y1={topMostLevel[0].y + 11}
+                  x2={topMostLevel[0].x + 36}
+                  y2={topMostLevel[0].y + 11}
+                  stroke={financeLine2Highlighted ? "#3B82F6" : "#000000"}
+                  strokeWidth={financeLine2Highlighted ? "0.5" : "0.3"}
+                  className={financeLine2Highlighted ? `${styles.pyramidLine} ${styles.highlighted}` : styles.pyramidLine}
+                />
+              );
+            })()}
+
+            {/* Line connecting presdent (advisor) to vice president */}
+            {topLevel.length === 1 && topMostLevel.length === 1 && (() => {
+              const advisorLineHighlighted = isLineHighlighted(topLevel[0].id);
+              return (
+                <line
+                  key={`advisor-connection-${topMostLevel[0].id}-${topLevel[0].id}`}
+                  x1={topMostLevel[0].x} y1={topMostLevel[0].y + 8}
+                  x2={topLevel[0].x} y2={topLevel[0].y - 5}
+                  stroke={advisorLineHighlighted ? "#3B82F6" : "#000000"}
+                  strokeWidth={advisorLineHighlighted ? "0.5" : "0.3"}
+                  className={advisorLineHighlighted ? `${styles.pyramidLine} ${styles.highlighted}` : styles.pyramidLine}
+                />
+              );
+            })()}
+
+            {/* Lines connecting leaders to vice president */}
             {topLevel.map(exec => (
               middleLevel.map(leader => {
                 const highlighted = isLineHighlighted(leader.id);
                 return (
                   <line
                     key={`exec-leader-line-${exec.id}-${leader.id}`}
-                    x1={exec.x} y1={exec.y + 4.5}
+                    x1={exec.x} y1={exec.y + 3.8}
                     x2={leader.x} y2={leader.y - 2.5}
                     stroke={highlighted ? "#3B82F6" : "#000000"}
                     strokeWidth={highlighted ? "0.5" : "0.3"}
@@ -234,6 +342,7 @@ import { computePosition, offset, flip, shift } from '@floating-ui/dom';
                 );
               })
             ))}
+            
             {middleLevel.map(leader => {
               const members = membersByLeader[leader.id] || [];
               return members.map(member => {
@@ -253,6 +362,23 @@ import { computePosition, offset, flip, shift } from '@floating-ui/dom';
               });
             })}            
             {/* --- Nodes --- */}
+
+            {/* VP Finance Node */}
+            <g
+              key="vp-finance"
+              onMouseEnter={(e) => handleMouseEnter({ data: financeDepartment.executive, x: topMostLevel[0].x + 26, y: topMostLevel[0].y + 6 }, e)}
+              onMouseLeave={handleMouseLeave}
+            >
+              <rect x={topMostLevel[0].x + 26 - 0} y={topMostLevel[0].y + 6 + 1.2} width={7} height={7} fill="#333333" rx={0} className={styles.pyramidNode} />
+            </g>
+            {/* Finance Department Member Node */}
+            <g
+              key="finance-member"
+              onMouseEnter={(e) => handleMouseEnter({ data: financeDepartment.members[0], x: topMostLevel[0].x + 38, y: topMostLevel[0].y + 10 }, e)}
+              onMouseLeave={handleMouseLeave}
+            >
+              <rect x={topMostLevel[0].x + 38 - 2} y={topMostLevel[0].y + 10 - 2.8} width={7} height={7} fill="#333333" rx={0} className={`${styles.pyramidNode} cursor-pointer`} />
+            </g>
             {/* Top-most level (Advisor) */}
             {topMostLevel.map(advisor => (
               <g
@@ -263,7 +389,8 @@ import { computePosition, offset, flip, shift } from '@floating-ui/dom';
                 <rect x={advisor.x - 4} y={advisor.y - 3} width={8} height={8} fill="#333333" rx={0} className={styles.pyramidNode} />
               </g>
             ))}
-            {/* Executives */}
+
+            {/* Executive */}
             {topLevel.map(exec => (
               <g
                 key={`exec-${exec.id}`}
@@ -271,7 +398,7 @@ import { computePosition, offset, flip, shift } from '@floating-ui/dom';
                 onMouseEnter={(e) => handleMouseEnter({ data: exec, x: exec.x, y: exec.y }, e)}
                 onMouseLeave={handleMouseLeave} 
               >
-                <rect x={exec.x - 4} y={exec.y - 3} width={8} height={8} fill="#333333" rx={0} className={styles.pyramidNode} />
+                <rect x={exec.x - 3.5} y={exec.y - 3} width={7} height={7} fill="#333333" rx={0} className={styles.pyramidNode} />
               </g>
             ))}
             

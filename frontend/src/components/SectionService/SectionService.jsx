@@ -1,5 +1,8 @@
 import React from 'react';
+import Btn2 from '@/components/Btn2/Btn2.jsx'
+
 import styles from './SectionService.module.css'
+
 const SectionService = ({
   imageSrc,
   subtitle,
@@ -22,19 +25,24 @@ const SectionService = ({
                 </div>
 
                 <div className={styles.content} style={{ textAlign }}>
-                <h2 className={styles.subtitle} style={{ textAlign }}>{subtitle}</h2>
-                <h1 className={styles.title} style={{ textAlign }}>{title}</h1>
-                <p className={styles.tagline} style={{ textAlign }}>{tagline}</p>
+                    <h2 className={styles.subtitle} style={{ textAlign }}>{subtitle}</h2>
+                    <h1 className={styles.title} style={{ textAlign }}>{title}</h1>
+                    <p className={styles.tagline} style={{ textAlign }}>{tagline}</p>
 
-                <div className={styles.text} style={{ textAlign }}>
-                    {paragraphs.map((text, i) => (
-                    <p key={i} style={{ textAlign }}>{text}</p>
-                    ))}
-                </div>
+                    <div className={styles.text} style={{ textAlign }}>
+                        {paragraphs.map((text, i) => (
+                        <p key={i} style={{ textAlign }}>{text}</p>
+                        ))}
+                    </div>
 
-                <a href={buttonLink} className={styles.button}>
-                    {buttonText} <span className={styles.arrow}>→</span>
-                </a>
+                    <div style={{ textAlign }}>
+                        <a href={buttonLink} className={styles.button} >
+                            <Btn2 title={buttonText} />
+                        </a>      
+                    </div>
+
+                
+                    
                 </div>
             </section>
 

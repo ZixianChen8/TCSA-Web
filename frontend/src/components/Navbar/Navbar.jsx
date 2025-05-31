@@ -15,10 +15,10 @@ const Navbar = () => {
         {/* Right Side: Navigation Links */}
         <Box sx={{ display: "flex", gap: 3 }}>
           <Button href="/events" sx={{ color: "black" }}>Events</Button>
-          <Button href="/resources" sx={{ color: "black"}}>Resources</Button>
-          <Button href="/joinus" sx={{ color: "black" }}>Join us</Button>
-          <Button href="/ourteam" sx={{ color: "black" }}>Alumni</Button>
           <Button href="/sponsors" sx={{ color: "black" }}>Services</Button>
+          <Button href="/ourteam" sx={{ color: "black" }}>Alumni</Button>
+          <Button href="/joinus" sx={{ color: "black" }}>Join us</Button>
+          <Button href="/resources" sx={{ color: "black"}}>Resources</Button>
         </Box>
       </Toolbar>
     </AppBar>

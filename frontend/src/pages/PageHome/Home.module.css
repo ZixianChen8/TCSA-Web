@@ -16,6 +16,7 @@ body {
   padding: 0;
   width: 100%;
   overflow-x: hidden;
+  
 }
 
 .container {
@@ -27,6 +28,7 @@ body {
   position: relative;
   display: flex;
   flex-direction: column;
+
 }
 
 .hero{
@@ -52,16 +54,43 @@ body {
   margin-top: 2rem;
 }
 
+.teamPyramid h2 {
+  margin-bottom: 2rem;
+}
+
 
 
 /* Events */
 .events {
-  margin: 4rem 0;
+  margin:  2rem auto;
   padding: 50px;
   background: #fff;
+  width: fit-content;
+
 }
 
+.eventsHeader{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+}
 
+.eventsHeader h2{
+  margin: 0 auto
+}
+
+.moreEventsBtn{
+  width: 100%;
+  display: flex;
+  justify-content: end;
+  margin: 0 2rem 1rem 0;
+}
+
+.events h2 {
+  margin-bottom: 2rem;
+}
 
 .eventList {
   display: grid;
