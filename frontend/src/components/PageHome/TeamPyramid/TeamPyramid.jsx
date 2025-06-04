@@ -1,13 +1,13 @@
-    import React, { useState, useRef, useEffect } from 'react'; // Import useRef and useEffect
-    import styles from './TeamPyramid.module.css';
-    // Assuming TeamMember component exists and is imported correctly
+import React, { useState, useRef, useEffect } from 'react';
+import styles from './TeamPyramid.module.css';
+import axios from 'axios';
 import TeamMember from '@/components/PageHome/TeamMember/TeamMember.jsx'; 
 import { computePosition, offset, flip, shift } from '@floating-ui/dom';
 
 
 export default function TeamPyramid() {
 
-      // --- State for Team Data ---
+      // --- Test member data, to be replaced by actual database ---
       const [advisors, setAdvisors] = useState([
         { id: 1, name: 'President', email: 'president@uottawa.ca', quote: 'Good design is obvious. Great design is transparent.' },
       ]);
