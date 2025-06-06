@@ -88,7 +88,6 @@ const PageEventDetails = () => {
   if (loading) {
     return (
       <div>
-        <Navbar />
         <div className={styles.loadingContainer}>
           <p>Loading event details...</p>
         </div>
@@ -99,7 +98,6 @@ const PageEventDetails = () => {
   if (error) {
     return (
       <div>
-        <Navbar />
         <div className={styles.errorContainer}>
           <p>{error}</p>
         </div>

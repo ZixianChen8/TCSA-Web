@@ -20,6 +20,7 @@
     "axios": "^1.7.9",
     "embla-carousel-autoplay": "^8.6.0",
     "embla-carousel-react": "^8.6.0",
+    "framer-motion": "^12.16.0",
     "ogl": "^1.0.11",
     "prop-types": "^15.8.1",
     "react": "^19.0.0",

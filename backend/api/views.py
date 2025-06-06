@@ -73,22 +73,27 @@ class EventDetailAPIView(generics.RetrieveAPIView):
             )
 
 # API view to get all team members
-class TeamMemberListAPIView(generics.ListAPIView):
-    queryset = Member.objects.all()
-    serializer_class = MemberSerializer
+# class TeamMemberListAPIView(generics.ListAPIView):
+#     queryset = Member.objects.all()
+#     serializer_class = MemberSerializer
 
-    def list(self, request, *args, **kwargs):
-        try:
-            queryset = self.get_queryset()
-            print(f"\nFetching team members from database...")
-            print(f"Found {queryset.count()} team members")
+#     def list(self, request, *args, **kwargs):
+#         try:
+#             queryset = self.get_queryset()
+#             print(f"\nFetching team members from database...")
+#             print(f"Found {queryset.count()} team members")
             
-            serializer = self.get_serializer(queryset, many=True)
-            return Response(serializer.data)
-        except Exception as e:
-            print(f"Error in TeamMemberListAPIView: {str(e)}")
-            return Response(
-                {"error": "Failed to fetch team members"},
-                status=status.HTTP_500_INTERNAL_SERVER_ERROR
-            )
+#             serializer = self.get_serializer(queryset, many=True)
+#             return Response(serializer.data)
+#         except Exception as e:
+#             print(f"Error in TeamMemberListAPIView: {str(e)}")
+#             return Response(
+#                 {"error": "Failed to fetch team members"},
+#                 status=status.HTTP_500_INTERNAL_SERVER_ERROR
+#             )
 
+class MemberListView(generics.ListAPIView):
+    queryset = Member.objects.select_related('department', 'reports_to').all()
+    # Using select_related('department', 'reports_to') can help optimize database queries
+    # by fetching related objects in a single query.
+    serializer_class = MemberSerializer

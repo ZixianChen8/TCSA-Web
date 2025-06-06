@@ -19,7 +19,6 @@ function PageResources() {
   return (
     <>
       <section className={styles.navbar}>
-        <Navbar />
       </section>
 
 

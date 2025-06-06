@@ -43,7 +43,6 @@ function PageSponsors() {
   return (
     <>
       <header>
-          <Navbar />
           <SecHero2
           title="COLLABORATE WITH US"
           subtitle="Vast services. Rich experience. Real results. "

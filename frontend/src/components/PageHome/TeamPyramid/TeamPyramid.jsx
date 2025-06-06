@@ -8,36 +8,45 @@ import { computePosition, offset, flip, shift } from '@floating-ui/dom';
 export default function TeamPyramid() {
 
       // --- Test member data, to be replaced by actual database ---
-      const [advisors, setAdvisors] = useState([
-        { id: 1, name: 'President', email: 'president@uottawa.ca', quote: 'Good design is obvious. Great design is transparent.' },
-      ]);
-      const [executives, setExecutives] = useState([
-        { id: 2, name: 'Vice President', email: 'vp@uottawa.ca', quote: 'Success is best when it\'s shared.' }
-      ]);
-      const [departmentLeaders, setDepartmentLeaders] = useState([
-        { id: 3, name: 'Leader 1', department: 'Media', email: 'media.leader@uottawa.ca', quote: 'Creativity takes courage.' },
-        { id: 4, name: 'Leader 2', department: 'Human Resource', email: 'hr.leader@uottawa.ca', quote: 'People don’t leave bad jobs, they leave bad managers.' },
-        { id: 5, name: 'Leader 3', department: 'Planning', email: 'planning.leader@uottawa.ca', quote: 'A goal without a plan is just a wish.' }
-      ]);
-      const [teamMembers, setTeamMembers] = useState([
-        { id: 6, name: 'Member 1', leaderId: 3, email: 'member1@uottawa.ca', quote: 'Quality is not an act, it is a habit.' },
-        { id: 7, name: 'Member 2', leaderId: 3, email: 'member2@uottawa.ca', quote: 'Teamwork divides the task and multiplies the success.' },
-        { id: 8, name: 'Member 3', leaderId: 3, email: 'member3@uottawa.ca', quote: 'Good design is obvious. Great design is transparent.' },
-        { id: 9, name: 'Member 4', leaderId: 4, email: 'member4@uottawa.ca', quote: 'Your most unhappy customers are your greatest source of learning.' },
-        { id: 10, name: 'Member 5', leaderId: 4, email: 'member5@uottawa.ca', quote: 'Hire character. Train skill.' },
-        { id: 11, name: 'Member 6', leaderId: 4, email: 'member6@uottawa.ca', quote: 'Culture eats strategy for breakfast.' },
-        { id: 12, name: 'Member 7', leaderId: 5, email: 'member7@uottawa.ca', quote: 'By failing to prepare, you are preparing to fail.' },
-        { id: 13, name: 'Member 8', leaderId: 5, email: 'member8@uottawa.ca', quote: 'Plans are nothing; planning is everything.' },
-        { id: 14, name: 'Member 9', leaderId: 5, email: 'member9@uottawa.ca', quote: 'It always seems impossible until it’s done.' },
-      ]);
+      // const [advisors, setAdvisors] = useState([
+      //   { id: 1, name: 'President', email: 'president@uottawa.ca', quote: 'Good design is obvious. Great design is transparent.' },
+      // ]);
+      // const [executives, setExecutives] = useState([
+      //   { id: 2, name: 'Vice President', email: 'vp@uottawa.ca', quote: 'Success is best when it\'s shared.' }
+      // ]);
+      // const [departmentLeaders, setDepartmentLeaders] = useState([
+      //   { id: 3, name: 'Leader 1', department: 'Media', email: 'media.leader@uottawa.ca', quote: 'Creativity takes courage.' },
+      //   { id: 4, name: 'Leader 2', department: 'Human Resource', email: 'hr.leader@uottawa.ca', quote: 'People don’t leave bad jobs, they leave bad managers.' },
+      //   { id: 5, name: 'Leader 3', department: 'Planning', email: 'planning.leader@uottawa.ca', quote: 'A goal without a plan is just a wish.' }
+      // ]);
+      // const [teamMembers, setTeamMembers] = useState([
+      //   { id: 6, name: 'Member 1', leaderId: 3, email: 'member1@uottawa.ca', quote: 'Quality is not an act, it is a habit.' },
+      //   { id: 7, name: 'Member 2', leaderId: 3, email: 'member2@uottawa.ca', quote: 'Teamwork divides the task and multiplies the success.' },
+      //   { id: 8, name: 'Member 3', leaderId: 3, email: 'member3@uottawa.ca', quote: 'Good design is obvious. Great design is transparent.' },
+      //   { id: 9, name: 'Member 4', leaderId: 4, email: 'member4@uottawa.ca', quote: 'Your most unhappy customers are your greatest source of learning.' },
+      //   { id: 10, name: 'Member 5', leaderId: 4, email: 'member5@uottawa.ca', quote: 'Hire character. Train skill.' },
+      //   { id: 11, name: 'Member 6', leaderId: 4, email: 'member6@uottawa.ca', quote: 'Culture eats strategy for breakfast.' },
+      //   { id: 12, name: 'Member 7', leaderId: 5, email: 'member7@uottawa.ca', quote: 'By failing to prepare, you are preparing to fail.' },
+      //   { id: 13, name: 'Member 8', leaderId: 5, email: 'member8@uottawa.ca', quote: 'Plans are nothing; planning is everything.' },
+      //   { id: 14, name: 'Member 9', leaderId: 5, email: 'member9@uottawa.ca', quote: 'It always seems impossible until it’s done.' },
+      // ]);
       
-      // --- Finance Department Constant ---
-      const financeDepartment = {
-        executive: { id: 18, name: 'VP Finance', email: 'vp.finance@uottawa.ca', quote: 'Budgeting is telling your money where to go.' },
-        members: [
-          { id: 19, name: 'Finance Member', email: 'finance.member@uottawa.ca', quote: 'Accounting is the language of business.' }
-        ]
-      };
+      // // --- Finance Department Constant ---
+      // const financeDepartment = {
+      //   executive: { id: 18, name: 'VP Finance', email: 'vp.finance@uottawa.ca', quote: 'Budgeting is telling your money where to go.' },
+      //   members: [
+      //     { id: 19, name: 'Finance Member', email: 'finance.member@uottawa.ca', quote: 'Accounting is the language of business.' }
+      //   ]
+      // };
+
+      // --- Members ---
+      const [advisors, setAdvisors] = useState([]);
+      const [executives, setExecutives] = useState([]);
+      const [departmentLeaders, setDepartmentLeaders] = useState([]);
+      const [teamMembers, setTeamMembers] = useState([]);
+      const [financeDepartment, setFinanceDepartment] = useState({ executive: null, members: [] });
+      const [loading, setLoading] = useState(true); // Added loading state
+      const [error, setError] = useState(null); // Added error state
 
       // --- State for Hover Effects ---
       const [hoveredLeaderId, setHoveredLeaderId] = useState(null);
@@ -266,6 +275,114 @@ export default function TeamPyramid() {
         };
       }, [isHovering]);
       
+      // --- Data Fetching ---
+      useEffect(() => {
+        const fetchTeamData = async () => {
+            setLoading(true);
+            setError(null);
+            try {
+                const response = await axios.get('http://127.0.0.1:8000/api/members/', {
+                    headers: {
+                        'Accept': 'application/json',
+                    }
+                });
+
+                if (response.data) {
+                    const membersData = response.data;
+
+                    const loadedAdvisors = [];
+                    const loadedExecutives = [];
+                    const loadedDeptLeaders = [];
+                    const loadedTeamMembers = [];
+                    let financeExec = null;
+                    const financeMembersList = [];
+
+                    membersData.forEach(member => {
+                        const memberObject = {
+                            id: member.id,
+                            name: `${member.first_name} ${member.last_name}`,
+                            email: member.email,
+                            quote: member.quote,
+                            pfp_url: member.pfp_url,
+                            position: member.position,
+                            reports_to_id: member.reports_to,
+                            department_name: member.department ? member.department.name : null,
+                        };
+
+                        // Prioritize finance role identification
+                        if (memberObject.position === 'VP Finance') {
+                            financeExec = memberObject;
+                            // This member is now handled; skip other general categorizations
+                        } else if (memberObject.department_name === 'Finance' && memberObject.position !== 'VP Finance') {
+                            financeMembersList.push(memberObject);
+                            // This member is now handled; skip other general categorizations
+                        } else if (memberObject.position === 'President' && !memberObject.reports_to_id) {
+                            loadedAdvisors.push(memberObject);
+                        } else if (memberObject.position === 'Vice President') {
+                            // This will now only include non-Finance VPs because 'VP Finance' was handled above
+                            loadedExecutives.push(memberObject);
+                        } else if (memberObject.position && (memberObject.position.includes('Lead') || memberObject.position.includes('Manager')) && memberObject.department_name) {
+                            // Ensure this isn't a finance lead if they have special handling (not apparent in current code)
+                            loadedDeptLeaders.push({
+                                ...memberObject,
+                                department: memberObject.department_name
+                            });
+                        } else if (memberObject.reports_to_id) {
+                            // This will catch regular team members not covered by the roles above.
+                            // The isAlreadyCategorized check helps ensure they aren't top-level roles that also report to someone.
+                            const isAlreadyGenerallyCategorized = loadedAdvisors.some(a => a.id === memberObject.id) ||
+                                       loadedExecutives.some(e => e.id === memberObject.id) ||
+                                       loadedDeptLeaders.some(dl => dl.id === memberObject.id);
+                            if (!isAlreadyGenerallyCategorized) {
+                                loadedTeamMembers.push({
+                                    ...memberObject,
+                                    leaderId: memberObject.reports_to_id
+                                });
+                            }
+                        }
+                        // Optional: Add an 'else' here to log or handle members that don't fit any defined category
+                    });
+
+                    setAdvisors(loadedAdvisors);
+                    setExecutives(loadedExecutives);
+                    setDepartmentLeaders(loadedDeptLeaders);
+                    setTeamMembers(loadedTeamMembers);
+
+                    if (financeExec) {
+                        const actualFinanceMembers = financeMembersList.filter(fm => fm.reports_to_id === financeExec.id || !fm.reports_to_id);
+                        setFinanceDepartment({ executive: financeExec, members: actualFinanceMembers });
+                    }
+                    setError(null);
+                } else {
+                   setError("No member data received");
+                }
+            } catch (err) {
+                console.error("Error fetching team members:", err);
+                setError(err.response?.data?.detail || err.response?.data?.error || err.message || "Failed to load team members.");
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchTeamData();
+    }, []);
+
+    if (loading) {
+        return (
+            <div className={styles.pyramidContainer}>
+                <p>Loading team members...</p>
+            </div>
+        );
+    }
+
+    if (error) {
+        return (
+            <div className={styles.pyramidContainer}>
+                <p>Error loading team members: {error}</p>
+            </div>
+        );
+    }
+
       // --- Component Rendering ---
       return (
 
@@ -276,18 +393,33 @@ export default function TeamPyramid() {
 
 
           <svg viewBox="0 -5 100 60" className={styles.pyramidSvg}>
+            {/* --- SVG Definitions for circular clipPaths --- */}
+            <defs>
+              <clipPath id="clipCircleAdvisor">
+                <circle cx={4} cy={4} r={4} />
+              </clipPath>
+              <clipPath id="clipCircleRegular">
+                <circle cx={3.5} cy={3.5} r={3.5} />
+              </clipPath>
+              <clipPath id="clipCircle" clipPathUnits="objectBoundingBox">
+                <circle cx="0.5" cy="0.5" r="0.5" />
+              </clipPath>
+            </defs>
             {/* --- Lines --- */}
-            {/* (Original line rendering logic using isLineHighlighted) */}
-
             {/* Line from president to vp finance (finance line)*/}
             {(() => {
               const financeLine1Highlighted = isLineHighlighted(financeDepartment.executive.id, null);
+              // Node positions for line endpoints (center of advisor and VP Finance node)
+              const advisorX = topMostLevel[0].x;
+              const advisorY = topMostLevel[0].y + 4; // center of 8x8 advisor image
+              const vpFinanceX = topMostLevel[0].x + 30 + 3.5; // center of 7x7 image
+              const vpFinanceY = topMostLevel[0].y + 12 + 3.5;
               return (
                 <line
-                  x1={topMostLevel[0].x}
-                  y1={topMostLevel[0].y + 3}
-                  x2={topMostLevel[0].x + 30}
-                  y2={topMostLevel[0].y + 12}
+                  x1={advisorX}
+                  y1={advisorY}
+                  x2={vpFinanceX}
+                  y2={vpFinanceY}
                   stroke={financeLine1Highlighted ? "#3B82F6" : "#000000"}
                   strokeWidth={financeLine1Highlighted ? "0.5" : "0.3"}
                   className={financeLine1Highlighted ? `${styles.pyramidLine} ${styles.highlighted}` : styles.pyramidLine}
@@ -298,12 +430,18 @@ export default function TeamPyramid() {
             {/* Line from VP Finance node to the member finance  (finance line)*/}
             {(() => {
               const financeLine2Highlighted = isLineHighlighted(financeDepartment.executive.id, financeDepartment.members[0].id);
+              // VP Finance node center
+              const vpFinanceX = topMostLevel[0].x + 30 + 3.5;
+              const vpFinanceY = topMostLevel[0].y + 12 + 3.5;
+              // Finance member node center
+              const financeMemberX = topMostLevel[0].x + 38 + 3.5;
+              const financeMemberY = topMostLevel[0].y + 10 + 3.5;
               return (
                 <line
-                  x1={topMostLevel[0].x + 30}
-                  y1={topMostLevel[0].y + 11}
-                  x2={topMostLevel[0].x + 36}
-                  y2={topMostLevel[0].y + 11}
+                  x1={vpFinanceX}
+                  y1={vpFinanceY}
+                  x2={financeMemberX}
+                  y2={financeMemberY}
                   stroke={financeLine2Highlighted ? "#3B82F6" : "#000000"}
                   strokeWidth={financeLine2Highlighted ? "0.5" : "0.3"}
                   className={financeLine2Highlighted ? `${styles.pyramidLine} ${styles.highlighted}` : styles.pyramidLine}
@@ -311,14 +449,20 @@ export default function TeamPyramid() {
               );
             })()}
 
-            {/* Line connecting presdent (advisor) to vice president */}
+            {/* Line connecting president (advisor) to vice president */}
             {topLevel.length === 1 && topMostLevel.length === 1 && (() => {
               const advisorLineHighlighted = isLineHighlighted(topLevel[0].id);
+              // advisor center
+              const advisorX = topMostLevel[0].x;
+              const advisorY = topMostLevel[0].y + 4;
+              // exec center
+              const execX = topLevel[0].x;
+              const execY = topLevel[0].y + 3.5;
               return (
                 <line
                   key={`advisor-connection-${topMostLevel[0].id}-${topLevel[0].id}`}
-                  x1={topMostLevel[0].x} y1={topMostLevel[0].y + 8}
-                  x2={topLevel[0].x} y2={topLevel[0].y - 5}
+                  x1={advisorX} y1={advisorY}
+                  x2={execX} y2={execY}
                   stroke={advisorLineHighlighted ? "#3B82F6" : "#000000"}
                   strokeWidth={advisorLineHighlighted ? "0.5" : "0.3"}
                   className={advisorLineHighlighted ? `${styles.pyramidLine} ${styles.highlighted}` : styles.pyramidLine}
@@ -330,11 +474,17 @@ export default function TeamPyramid() {
             {topLevel.map(exec => (
               middleLevel.map(leader => {
                 const highlighted = isLineHighlighted(leader.id);
+                // exec center
+                const execX = exec.x;
+                const execY = exec.y + 3.5;
+                // leader center
+                const leaderX = leader.x;
+                const leaderY = leader.y + 3.5;
                 return (
                   <line
                     key={`exec-leader-line-${exec.id}-${leader.id}`}
-                    x1={exec.x} y1={exec.y + 3.8}
-                    x2={leader.x} y2={leader.y - 2.5}
+                    x1={execX} y1={execY}
+                    x2={leaderX} y2={leaderY}
                     stroke={highlighted ? "#3B82F6" : "#000000"}
                     strokeWidth={highlighted ? "0.5" : "0.3"}
                     className={highlighted ? `${styles.pyramidLine} ${styles.highlighted}` : styles.pyramidLine}
@@ -347,20 +497,25 @@ export default function TeamPyramid() {
               const members = membersByLeader[leader.id] || [];
               return members.map(member => {
                 const memberPos = bottomLevel.find(m => m.id === member.id);
-                // Use current state for highlighting
                 const highlighted = isLineHighlighted(leader.id, member.id); 
+                // leader center
+                const leaderX = leader.x;
+                const leaderY = leader.y + 3.5;
+                // member center
+                const memberX = memberPos.x;
+                const memberY = memberPos.y + 3.5;
                 return (
                   <line 
                     key={`${leader.id}-${member.id}`}
-                    x1={leader.x} y1={leader.y + 3.8} 
-                    x2={memberPos.x} y2={memberPos.y - 3} 
+                    x1={leaderX} y1={leaderY} 
+                    x2={memberX} y2={memberY} 
                     stroke={highlighted ? "#3B82F6" : "#000000"}
                     strokeWidth={highlighted ? "0.5" : "0.3"}
                     className={highlighted ? `${styles.pyramidLine} ${styles.highlighted}` : styles.pyramidLine}
                   />
                 );
               });
-            })}            
+            })}
             {/* --- Nodes --- */}
 
             {/* VP Finance Node */}
@@ -369,7 +524,28 @@ export default function TeamPyramid() {
               onMouseEnter={(e) => handleMouseEnter({ data: financeDepartment.executive, x: topMostLevel[0].x + 26, y: topMostLevel[0].y + 6 }, e)}
               onMouseLeave={handleMouseLeave}
             >
-              <rect x={topMostLevel[0].x + 26 - 0} y={topMostLevel[0].y + 6 + 1.2} width={7} height={7} fill="#333333" rx={0} className={styles.pyramidNode} />
+              {financeDepartment.executive && financeDepartment.executive.pfp_url ? (
+                <image
+                  href={financeDepartment.executive.pfp_url}
+                  x={topMostLevel[0].x + 30}
+                  y={topMostLevel[0].y + 12}
+                  width={7}
+                  height={7}
+                  clipPath="url(#clipCircle)"
+                  preserveAspectRatio="xMidYMid slice"
+                  className={styles.pyramidNode}
+                />
+              ) : (
+                <rect
+                  x={topMostLevel[0].x + 30}
+                  y={topMostLevel[0].y + 12}
+                  width={7}
+                  height={7}
+                  fill="#CCCCCC"
+                  rx={3.5}
+                  className={styles.pyramidNode}
+                />
+              )}
             </g>
             {/* Finance Department Member Node */}
             <g
@@ -377,8 +553,30 @@ export default function TeamPyramid() {
               onMouseEnter={(e) => handleMouseEnter({ data: financeDepartment.members[0], x: topMostLevel[0].x + 38, y: topMostLevel[0].y + 10 }, e)}
               onMouseLeave={handleMouseLeave}
             >
-              <rect x={topMostLevel[0].x + 38 - 2} y={topMostLevel[0].y + 10 - 2.8} width={7} height={7} fill="#333333" rx={0} className={`${styles.pyramidNode} cursor-pointer`} />
+              {financeDepartment.members[0] && financeDepartment.members[0].pfp_url ? (
+                <image
+                  href={financeDepartment.members[0].pfp_url}
+                  x={topMostLevel[0].x + 38}
+                  y={topMostLevel[0].y + 10}
+                  width={7}
+                  height={7}
+                  clipPath="url(#clipCircle)"
+                  preserveAspectRatio="xMidYMid slice"
+                  className={`${styles.pyramidNode} cursor-pointer`}
+                />
+              ) : (
+                <rect
+                  x={topMostLevel[0].x + 38}
+                  y={topMostLevel[0].y + 10}
+                  width={7}
+                  height={7}
+                  fill="#CCCCCC"
+                  rx={3.5}
+                  className={`${styles.pyramidNode} cursor-pointer`}
+                />
+              )}
             </g>
+            
             {/* Top-most level (Advisor) */}
             {topMostLevel.map(advisor => (
               <g
@@ -386,7 +584,28 @@ export default function TeamPyramid() {
                 onMouseEnter={(e) => handleMouseEnter({ data: advisor, x: advisor.x, y: advisor.y }, e)}
                 onMouseLeave={handleMouseLeave}
               >
-                <rect x={advisor.x - 4} y={advisor.y - 3} width={8} height={8} fill="#333333" rx={0} className={styles.pyramidNode} />
+                {advisor.pfp_url ? (
+                  <image
+                    href={advisor.pfp_url}
+                    x={advisor.x - 4}
+                    y={advisor.y}
+                    width={8}
+                    height={8}
+                    clipPath="url(#clipCircle)"
+                    preserveAspectRatio="xMidYMid slice"
+                    className={styles.pyramidNode}
+                  />
+                ) : (
+                  <rect
+                    x={advisor.x - 4}
+                    y={advisor.y}
+                    width={8}
+                    height={8}
+                    fill="#CCCCCC"
+                    rx={4}
+                    className={styles.pyramidNode}
+                  />
+                )}
               </g>
             ))}
 
@@ -394,33 +613,93 @@ export default function TeamPyramid() {
             {topLevel.map(exec => (
               <g
                 key={`exec-${exec.id}`}
-                // Use the new handlers
                 onMouseEnter={(e) => handleMouseEnter({ data: exec, x: exec.x, y: exec.y }, e)}
                 onMouseLeave={handleMouseLeave} 
               >
-                <rect x={exec.x - 3.5} y={exec.y - 3} width={7} height={7} fill="#333333" rx={0} className={styles.pyramidNode} />
+                {exec.pfp_url ? (
+                  <image
+                    href={exec.pfp_url}
+                    x={exec.x - 3.5}
+                    y={exec.y}
+                    width={7}
+                    height={7}
+                    clipPath="url(#clipCircle)"
+                    preserveAspectRatio="xMidYMid slice"
+                    className={styles.pyramidNode}
+                  />
+                ) : (
+                  <rect
+                    x={exec.x - 3.5}
+                    y={exec.y}
+                    width={7}
+                    height={7}
+                    fill="#CCCCCC"
+                    rx={3.5}
+                    className={styles.pyramidNode}
+                  />
+                )}
               </g>
             ))}
             
             {middleLevel.map(leader => (
               <g
                 key={`leader-${leader.id}`}
-                // Use the new handlers
                 onMouseEnter={(e) => handleMouseEnter({ data: leader, x: leader.x, y: leader.y }, e)}
                 onMouseLeave={handleMouseLeave}
               >
-                <rect x={leader.x - 3.5} y={leader.y - 3} width={7} height={7} fill="#333333" rx={0} className={`${styles.pyramidNode} cursor-pointer`} />
+                {leader.pfp_url ? (
+                  <image
+                    href={leader.pfp_url}
+                    x={leader.x - 3.5}
+                    y={leader.y}
+                    width={7}
+                    height={7}
+                    clipPath="url(#clipCircle)"
+                    preserveAspectRatio="xMidYMid slice"
+                    className={`${styles.pyramidNode} cursor-pointer`}
+                  />
+                ) : (
+                  <rect
+                    x={leader.x - 3.5}
+                    y={leader.y}
+                    width={7}
+                    height={7}
+                    fill="#CCCCCC"
+                    rx={3.5}
+                    className={`${styles.pyramidNode} cursor-pointer`}
+                  />
+                )}
               </g>
             ))}
             
             {bottomLevel.map(member => (
               <g
                 key={`member-${member.id}`}
-                // Use the new handlers
                 onMouseEnter={(e) => handleMouseEnter({ data: member, x: member.x, y: member.y }, e)}
                 onMouseLeave={handleMouseLeave}
               >
-                <rect x={member.x - 3.5} y={member.y - 3.2} width={7} height={7} fill="#333333" rx={0} className={`${styles.pyramidNode} cursor-pointer`} />
+                {member.pfp_url ? (
+                  <image
+                    href={member.pfp_url}
+                    x={member.x - 3.5}
+                    y={member.y}
+                    width={7}
+                    height={7}
+                    clipPath="url(#clipCircle)"
+                    preserveAspectRatio="xMidYMid slice"
+                    className={`${styles.pyramidNode} cursor-pointer`}
+                  />
+                ) : (
+                  <rect
+                    x={member.x - 3.5}
+                    y={member.y}
+                    width={7}
+                    height={7}
+                    fill="#CCCCCC"
+                    rx={3.5}
+                    className={`${styles.pyramidNode} cursor-pointer`}
+                  />
+                )}
               </g>
             ))}
           </svg>

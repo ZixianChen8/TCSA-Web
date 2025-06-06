@@ -51,7 +51,6 @@ const PageEvents = () => {
     return (
         <main>
             <header>
-                <Navbar/>
                 <SecHero2
                 title="EVENTS"
                 subtitle="Check out some great events"

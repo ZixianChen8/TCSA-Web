@@ -52,7 +52,6 @@ const PageJoinus = () => {
 
         <main>
             <header>
-                <Navbar />
                 <SecHero2
                 title="BECOME A MEMBER OF TCSA"
                 subtitle="Join the club"

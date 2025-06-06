@@ -1,7 +1,6 @@
 import { React, useState, useEffect, useRef } from "react";
 import SecHero from "@/components/SecHero/SecHero.jsx"
 import CardEvent from "@/components/CardEvent/CardEvent.jsx"
-import Navbar from "@/components/Navbar/Navbar.jsx"
 import TeamPyramid from "@/components/PageHome/TeamPyramid/TeamPyramid.jsx"
 import Gallery from "@/components/PageHome/Gallery/Gallery.jsx"
 import CircularGallery from '@/components/PageHome/CircularGallery/CircularGallery.jsx'
@@ -74,10 +73,7 @@ const Home = () => {
   return (
     <div className={styles.container}>
 
-      {/* Navbar */}
-      <section className={styles.navbar}>
-      <Navbar />
-      </section>
+
 
       {/* Hero Section with About Content */}
       <section className={styles.hero}>
@@ -110,7 +106,7 @@ const Home = () => {
           <div className={styles.eventsHeader}>
             <h2>UPCOMING EVENTS</h2>
             <div className={styles.moreEventsBtn}>
-              <a href="/"> <Btn3 btnText='M O R E' /> </a>
+              <a href="/events"> <Btn3 btnText='M O R E' /> </a>
               
             </div>
             
@@ -182,3 +178,5 @@ const Home = () => {
 };
 
 export default Home;
+
+
