@@ -32,17 +32,14 @@ const SimpleSlideshow = (props) => {
     <section className={styles.embla}>
       <div className={styles.embla__viewport} ref={emblaRef}>
         <div className={styles.embla__container}>
-          {slides.map((index) => (
+          {slides.map((slide, index) => (
             <div className={styles.embla__slide} key={index}>
               <div className={styles.embla__slide__content}>
-                
                 <img
-                className="embla__slide__img"
-                src={`https://picsum.photos/id/1/1010/400`}
-                alt="Your alt text"
+                  className="embla__slide__img"
+                  src={slide}
+                  alt={`Slide ${index + 1}`}
                 />
-
-
               </div>
             </div>
           ))}

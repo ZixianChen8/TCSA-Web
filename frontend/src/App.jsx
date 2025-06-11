@@ -7,9 +7,9 @@ import './App.css'
 import Home from "./pages/PageHome/Home.jsx";
 import PageEvents from './pages/PageEvents/PageEvents.jsx';
 import PageJoinus from './pages/PageJoinus/PageJoinus.jsx'
-import PageOurTeam from './pages/PageOurTeam/PageOurTeam.jsx'
+import PageAlumni from './pages/PageAlumni/PageAlumni.jsx'
 import PageEventDetails from './pages/PageEventDetails/PageEventDetails.jsx'
-import PageSponsors from './pages/PageSponsors/PageSponsors.jsx';
+import PageServices from './pages/PageServices/PageServices.jsx';
 import PageResources from './pages/PageResources/PageResources.jsx'
 
 import Navbar from "./components/Navbar/Navbar.jsx"
@@ -216,7 +216,7 @@ function App() {
   const dockItems = [
     { icon: EventIcon, label: 'Events', onClick: () => navigate('/events') },
     { icon: ServicesIcon, label: 'Services', onClick: () => navigate('/sponsors') },
-    { icon: AlumniIcon, label: 'Alumni', onClick: () => navigate('/ourteam') },
+    { icon: AlumniIcon, label: 'Alumni', onClick: () => navigate('/alumni') },
     { icon: JoinUsIcon, label: 'Join us', onClick: () => navigate('/joinus') },
     { icon: ResourcesIcon, label: 'Resources', onClick: () => navigate('/resources') },
   ];
@@ -232,9 +232,9 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/events" element={<PageEvents />} />
         <Route path="/joinus" element={<PageJoinus />} />
-        <Route path="/ourteam" element={<PageOurTeam />} />
+        <Route path="/alumni" element={<PageAlumni />} />
         <Route path="events/:id" element={<PageEventDetails />} />
-        <Route path="/sponsors" element={<PageSponsors />} />
+        <Route path="/services" element={<PageServices />} />
         <Route path="/resources" element={<PageResources />} />
       </Routes>
 

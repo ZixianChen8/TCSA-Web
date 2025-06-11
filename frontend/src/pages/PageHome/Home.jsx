@@ -17,6 +17,26 @@ const Home = () => {
   const [events, setEvents] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [sponsors, setSponsors] = useState([]);
+  const [sponsorsLoading, setSponsorsLoading] = useState(true);
+  const [sponsorsError, setSponsorsError] = useState(null);
+  // Fetch sponsors from the backend
+  useEffect(() => {
+    const fetchSponsors = async () => {
+      setSponsorsLoading(true);
+      setSponsorsError(null);
+      try {
+        const response = await axios.get('http://127.0.0.1:8000/api/sponsorImages/');
+        setSponsors(response.data);
+      } catch (err) {
+        console.error('Error fetching sponsors:', err);
+        setSponsorsError('Failed to load sponsors');
+      } finally {
+        setSponsorsLoading(false);
+      }
+    };
+    fetchSponsors();
+  }, []);
 
 
   // Fetch events from the backend
@@ -139,13 +159,13 @@ const Home = () => {
         <section className={styles.sponsors}>
           <h2>Our Sponsors & Partners</h2>
           <div className={styles.sponsorLogos}>
-              <img src="/sponsor_logos/logo1.png"/>
-              <img src="/sponsor_logos/logo2.jpg"/>
-              <img src="/sponsor_logos/logo3.jpg"/>
-              <img src="/sponsor_logos/logo4.png"/>
-              <img src="/sponsor_logos/logo5.png"/>
-              <img src="/sponsor_logos/logo5.webp"/>
-              <img src="/sponsor_logos/logo6.avif"/>
+            {sponsorsLoading && <p>Loading sponsors...</p>}
+            {sponsorsError && <p className={styles.error}>{sponsorsError}</p>}
+            {!sponsorsLoading && !sponsorsError && sponsors.map((sponsor) => (
+              <a key={sponsor.id} href={sponsor.link || '#'} target="_blank" rel="noopener noreferrer">
+                <img src={sponsor.logo_img} alt={sponsor.name} />
+              </a>
+            ))}
           </div>
         </section>
 

@@ -10,7 +10,7 @@ class Event(models.Model):
     end_time = models.TimeField(null=True, blank=True)
     location = models.TextField(null=True, blank = True)
     other_link = models.URLField(blank=True, null=True, unique=True)
-    poster_link = models.URLField(blank=True)
+    poster_img = models.ImageField(upload_to='event_posters/', blank=True, null=True)
 
     def __str__(self):
         return self.title
@@ -32,15 +32,9 @@ class Registration(models.Model):
         constraints = [
             models.UniqueConstraint(fields=['event', 'email'], name='unique_event_email_registration')
         ]
-        
 
 
-class BgMedia(models.Model):
-    title = models.CharField(max_length=200, null=False, unique=True)
-    link = models.URLField(blank=True, null=True)
-
-    def __str__(self):
-        return self.title
+    
 
 class Department(models.Model): # Assuming Department model is defined as you provided or similar
     code = models.CharField(max_length=10, null=False, unique=True) # Make code unique
@@ -62,7 +56,7 @@ class Member(models.Model):
     email = models.EmailField(max_length=100, blank=True, null=True)
     position = models.CharField(max_length=100, blank=True, null=True) # e.g., "President", "VP Finance", "Media Lead", "Developer"
     description = models.TextField(null=True, blank=True) # General description if needed
-    pfp_url = models.URLField(max_length=200, blank=True, null=True)
+    pfp_img = models.ImageField(upload_to='member_pfps/', max_length=200, blank=True, null=True)
 
     # --- Fields for pyramid structure ---
     reports_to = models.ForeignKey(
@@ -90,7 +84,7 @@ class Member(models.Model):
 class Resource(models.Model):
     title = models.CharField(max_length=200, null=False, unique=True)
     description = models.TextField(null=True, blank=True)
-    thumbnail_url = models.URLField(blank=True, null=True)
+    thumbnail_img = models.ImageField(upload_to='resource_thumbnails/', blank=False, null=False)
     resource_url = models.URLField(blank=True, null=True, unique=True)
 
     def __str__(self):
@@ -99,9 +93,171 @@ class Resource(models.Model):
 class Sponsor(models.Model):
     name = models.CharField(max_length=200, null=False, unique=True)
     link = models.URLField(blank=True, null=True)
-    logo = models.URLField(blank=True, null=True)
+    logo_img = models.ImageField(upload_to='sponsor_logos/', blank=True, null=True)
     description = models.TextField(null=True, blank=True)
 
     def __str__(self):
         return self.name
     
+
+# Join Us page hero section (allows only one image)
+class JoinUsHeroImage(models.Model):
+    title = models.CharField(max_length=200, null=False)
+    image = models.ImageField(upload_to='join_us_hero/', blank=False, null=False)
+    caption = models.TextField(blank=True, null=True)
+
+    def __str__(self):
+        return self.title
+    
+# Join Us page background images (allows up to 3 images)
+class JoinUsBgImage(models.Model):
+    title = models.CharField(max_length=200, null=False)
+    image = models.ImageField(upload_to='join_us_bg/', blank=False, null=False)
+
+    def __str__(self):
+        return self.title
+
+    def save(self, *args, **kwargs):
+        if JoinUsBgImage.objects.count() >= 3 and not self.pk:
+            from django.core.exceptions import ValidationError
+            raise ValidationError("Only 3 background images are allowed for the Join Us page.")
+        super().save(*args, **kwargs)
+
+class CircularGalleryImage(models.Model):
+    title = models.CharField(max_length=200, null=False)
+    image = models.ImageField(upload_to='circular_gallery/', blank=True, null=True)
+    caption = models.TextField(blank=True, null=True)
+
+    def __str__(self):
+        return self.title
+
+
+# Resource page carousel images
+class ResourceCarouselImage(models.Model):
+    title = models.CharField(max_length=200, null=False)
+    image = models.ImageField(upload_to='resource_carousel/', blank=True, null=True)
+    link = models.URLField(blank=True, null=True, help_text="Optional: Link the image to a resource or external page.")
+    caption = models.TextField(blank=True, null=True)
+
+    def __str__(self):
+        return self.title
+
+class HomeHeroMedia(models.Model):
+    title = models.CharField(max_length=200, null=False)
+    image = models.ImageField(upload_to='home_hero/', blank=True, null=True)
+    video = models.FileField(upload_to='home_hero/', blank=True, null=True)
+    caption = models.TextField(blank=True, null=True)
+
+    def clean(self):
+        from django.core.exceptions import ValidationError
+        if not self.image and not self.video:
+            raise ValidationError('Either an image or a video must be provided.')
+        if self.image and self.video:
+            raise ValidationError('Only one of image or video should be provided.')
+
+    def __str__(self):
+        return self.title
+
+# Event page hero section (allows only one image)
+class EventHeroImage(models.Model):
+    title = models.CharField(max_length=200, null=False)
+    image = models.ImageField(upload_to='event_hero/', blank=False, null=False)
+    caption = models.TextField(blank=True, null=True)
+
+    def __str__(self):
+        return self.title
+
+
+# Services page hero section (allows only one image)
+class ServicesHeroImage(models.Model):
+    title = models.CharField(max_length=200, null=False)
+    image = models.ImageField(upload_to='services_hero/', blank=False, null=False)
+    caption = models.TextField(blank=True, null=True)
+
+    def __str__(self):
+        return self.title
+
+# Resource page hero section (allows only one image)
+class ResourceHeroImage(models.Model):
+    title = models.CharField(max_length=200, null=False)
+    image = models.ImageField(upload_to='resource_hero/', blank=False, null=False)
+    caption = models.TextField(blank=True, null=True)
+
+    def __str__(self):
+        return self.title
+
+class ServicesBgImage(models.Model):
+    title = models.CharField(max_length=200, null=False)
+    image = models.ImageField(upload_to='services_bg/', blank=False, null=False)
+
+    def __str__(self):
+        return self.title
+
+    def save(self, *args, **kwargs):
+        if ServicesBgImage.objects.count() >= 3 and not self.pk:
+            from django.core.exceptions import ValidationError
+            raise ValidationError("Only 3 background images are allowed for the services page.")
+        super().save(*args, **kwargs)
+
+
+# Benefit background images (allows up to 3 images)
+class BenefitBgImage(models.Model):
+    title = models.CharField(max_length=200, null=False)
+    image = models.ImageField(upload_to='benefit_bg/', blank=False, null=False)
+
+    def __str__(self):
+        return self.title
+
+    def save(self, *args, **kwargs):
+        if BenefitBgImage.objects.count() >= 3 and not self.pk:
+            from django.core.exceptions import ValidationError
+            raise ValidationError("Only 3 background images are allowed for the Benefit page.")
+        super().save(*args, **kwargs)
+
+
+
+# Alumni page hero section (allows only one image)
+class AlumniHeroImage(models.Model):
+    title = models.CharField(max_length=200, null=False)
+    image = models.ImageField(upload_to='alumni_hero/', blank=False, null=False)
+    caption = models.TextField(blank=True, null=True)
+
+    def __str__(self):
+        return self.title
+
+
+# Alumni model for club alumni
+class ClubAlumnus(models.Model):
+    name = models.CharField(max_length=200, null=False)
+    position = models.CharField(max_length=100, blank=True, null=True)
+    major = models.CharField(max_length=100, blank=True, null=True)
+    email = models.EmailField(max_length=100, blank=True, null=True)
+    pfp_img = models.ImageField(upload_to='alumni_profiles/', blank=True, null=True)
+
+    def __str__(self):
+        return self.name
+
+
+# Telfer alumni model
+class TelferAlumnus(models.Model):
+    name = models.CharField(max_length=200, null=False)
+    major = models.CharField(max_length=100, blank=True, null=True)
+    email = models.EmailField(max_length=100, blank=True, null=True)
+    pfp_img = models.ImageField(upload_to='telfer_alumni_profiles/', blank=True, null=True)
+
+    def __str__(self):
+        return self.name
+    
+
+
+
+
+
+
+# Navbar logo for the website
+class NavbarLogo(models.Model):
+    title = models.CharField(max_length=200, null=False)
+    logo = models.ImageField(upload_to='navbar_logo/', blank=False, null=False)
+
+    def __str__(self):
+        return self.title

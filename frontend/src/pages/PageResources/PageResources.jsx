@@ -1,4 +1,6 @@
 import React from 'react';
+import { useState, useEffect } from 'react';
+import axios from 'axios';
 import styles from './PageResources.module.css';
 import Navbar from '../../components/Navbar/Navbar';
 import SecHero2 from "@/components/SecHero2/SecHero2.jsx"
@@ -12,9 +14,27 @@ import Divider from '@mui/material/Divider';
 // Main Page component
 function PageResources() {
 
-  const OPTIONS = { loop: true }
-  const SLIDE_COUNT = 5
-  const SLIDES = Array.from(Array(SLIDE_COUNT).keys())
+  const [carouselImages, setCarouselImages] = useState([]);
+  const [carouselLoading, setCarouselLoading] = useState(true);
+  const [carouselError, setCarouselError] = useState(null);
+
+  useEffect(() => {
+    const fetchCarouselImages = async () => {
+      setCarouselLoading(true);
+      setCarouselError(null);
+      try {
+        const { data } = await axios.get('http://127.0.0.1:8000/api/resourceCarouselImages/');
+        // assuming each item has an 'image' field with the URL
+        setCarouselImages(data.map(item => item.image));
+      } catch (err) {
+        console.error("Error fetching carousel images:", err);
+        setCarouselError("Failed to load slideshow images");
+      } finally {
+        setCarouselLoading(false);
+      }
+    };
+    fetchCarouselImages();
+  }, []);
 
   return (
     <>
@@ -36,7 +56,12 @@ function PageResources() {
       
       {/* Slideshow */}
       <div className="theme-light">
-        <SimpleSlideshow slides={SLIDES} options={OPTIONS} />
+        {carouselLoading && <p>Loading slideshow...</p>}
+        {carouselError && <p className={styles.error}>{carouselError}</p>}
+        <SimpleSlideshow
+          slides={carouselImages.length > 0 ? carouselImages : []}
+          options={{ loop: true }}
+        />
       </div>
       
       {/* Resource section */}

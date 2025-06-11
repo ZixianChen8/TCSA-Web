@@ -5,8 +5,8 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework import generics, status
 
-from .models import Event, Member
-from .serializers import EventSerializer, MemberSerializer
+from .models import Event, Member, CircularGalleryImage, Sponsor, ServicesBgImage, ClubAlumnus, TelferAlumnus, BenefitBgImage, ResourceCarouselImage
+from .serializers import EventSerializer, MemberSerializer, CircularGalleryImageSerializer, SponsorSerializer, ServicesBgImageSerializer, ClubAlumnusSerializer, TelferAlumnusSerializer, BenefitBgImageSerializer, ResourceCarouselImageSerializer
 
 @api_view(['GET'])
 def get_data(request):
@@ -72,28 +72,171 @@ class EventDetailAPIView(generics.RetrieveAPIView):
                 status=status.HTTP_404_NOT_FOUND
             )
 
-# API view to get all team members
-# class TeamMemberListAPIView(generics.ListAPIView):
-#     queryset = Member.objects.all()
-#     serializer_class = MemberSerializer
-
-#     def list(self, request, *args, **kwargs):
-#         try:
-#             queryset = self.get_queryset()
-#             print(f"\nFetching team members from database...")
-#             print(f"Found {queryset.count()} team members")
-            
-#             serializer = self.get_serializer(queryset, many=True)
-#             return Response(serializer.data)
-#         except Exception as e:
-#             print(f"Error in TeamMemberListAPIView: {str(e)}")
-#             return Response(
-#                 {"error": "Failed to fetch team members"},
-#                 status=status.HTTP_500_INTERNAL_SERVER_ERROR
-#             )
 
 class MemberListView(generics.ListAPIView):
     queryset = Member.objects.select_related('department', 'reports_to').all()
     # Using select_related('department', 'reports_to') can help optimize database queries
     # by fetching related objects in a single query.
     serializer_class = MemberSerializer
+
+
+# Gallery images API view
+class CircularGalleryImageListAPIView(generics.ListAPIView):
+    queryset = CircularGalleryImage.objects.all()
+    serializer_class = CircularGalleryImageSerializer
+
+    def list(self, request, *args, **kwargs):
+        try:
+            queryset = self.get_queryset()
+            print(f"\nFetched {queryset.count()} CircularGalleryImage items.")
+            for img in queryset:
+                print(f"- {img.title} ({img.image.url if img.image else 'No image'})")
+
+            serializer = self.get_serializer(queryset, many=True)
+            return Response(serializer.data)
+        except Exception as e:
+            print(f"Error in CircularGalleryImageListAPIView: {str(e)}")
+            return Response(
+                {"error": "Failed to load circular gallery images."},
+                status=status.HTTP_500_INTERNAL_SERVER_ERROR
+            )
+
+
+# Sponsor List API view
+class SponsorLogoListAPIView(generics.ListAPIView):
+    # queryset = Sponsor.objects.all()
+    serializer_class = SponsorSerializer
+
+    def get_queryset(self):
+        return Sponsor.objects.exclude(logo_img__isnull=True).exclude(logo_img='')
+
+    def list(self, request, *args, **kwargs):
+        try:
+            queryset = self.get_queryset()
+            print(f"\nFetched {queryset.count()} Sponsor items.")
+            for sponsor in queryset:
+                print(f"- {sponsor.name} ({sponsor.logo_img.url if sponsor.logo_img else 'No logo'})")
+
+            serializer = self.get_serializer(queryset, many=True)
+            return Response(serializer.data)
+        except Exception as e:
+            print(f"Error in SponsorListAPIView: {str(e)}")
+            return Response(
+                {"error": "Failed to load sponsor data."},
+                status=status.HTTP_500_INTERNAL_SERVER_ERROR
+            )
+
+
+# Services background images API view
+class ServicesBgImageListAPIView(generics.ListAPIView):
+    serializer_class = ServicesBgImageSerializer
+
+    def get_queryset(self):
+        return ServicesBgImage.objects.all()
+
+    def list(self, request, *args, **kwargs):
+        try:
+            queryset = self.get_queryset()
+            print(f"\nFetched {queryset.count()} ServicesBgImage items.")
+            for img in queryset:
+                print(f"- {img.title} ({img.image.url})")
+
+            serializer = self.get_serializer(queryset, many=True)
+            return Response(serializer.data)
+        except Exception as e:
+            print(f"Error in ServicesBgImageListAPIView: {str(e)}")
+            return Response(
+                {"error": "Failed to load services background images."},
+                status=status.HTTP_500_INTERNAL_SERVER_ERROR
+            )
+
+
+
+
+
+# Club alumnus API view
+class ClubAlumnusListAPIView(generics.ListAPIView):
+    queryset = ClubAlumnus.objects.all()
+    serializer_class = ClubAlumnusSerializer
+
+    def list(self, request, *args, **kwargs):
+        try:
+            queryset = self.get_queryset()
+            print(f"\nFetched {queryset.count()} ClubAlumnus items.")
+            for alum in queryset:
+                print(f"- {alum.name} ({alum.position or 'No position'})")
+
+            serializer = self.get_serializer(queryset, many=True)
+            return Response(serializer.data)
+        except Exception as e:
+            print(f"Error in ClubAlumnusListAPIView: {str(e)}")
+            return Response(
+                {"error": "Failed to load club alumnus data."},
+                status=status.HTTP_500_INTERNAL_SERVER_ERROR
+            )
+
+
+# Telfer alumnus API view
+class TelferAlumnusListAPIView(generics.ListAPIView):
+    queryset = TelferAlumnus.objects.all()
+    serializer_class = TelferAlumnusSerializer
+
+    def list(self, request, *args, **kwargs):
+        try:
+            queryset = self.get_queryset()
+            print(f"\nFetched {queryset.count()} TelferAlumnus items.")
+            for alum in queryset:
+                print(f"- {alum.name} ({alum.email or 'No email'})")
+
+            serializer = self.get_serializer(queryset, many=True)
+            return Response(serializer.data)
+        except Exception as e:
+            print(f"Error in TelferAlumnusListAPIView: {str(e)}")
+            return Response(
+                {"error": "Failed to load Telfer alumnus data."},
+                status=status.HTTP_500_INTERNAL_SERVER_ERROR
+            )
+
+# Benefit background images API view
+class BenefitBgImageListAPIView(generics.ListAPIView):
+    serializer_class = BenefitBgImageSerializer
+
+    def get_queryset(self):
+        return BenefitBgImage.objects.all()
+
+    def list(self, request, *args, **kwargs):
+        try:
+            queryset = self.get_queryset()
+            print(f"\nFetched {queryset.count()} BenefitBgImage items.")
+            for img in queryset:
+                print(f"- {img.title} ({img.image.url})")
+
+            serializer = self.get_serializer(queryset, many=True)
+            return Response(serializer.data)
+        except Exception as e:
+            print(f"Error in BenefitBgImageListAPIView: {str(e)}")
+            return Response(
+                {"error": "Failed to load benefit background images."},
+                status=status.HTTP_500_INTERNAL_SERVER_ERROR
+            )
+
+# Resource carousel images API view
+class ResourceCarouselImageListAPIView(generics.ListAPIView):
+    queryset = ResourceCarouselImage.objects.all()
+    serializer_class = ResourceCarouselImageSerializer
+
+    def list(self, request, *args, **kwargs):
+        try:
+            queryset = self.get_queryset()
+            print(f"\nFetched {queryset.count()} ResourceCarouselImage items.")
+            for img in queryset:
+                print(f"- {img.title} ({img.image.url if img.image else 'No image'})")
+
+            serializer = self.get_serializer(queryset, many=True)
+            return Response(serializer.data)
+        except Exception as e:
+            print(f"Error in ResourceCarouselImageListAPIView: {str(e)}")
+            return Response(
+                {"error": "Failed to load resource carousel images."},
+                status=status.HTTP_500_INTERNAL_SERVER_ERROR
+            )

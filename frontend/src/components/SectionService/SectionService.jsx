@@ -35,11 +35,11 @@ const SectionService = ({
                         ))}
                     </div>
 
-                    <div style={{ textAlign }}>
+                    {/* <div style={{ textAlign }}>
                         <a href={buttonLink} className={styles.button} >
                             <Btn2 title={buttonText} />
                         </a>      
-                    </div>
+                    </div> */}
 
                 
                     

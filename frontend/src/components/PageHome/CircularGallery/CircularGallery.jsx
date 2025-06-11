@@ -1,4 +1,4 @@
-import { useRef, useEffect } from 'react'
+import React, { useState, useRef, useEffect } from 'react'
 import {
   Renderer,
   Camera,
@@ -10,6 +10,7 @@ import {
 } from 'ogl'
 
 import styles from './CircularGallery.module.css';
+import axios from 'axios';
 
 function debounce(func, wait) {
   let timeout
@@ -333,7 +334,7 @@ class App {
   }
   createMedias(items, bend = 1, textColor, borderRadius, font) {
     const defaultItems = [
-      { image: `https://picsum.photos/seed/1/1200/800?grayscale`, text: 'Bridge' },
+      { image: `https://picsum.photos/seed/1/500/500?grayscale`, text: 'Bridge' },
       { image: `https://picsum.photos/seed/2/1200/600?grayscale`, text: 'Desk Setup' },
       { image: `https://picsum.photos/seed/3/1200/600?grayscale`, text: 'Waterfall' },
       { image: `https://picsum.photos/seed/4/1200/600?grayscale`, text: 'Strawberries' },
@@ -460,19 +461,48 @@ class App {
 }
 
 export default function CircularGallery({
-  items,
   bend = 3,
   textColor = "#ffffff",
   borderRadius = 0.05,
   font = "bold 30px DM Sans"
 }) {
-  const containerRef = useRef(null)
+  const [itemsData, setItemsData] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
   useEffect(() => {
-    const app = new App(containerRef.current, { items, bend, textColor, borderRadius, font })
+    const fetchItems = async () => {
+      setLoading(true);
+      setError(null);
+      try {
+        const fetched_images = await axios.get('http://127.0.0.1:8000/api/circularGalleryImages/');
+        setItemsData(fetched_images.data);
+      } catch (err) {
+        console.error('Error fetching gallery items:', err);
+        setError(err);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchItems();
+  }, []);
+
+  const containerRef = useRef(null)
+
+  useEffect(() => {
+    if (loading || error) return;
+    const app = new App(containerRef.current, { items: itemsData, bend, textColor, borderRadius, font });
     return () => {
-      app.destroy()
-    }
-  }, [items, bend, textColor, borderRadius, font])
+      app.destroy();
+    };
+  }, [loading, error, itemsData, bend, textColor, borderRadius, font]);
+
+  if (loading) {
+    return <div className={styles.circular_gallery}>Loading gallery...</div>;
+  }
+  if (error) {
+    return <div className={styles.circular_gallery}>Error loading gallery: {error.message}</div>;
+  }
   return (
     <div className={styles.circular_gallery} ref={containerRef} />
   )

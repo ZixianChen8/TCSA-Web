@@ -290,68 +290,79 @@ export default function TeamPyramid() {
                 if (response.data) {
                     const membersData = response.data;
 
+                    // --- Categorize members into advisors, executives, leaders, and team members ---
                     const loadedAdvisors = [];
                     const loadedExecutives = [];
                     const loadedDeptLeaders = [];
-                    const loadedTeamMembers = [];
-                    let financeExec = null;
-                    const financeMembersList = [];
+                    let loadedTeamMembers = [];
 
+                    // First pass: general roles (excluding finance)
                     membersData.forEach(member => {
-                        const memberObject = {
-                            id: member.id,
-                            name: `${member.first_name} ${member.last_name}`,
-                            email: member.email,
-                            quote: member.quote,
-                            pfp_url: member.pfp_url,
-                            position: member.position,
-                            reports_to_id: member.reports_to,
-                            department_name: member.department ? member.department.name : null,
-                        };
+                      const memberObject = {
+                        id: member.id,
+                        name: `${member.first_name} ${member.last_name}`,
+                        email: member.email,
+                        quote: member.quote,
+                        pfp_img: member.pfp_img,
+                        position: member.position,
+                        reports_to_id: member.reports_to,
+                        department_name: member.department?.name || null,
+                      };
 
-                        // Prioritize finance role identification
-                        if (memberObject.position === 'VP Finance') {
-                            financeExec = memberObject;
-                            // This member is now handled; skip other general categorizations
-                        } else if (memberObject.department_name === 'Finance' && memberObject.position !== 'VP Finance') {
-                            financeMembersList.push(memberObject);
-                            // This member is now handled; skip other general categorizations
-                        } else if (memberObject.position === 'President' && !memberObject.reports_to_id) {
-                            loadedAdvisors.push(memberObject);
-                        } else if (memberObject.position === 'Vice President') {
-                            // This will now only include non-Finance VPs because 'VP Finance' was handled above
-                            loadedExecutives.push(memberObject);
-                        } else if (memberObject.position && (memberObject.position.includes('Lead') || memberObject.position.includes('Manager')) && memberObject.department_name) {
-                            // Ensure this isn't a finance lead if they have special handling (not apparent in current code)
-                            loadedDeptLeaders.push({
-                                ...memberObject,
-                                department: memberObject.department_name
-                            });
-                        } else if (memberObject.reports_to_id) {
-                            // This will catch regular team members not covered by the roles above.
-                            // The isAlreadyCategorized check helps ensure they aren't top-level roles that also report to someone.
-                            const isAlreadyGenerallyCategorized = loadedAdvisors.some(a => a.id === memberObject.id) ||
-                                       loadedExecutives.some(e => e.id === memberObject.id) ||
-                                       loadedDeptLeaders.some(dl => dl.id === memberObject.id);
-                            if (!isAlreadyGenerallyCategorized) {
-                                loadedTeamMembers.push({
-                                    ...memberObject,
-                                    leaderId: memberObject.reports_to_id
-                                });
-                            }
-                        }
-                        // Optional: Add an 'else' here to log or handle members that don't fit any defined category
+                      if (memberObject.position === 'President' && !memberObject.reports_to_id) {
+                        loadedAdvisors.push(memberObject);
+                      } else if (memberObject.position === 'Vice President') {
+                        loadedExecutives.push(memberObject);
+                      } else if (memberObject.position && (memberObject.position.includes('Lead') || memberObject.position.includes('Manager'))) {
+                        loadedDeptLeaders.push({
+                          ...memberObject,
+                          department: memberObject.department_name || memberObject.position.replace(/ (Lead|Manager)$/, ''),
+                        });
+                      } else if (memberObject.reports_to_id) {
+                        loadedTeamMembers.push({
+                          ...memberObject,
+                          leaderId: memberObject.reports_to_id,
+                        });
+                      }
                     });
 
+                    // --- Finance department separate categorization ---
+                    const financeExecData = membersData.find(m => m.position === 'VP Finance');
+                    let financeExecObj = null;
+                    let financeMembersArray = [];
+                    if (financeExecData) {
+                      financeExecObj = {
+                        id: financeExecData.id,
+                        name: `${financeExecData.first_name} ${financeExecData.last_name}`,
+                        email: financeExecData.email,
+                        quote: financeExecData.quote,
+                        pfp_img: financeExecData.pfp_img,
+                        position: financeExecData.position,
+                      };
+                      financeMembersArray = membersData
+                        .filter(m => m.reports_to === financeExecData.id)
+                        .map(fm => ({
+                          id: fm.id,
+                          name: `${fm.first_name} ${fm.last_name}`,
+                          email: fm.email,
+                          quote: fm.quote,
+                          pfp_img: fm.pfp_img,
+                          position: fm.position,
+                          leaderId: fm.reports_to,
+                        }));
+                      // Remove finance exec and its members from general teamMembers to avoid duplicate rendering
+                      loadedTeamMembers = loadedTeamMembers.filter(m =>
+                        m.id !== financeExecData.id && m.reports_to_id !== financeExecData.id
+                      );
+                    }
+
+                    // Set general state
                     setAdvisors(loadedAdvisors);
                     setExecutives(loadedExecutives);
                     setDepartmentLeaders(loadedDeptLeaders);
                     setTeamMembers(loadedTeamMembers);
 
-                    if (financeExec) {
-                        const actualFinanceMembers = financeMembersList.filter(fm => fm.reports_to_id === financeExec.id || !fm.reports_to_id);
-                        setFinanceDepartment({ executive: financeExec, members: actualFinanceMembers });
-                    }
+                    setFinanceDepartment({ executive: financeExecObj, members: financeMembersArray });
                     setError(null);
                 } else {
                    setError("No member data received");
@@ -383,6 +394,12 @@ export default function TeamPyramid() {
         );
     }
 
+      // --- Debug logs for loaded arrays ---
+      console.log('Department leaders:', departmentLeaders);
+      console.log('Team members:', teamMembers);
+      console.log('Finance department:', financeDepartment);
+      console.log('Executives:', executives);
+
       // --- Component Rendering ---
       return (
 
@@ -408,7 +425,9 @@ export default function TeamPyramid() {
             {/* --- Lines --- */}
             {/* Line from president to vp finance (finance line)*/}
             {(() => {
-              const financeLine1Highlighted = isLineHighlighted(financeDepartment.executive.id, null);
+              const financeLine1Highlighted = financeDepartment.executive
+                ? isLineHighlighted(financeDepartment.executive.id, null)
+                : false;
               // Node positions for line endpoints (center of advisor and VP Finance node)
               const advisorX = topMostLevel[0].x;
               const advisorY = topMostLevel[0].y + 4; // center of 8x8 advisor image
@@ -429,7 +448,9 @@ export default function TeamPyramid() {
 
             {/* Line from VP Finance node to the member finance  (finance line)*/}
             {(() => {
-              const financeLine2Highlighted = isLineHighlighted(financeDepartment.executive.id, financeDepartment.members[0].id);
+              const financeLine2Highlighted = financeDepartment.executive && financeDepartment.members && financeDepartment.members.length > 0
+                ? isLineHighlighted(financeDepartment.executive.id, financeDepartment.members[0].id)
+                : false;
               // VP Finance node center
               const vpFinanceX = topMostLevel[0].x + 30 + 3.5;
               const vpFinanceY = topMostLevel[0].y + 12 + 3.5;
@@ -519,14 +540,15 @@ export default function TeamPyramid() {
             {/* --- Nodes --- */}
 
             {/* VP Finance Node */}
+            {financeDepartment.executive && (
             <g
               key="vp-finance"
               onMouseEnter={(e) => handleMouseEnter({ data: financeDepartment.executive, x: topMostLevel[0].x + 26, y: topMostLevel[0].y + 6 }, e)}
               onMouseLeave={handleMouseLeave}
             >
-              {financeDepartment.executive && financeDepartment.executive.pfp_url ? (
+              {financeDepartment.executive && financeDepartment.executive.pfp_img ? (
                 <image
-                  href={financeDepartment.executive.pfp_url}
+                  href={financeDepartment.executive.pfp_img}
                   x={topMostLevel[0].x + 30}
                   y={topMostLevel[0].y + 12}
                   width={7}
@@ -547,15 +569,17 @@ export default function TeamPyramid() {
                 />
               )}
             </g>
+            )}
             {/* Finance Department Member Node */}
+            {financeDepartment.members && financeDepartment.members.length > 0 && (
             <g
               key="finance-member"
               onMouseEnter={(e) => handleMouseEnter({ data: financeDepartment.members[0], x: topMostLevel[0].x + 38, y: topMostLevel[0].y + 10 }, e)}
               onMouseLeave={handleMouseLeave}
             >
-              {financeDepartment.members[0] && financeDepartment.members[0].pfp_url ? (
+              {financeDepartment.members[0] && financeDepartment.members[0].pfp_img ? (
                 <image
-                  href={financeDepartment.members[0].pfp_url}
+                  href={financeDepartment.members[0].pfp_img}
                   x={topMostLevel[0].x + 38}
                   y={topMostLevel[0].y + 10}
                   width={7}
@@ -576,6 +600,7 @@ export default function TeamPyramid() {
                 />
               )}
             </g>
+            )}
             
             {/* Top-most level (Advisor) */}
             {topMostLevel.map(advisor => (
@@ -584,9 +609,9 @@ export default function TeamPyramid() {
                 onMouseEnter={(e) => handleMouseEnter({ data: advisor, x: advisor.x, y: advisor.y }, e)}
                 onMouseLeave={handleMouseLeave}
               >
-                {advisor.pfp_url ? (
+                {advisor.pfp_img ? (
                   <image
-                    href={advisor.pfp_url}
+                    href={advisor.pfp_img}
                     x={advisor.x - 4}
                     y={advisor.y}
                     width={8}
@@ -616,9 +641,9 @@ export default function TeamPyramid() {
                 onMouseEnter={(e) => handleMouseEnter({ data: exec, x: exec.x, y: exec.y }, e)}
                 onMouseLeave={handleMouseLeave} 
               >
-                {exec.pfp_url ? (
+                {exec.pfp_img ? (
                   <image
-                    href={exec.pfp_url}
+                    href={exec.pfp_img}
                     x={exec.x - 3.5}
                     y={exec.y}
                     width={7}
@@ -647,9 +672,9 @@ export default function TeamPyramid() {
                 onMouseEnter={(e) => handleMouseEnter({ data: leader, x: leader.x, y: leader.y }, e)}
                 onMouseLeave={handleMouseLeave}
               >
-                {leader.pfp_url ? (
+                {leader.pfp_img ? (
                   <image
-                    href={leader.pfp_url}
+                    href={leader.pfp_img}
                     x={leader.x - 3.5}
                     y={leader.y}
                     width={7}
@@ -678,9 +703,9 @@ export default function TeamPyramid() {
                 onMouseEnter={(e) => handleMouseEnter({ data: member, x: member.x, y: member.y }, e)}
                 onMouseLeave={handleMouseLeave}
               >
-                {member.pfp_url ? (
+                {member.pfp_img ? (
                   <image
-                    href={member.pfp_url}
+                    href={member.pfp_img}
                     x={member.x - 3.5}
                     y={member.y}
                     width={7}

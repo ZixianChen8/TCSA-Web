@@ -1,50 +1,176 @@
-# serializers.py
 from rest_framework import serializers
-from .models import Event, Member, Department
+from .models import (
+    Event,
+    Registration,
+    Department,
+    Member,
+    Resource,
+    Sponsor,
+    JoinUsHeroImage,
+    JoinUsBgImage,
+    CircularGalleryImage,
+    ResourceCarouselImage,
+    ResourceHeroImage,
+    HomeHeroMedia,
+    EventHeroImage,
+    ServicesHeroImage,
+    ServicesBgImage,
+    AlumniHeroImage,
+    ClubAlumnus,
+    TelferAlumnus,
+    NavbarLogo,
+    BenefitBgImage,
+)
 
-# Serializer for Event Model (used for fetching event details)
+# Note: ImageField and FileField are automatically handled by ModelSerializer.
+# It will generate the correct URL for the uploaded file in the API response.
+
 class EventSerializer(serializers.ModelSerializer):
     class Meta:
         model = Event
-        fields = '__all__'  # Includes all fields in the Event model
+        fields = '__all__'
 
 
+class RegistrationSerializer(serializers.ModelSerializer):
+    # Represents the 'event' ForeignKey by its string representation (__str__ method)
+    event = serializers.StringRelatedField()
 
-# Serializer for members
+    class Meta:
+        model = Registration
+        fields = '__all__'
+
+
 class DepartmentSerializer(serializers.ModelSerializer):
+    # Represents the 'manager' ForeignKey by its string representation
+    manager = serializers.StringRelatedField()
+    
     class Meta:
         model = Department
-        fields = ['id', 'code', 'name'] # Or any other fields you want to expose
+        fields = '__all__'
+
 
 class MemberSerializer(serializers.ModelSerializer):
-    # To provide nested department information (like name, code)
-    # The React code expects `member.department.name`
+    # --- FIX for the 500 Error ---
+    # By default, DRF doesn't know how to represent related objects (ForeignKeys).
+    # StringRelatedField tells DRF to use the __str__ method of the related model.
+    
+    # Represents the 'department' ForeignKey by its name (e.g., "Technology")
     department = DepartmentSerializer(read_only=True)
-
-    # 'reports_to' is a ForeignKey to 'self' in your Member model.
-    # By default, DRF will serialize this as the ID of the related member,
-    # which matches what your React code expects for `reports_to_id: member.reports_to`.
-    # If you need more details from the 'reports_to' member, you could use a nested serializer,
-    # but for now, the ID is what your frontend code uses.
+    
+    # Represents the self-referencing 'reports_to' ForeignKey by the manager's name
+    reports_to = serializers.PrimaryKeyRelatedField(read_only=True)
 
     class Meta:
         model = Member
+        # Explicitly list all fields to ensure they are included in the API response
         fields = [
-            'id',
-            'first_name',
-            'last_name',
-            'email',
-            'phone',
-            'position',
-            'description',
-            'pfp_url',
-            'reports_to',  # This will serialize to the ID of the manager
-            'quote',
-            'department',  # This will use the nested DepartmentSerializer
+            'id', 
+            'first_name', 
+            'last_name', 
+            'phone', 
+            'email', 
+            'position', 
+            'description', 
+            'pfp_img', 
+            'reports_to', 
+            'quote', 
+            'department'
         ]
-        # To make sure 'reports_to' and 'department' are not required during deserialization
-        # if you ever use this serializer for POST/PUT (though for this GET request, it's fine).
-        # extra_kwargs = {
-        #     'reports_to': {'allow_null': True, 'required': False},
-        #     'department': {'allow_null': True, 'required': False}
-        # }
+
+
+class ResourceSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Resource
+        fields = '__all__'
+
+
+
+class SponsorSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Sponsor
+        fields = '__all__'
+
+
+class JoinUsHeroImageSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = JoinUsHeroImage
+        fields = '__all__'
+
+
+class JoinUsBgImageSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = JoinUsBgImage
+        fields = '__all__'
+
+
+class CircularGalleryImageSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = CircularGalleryImage
+        fields = '__all__'
+
+
+
+class ResourceCarouselImageSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ResourceCarouselImage
+        fields = '__all__'
+
+
+class ResourceHeroImageSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ResourceHeroImage
+        fields = '__all__'
+
+
+class HomeHeroMediaSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = HomeHeroMedia
+        fields = '__all__'
+
+
+class EventHeroImageSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = EventHeroImage
+        fields = '__all__'
+
+
+class ServicesHeroImageSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ServicesHeroImage
+        fields = '__all__'
+
+
+class ServicesBgImageSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ServicesBgImage
+        fields = '__all__'
+
+
+class BenefitBgImageSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = BenefitBgImage
+        fields = '__all__'
+
+
+class AlumniHeroImageSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = AlumniHeroImage
+        fields = '__all__'
+
+
+class ClubAlumnusSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ClubAlumnus
+        fields = '__all__'
+
+
+class TelferAlumnusSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = TelferAlumnus
+        fields = '__all__'
+
+
+class NavbarLogoSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = NavbarLogo
+        fields = '__all__'
