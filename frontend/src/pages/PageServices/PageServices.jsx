@@ -6,7 +6,7 @@ import Navbar from '@/components/Navbar/Navbar';
 import Footer from '@/components/Footer/Footer.jsx'
 import SectionService from '@/components/SectionService/SectionService';
 import emailjs from '@emailjs/browser';
-import SecHero2 from "@/components/SecHero2/secHero2.jsx"
+import SecHero2 from "@/components/SecHero2/SecHero2.jsx"
 import axios from 'axios';
 
 import styles from './PageServices.module.css';
