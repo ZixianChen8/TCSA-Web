@@ -158,6 +158,16 @@ class JoinUsHeroImageAdmin(admin.ModelAdmin):
     list_display = ('title', 'caption', 'image')
     search_fields = ('title', 'caption')
 
+    def has_add_permission(self, request):
+        if self.model.objects.exists():
+            self.message_user(
+                request,
+                "Only one JoinUsHeroImage allowed. Delete the existing one before adding a new one.",
+                level=messages.ERROR
+            )
+            return False
+        return super().has_add_permission(request)
+
 @admin.register(JoinUsBgImage)
 class JoinUsBgImageAdmin(admin.ModelAdmin):
     list_display = ('title', 'image')
@@ -179,6 +189,16 @@ class ResourceHeroImageAdmin(admin.ModelAdmin):
     list_display = ('title', 'caption', 'image')
     search_fields = ('title', 'caption')
 
+    def has_add_permission(self, request):
+        if self.model.objects.exists():
+            self.message_user(
+                request,
+                "Only one ResourceHeroImage allowed. Delete the existing one before adding a new one.",
+                level=messages.ERROR
+            )
+            return False
+        return super().has_add_permission(request)
+
 
 @admin.register(BenefitBgImage)
 class BenefitBgImageAdmin(admin.ModelAdmin):
@@ -190,15 +210,45 @@ class HomeHeroMediaAdmin(admin.ModelAdmin):
     list_display = ('title', 'image', 'video')
     search_fields = ('title',)
 
+    def has_add_permission(self, request):
+        if self.model.objects.exists():
+            self.message_user(
+                request,
+                "Only one HomeHeroMedia allowed. Delete the existing one before adding a new one.",
+                level=messages.ERROR
+            )
+            return False
+        return super().has_add_permission(request)
+
 @admin.register(EventHeroImage)
 class EventHeroImageAdmin(admin.ModelAdmin):
     list_display = ('title', 'caption', 'image')
     search_fields = ('title', 'caption')
 
+    def has_add_permission(self, request):
+        if self.model.objects.exists():
+            self.message_user(
+                request,
+                "Only one EventHeroImage allowed. Delete the existing one before adding a new one.",
+                level=messages.ERROR
+            )
+            return False
+        return super().has_add_permission(request)
+
 @admin.register(ServicesHeroImage)
 class ServicesHeroImageAdmin(admin.ModelAdmin):
     list_display = ('title', 'caption', 'image')
     search_fields = ('title', 'caption')
+
+    def has_add_permission(self, request):
+        if self.model.objects.exists():
+            self.message_user(
+                request,
+                "Only one ServicesHeroImage allowed. Delete the existing one before adding a new one.",
+                level=messages.ERROR
+            )
+            return False
+        return super().has_add_permission(request)
 
 @admin.register(ServicesBgImage)
 class ServicesBgImageAdmin(admin.ModelAdmin):
@@ -209,6 +259,16 @@ class ServicesBgImageAdmin(admin.ModelAdmin):
 class AlumniHeroImageAdmin(admin.ModelAdmin):
     list_display = ('title', 'caption', 'image')
     search_fields = ('title', 'caption')
+
+    def has_add_permission(self, request):
+        if self.model.objects.exists():
+            self.message_user(
+                request,
+                "Only one AlumniHeroImage allowed. Delete the existing one before adding a new one.",
+                level=messages.ERROR
+            )
+            return False
+        return super().has_add_permission(request)
 
 @admin.register(ClubAlumnus)
 class ClubAlumnusAdmin(admin.ModelAdmin):

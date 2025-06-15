@@ -8,7 +8,7 @@
 # from django.conf.urls.static import static
 
 from django.urls import path
-from .views import get_data, EventDetailAPIView, EventListAPIView, MemberListView, CircularGalleryImageListAPIView, SponsorLogoListAPIView, ServicesBgImageListAPIView, ClubAlumnusListAPIView, TelferAlumnusListAPIView, BenefitBgImageListAPIView, ResourceCarouselImageListAPIView
+from .views import get_data, EventDetailAPIView, EventListAPIView, MemberListView, CircularGalleryImageListAPIView, SponsorLogoListAPIView, ServicesBgImageListAPIView, ClubAlumnusListAPIView, TelferAlumnusListAPIView, BenefitBgImageListAPIView, ResourceCarouselImageListAPIView, ResourceListAPIView, HomeHeroMediaListAPIView
 
 urlpatterns = [
     path('data/', get_data, name='get_data'),
@@ -22,5 +22,7 @@ urlpatterns = [
     path('telferAlumni/', TelferAlumnusListAPIView.as_view(), name='telfer_alumnus'),
     path('benefitBgImages/', BenefitBgImageListAPIView.as_view(), name='benefit_bg_images'),
     path('resourceCarouselImages/', ResourceCarouselImageListAPIView.as_view(), name='resource_carousel_images'),
+    path('resources/', ResourceListAPIView.as_view(), name='resource_list'),
+    path('homeHeroMedia/', HomeHeroMediaListAPIView.as_view(), name='home_hero_media'),
     
 ]

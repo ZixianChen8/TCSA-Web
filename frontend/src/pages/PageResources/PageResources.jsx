@@ -18,6 +18,10 @@ function PageResources() {
   const [carouselLoading, setCarouselLoading] = useState(true);
   const [carouselError, setCarouselError] = useState(null);
 
+  const [resources, setResources] = useState([]);
+  const [resourcesLoading, setResourcesLoading] = useState(true);
+  const [resourcesError, setResourcesError] = useState(null);
+
   useEffect(() => {
     const fetchCarouselImages = async () => {
       setCarouselLoading(true);
@@ -25,7 +29,7 @@ function PageResources() {
       try {
         const { data } = await axios.get('http://127.0.0.1:8000/api/resourceCarouselImages/');
         // assuming each item has an 'image' field with the URL
-        setCarouselImages(data.map(item => item.image));
+        setCarouselImages(data);
       } catch (err) {
         console.error("Error fetching carousel images:", err);
         setCarouselError("Failed to load slideshow images");
@@ -34,6 +38,23 @@ function PageResources() {
       }
     };
     fetchCarouselImages();
+  }, []);
+
+  useEffect(() => {
+    const fetchResources = async () => {
+      setResourcesLoading(true);
+      setResourcesError(null);
+      try {
+        const { data } = await axios.get('http://127.0.0.1:8000/api/resources/');
+        setResources(data);
+      } catch (err) {
+        console.error("Error fetching resources:", err);
+        setResourcesError("Failed to load resources");
+      } finally {
+        setResourcesLoading(false);
+      }
+    };
+    fetchResources();
   }, []);
 
   return (
@@ -58,25 +79,41 @@ function PageResources() {
       <div className="theme-light">
         {carouselLoading && <p>Loading slideshow...</p>}
         {carouselError && <p className={styles.error}>{carouselError}</p>}
-        <SimpleSlideshow
-          slides={carouselImages.length > 0 ? carouselImages : []}
-          options={{ loop: true }}
-        />
+        <SimpleSlideshow options={{ loop: true }}>
+          {carouselImages.map((item, idx) => (
+            <a
+              key={idx}
+              href={item.link || '#'}
+              target={item.link ? '_blank' : undefined}
+              rel={item.link ? 'noopener noreferrer' : undefined}
+            >
+              <img
+                src={item.image}
+                alt={item.title || `Slide ${idx + 1}`}
+              />
+            </a>
+          ))}
+        </SimpleSlideshow>
       </div>
       
       {/* Resource section */}
       
       <Divider><h2 className={styles.ResourcesTitle}>Explore More</h2></Divider>
-      <section className={styles.resources}>
-        {Array.from({ length: 15 }).map((_, idx) => (
-          <CardResource
-            key={idx}
-            imageSrc={`https://via.placeholder.com/320x180?text=Resource+${idx + 1}`}
-            title={`Resource ${idx + 1}`}
-            description="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore."
-          />
-        ))}
-      </section>
+      {resourcesLoading && <p>Loading resources...</p>}
+      {resourcesError && <p className={styles.error}>{resourcesError}</p>}
+      {!resourcesLoading && !resourcesError && (
+        <section className={styles.resources}>
+          {resources.map((item, idx) => (
+            <CardResource
+              key={item.id || idx}
+              imageSrc={item.thumbnail_img}
+              title={item.title}
+              description={item.description}
+              link={item.resource_url}
+            />
+          ))}
+        </section>
+      )}
       
 
       {/* Footer */}

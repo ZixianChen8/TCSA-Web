@@ -20,6 +20,9 @@ const Home = () => {
   const [sponsors, setSponsors] = useState([]);
   const [sponsorsLoading, setSponsorsLoading] = useState(true);
   const [sponsorsError, setSponsorsError] = useState(null);
+  const [heroMedia, setHeroMedia] = useState(null);
+  const [heroLoading, setHeroLoading] = useState(true);
+  const [heroError, setHeroError] = useState(null);
   // Fetch sponsors from the backend
   useEffect(() => {
     const fetchSponsors = async () => {
@@ -36,6 +39,28 @@ const Home = () => {
       }
     };
     fetchSponsors();
+  }, []);
+
+  useEffect(() => {
+    const fetchHeroMedia = async () => {
+      setHeroLoading(true);
+      setHeroError(null);
+      try {
+        const response = await axios.get('http://127.0.0.1:8000/api/homeHeroMedia/');
+        const data = response.data;
+        if (Array.isArray(data) && data.length > 0) {
+          setHeroMedia(data[0]);
+        } else {
+          setHeroMedia(null);
+        }
+      } catch (err) {
+        console.error('Error fetching hero media:', err);
+        setHeroError('Failed to load hero media');
+      } finally {
+        setHeroLoading(false);
+      }
+    };
+    fetchHeroMedia();
   }, []);
 
 
@@ -109,8 +134,10 @@ const Home = () => {
           }
           btnText="Join us"
           showBtn={true}
+          heroMedia={heroMedia}
+          heroLoading={heroLoading}
+          heroError={heroError}
         />
-
       </section>
 
       <main>

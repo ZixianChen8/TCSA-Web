@@ -16,11 +16,11 @@
 
 /* Navigation bar */
 .navbar {
-  position: relative; /* Ensure it is positioned relative to its parent */
+  position: fixed; /* Ensure it is positioned fixed to the viewport */
   top: 0;
+  left: 0;
   width: 100%;
   z-index: 1000;
-  background-color: white;
 }
 
 /* Footer */
@@ -32,23 +32,6 @@
   position: fixed;
   bottom: 0;
   width: 100%;
-}
-
-/* Dock */
-
-.dock {
-  position: fixed;
-  bottom: 0;
-  width: 100%;
-  z-index: 1000;
-  display: flex;
-  justify-content: center;
-  transform: translateY(100%);
-  transition: transform 0.3s ease-in-out;
-}
-
-.dock.show {
-  transform: translateY(0);
 }
 
 /* Responsive Design */

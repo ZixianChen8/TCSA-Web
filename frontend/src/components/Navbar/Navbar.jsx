@@ -1,10 +1,24 @@
-import { AppBar, Toolbar, Box, Button } from "@mui/material";
+import React, { useState, useEffect } from 'react';
+import styles from './Navbar.module.css'
+
 import Logo from './Logo.jsx'
 
+
 const Navbar = () => {
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 50);
+    };
+    window.addEventListener('scroll', handleScroll);
+    handleScroll();
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
   return (
-    <AppBar position="sticky" sx={{ backgroundColor: "white", boxShadow: 1 }}>
-      <Toolbar sx={{ display: "flex", justifyContent: "space-between", padding: "10px 20px" }}>
+    <nav className={`${styles.navbar} ${scrolled ? styles.navbarScrolled : ''}`}>
+      <div className={styles['navbar-toolbar']}>
         
         {/* Left Side */}
         <a href="/">
@@ -13,15 +27,15 @@ const Navbar = () => {
 
 
         {/* Right Side: Navigation Links */}
-        <Box sx={{ display: "flex", gap: 3 }}>
-          <Button href="/events" sx={{ color: "#8F001A" }}>Events</Button>
-          <Button href="/services" sx={{ color: "#1C3144" }}>Services</Button>
-          <Button href="/alumni" sx={{ color: "#1C3144" }}>Alumni</Button>
-          <Button href="/joinus" sx={{ color: "#1C3144" }}>Join us</Button>
-          <Button href="/resources" sx={{ color: "#1C3144" }}>Resources</Button>
-        </Box>
-      </Toolbar>
-    </AppBar>
+        <div className={styles['navbar-links']}>
+          <a href="/events" className={styles['nav-link']}>Events</a>
+          <a href="/services" className={styles['nav-link']}>Services</a>
+          <a href="/alumni" className={styles['nav-link']}>Alumni</a>
+          <a href="/joinus" className={styles['nav-link']}>Join us</a>
+          <a href="/resources" className={styles['nav-link']}>Resources</a>
+        </div>
+      </div>
+    </nav>
   );
 };
 

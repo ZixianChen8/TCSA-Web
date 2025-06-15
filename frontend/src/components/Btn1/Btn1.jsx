@@ -71,15 +71,16 @@ const StyledWrapper = styled.div`
   button {
     position: relative;
     padding: 12px 35px;
-    background:rgb(65, 65, 65);
+    background: #8F001A;
     font-size: 17px;
     font-weight: 500;
     color: white;
-    border: 3px solid rgb(65, 65, 65);
-    border-radius: 8px;
-    box-shadow: 0 0 0 #fec1958c;
+    border: 3px solid #8F001A;
+    border-radius: 50px;
+    box-shadow: 0 0 0 #fffdef;
     transition: all 0.3s ease-in-out;
     cursor: pointer;
+    color: #FFFDEF;
   }
 
   .star-1 {
@@ -88,7 +89,7 @@ const StyledWrapper = styled.div`
     left: 20%;
     width: 25px;
     height: auto;
-    filter: drop-shadow(0 0 0 rgb(65, 65, 65));
+    filter: drop-shadow(0 0 0 #fffdef);
     z-index: -5;
     transition: all 1s cubic-bezier(0.05, 0.83, 0.43, 0.96);
   }
@@ -99,7 +100,7 @@ const StyledWrapper = styled.div`
     left: 45%;
     width: 15px;
     height: auto;
-    filter: drop-shadow(0 0 0 rgb(65, 65, 65));
+    filter: drop-shadow(0 0 0 #fffdef);
     z-index: -5;
     transition: all 1s cubic-bezier(0, 0.4, 0, 1.01);
   }
@@ -110,7 +111,7 @@ const StyledWrapper = styled.div`
     left: 40%;
     width: 5px;
     height: auto;
-    filter: drop-shadow(0 0 0 rgb(65, 65, 65));
+    filter: drop-shadow(0 0 0 #fffdef);
     z-index: -5;
     transition: all 1s cubic-bezier(0, 0.4, 0, 1.01);
   }
@@ -121,7 +122,7 @@ const StyledWrapper = styled.div`
     left: 40%;
     width: 8px;
     height: auto;
-    filter: drop-shadow(0 0 0 rgb(65, 65, 65));
+    filter: drop-shadow(0 0 0 #fffdef);
     z-index: -5;
     transition: all 0.8s cubic-bezier(0, 0.4, 0, 1.01);
   }
@@ -132,7 +133,7 @@ const StyledWrapper = styled.div`
     left: 45%;
     width: 15px;
     height: auto;
-    filter: drop-shadow(0 0 0 rgb(65, 65, 65));
+    filter: drop-shadow(0 0 0 #fffdef);
     z-index: -5;
     transition: all 0.6s cubic-bezier(0, 0.4, 0, 1.01);
   }
@@ -143,7 +144,7 @@ const StyledWrapper = styled.div`
     left: 50%;
     width: 5px;
     height: auto;
-    filter: drop-shadow(0 0 0 rgb(65, 65, 65));
+    filter: drop-shadow(0 0 0 #fffdef);
     z-index: -5;
     transition: all 0.8s ease;
   }
@@ -151,7 +152,7 @@ const StyledWrapper = styled.div`
   button:hover {
     background: transparent;
     color: black;
-    box-shadow: 0 0 25px rgba(11, 11, 11, 0.29);
+    box-shadow: 0 0 25px #fffdef;
   }
 
   button:hover .star-1 {
@@ -160,7 +161,7 @@ const StyledWrapper = styled.div`
     left: -30%;
     width: 25px;
     height: auto;
-    filter: drop-shadow(0 0 10px rgb(65, 65, 65));
+    filter: drop-shadow(0 0 10px #fffdef);
     z-index: 2;
   }
 
@@ -170,7 +171,7 @@ const StyledWrapper = styled.div`
     left: 10%;
     width: 15px;
     height: auto;
-    filter: drop-shadow(0 0 10px rgb(65, 65, 65));
+    filter: drop-shadow(0 0 10px #fffdef);
     z-index: 2;
   }
 
@@ -180,7 +181,7 @@ const StyledWrapper = styled.div`
     left: 25%;
     width: 5px;
     height: auto;
-    filter: drop-shadow(0 0 10px rrgb(65, 65, 65));
+    filter: drop-shadow(0 0 10px #fffdef);
     z-index: 2;
   }
 
@@ -190,7 +191,7 @@ const StyledWrapper = styled.div`
     left: 80%;
     width: 8px;
     height: auto;
-    filter: drop-shadow(0 0 10px rgb(65, 65, 65));
+    filter: drop-shadow(0 0 10px #fffdef);
     z-index: 2;
   }
 
@@ -200,7 +201,7 @@ const StyledWrapper = styled.div`
     left: 115%;
     width: 15px;
     height: auto;
-    filter: drop-shadow(0 0 10px rgb(65, 65, 65));
+    filter: drop-shadow(0 0 10px #fffdef);
     z-index: 2;
   }
 
@@ -210,12 +211,12 @@ const StyledWrapper = styled.div`
     left: 60%;
     width: 5px;
     height: auto;
-    filter: drop-shadow(0 0 10px rgb(65, 65, 65));
+    filter: drop-shadow(0 0 10px #fffdef);
     z-index: 2;
   }
 
   .fil0 {
-    fill: rgb(65, 65, 65); 
+    fill: #fffdef; 
   }`;
 
 export default Button;

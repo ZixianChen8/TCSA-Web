@@ -36,22 +36,27 @@ const CardEvent = ({ event }) => {
         }
     };
 
+    const truncate = (text, maxLength = 32) => {
+      if (!text) return "";
+      return text.length > maxLength ? text.slice(0, maxLength) + "..." : text;
+    };
+
     return (
         <div className={styles.eventCard}>
             <div className={styles.eventContent}>
                 <h2 className={styles.eventTitle}>{currentEvent.title}</h2>
                 <div className={styles.eventDetails}>
                     <p>
-                        <Icon iconName="IconLocation" color="black" size="20" />
-                        {currentEvent.location}
+                        <Icon iconName="IconLocation" color="#8F001A" size="20" />
+                        {truncate(currentEvent.location)}
                     </p>
                     <p>
-                        <Icon iconName="IconCalendar" color="black" size="20" />
-                        {formatDate(currentEvent.date)}
+                        <Icon iconName="IconCalendar" color="#8F001A" size="20" />
+                        {truncate(formatDate(currentEvent.date))}
                     </p>
                     <p>
-                        <Icon iconName="IconStar" color="black" size="20" />
-                        By: {currentEvent.organizer}
+                        <Icon iconName="IconStar" color="#8F001A" size="20" />
+                        By: {truncate(currentEvent.organizer)}
                     </p>
                 </div>
                 <div className={styles.eventBtns}>

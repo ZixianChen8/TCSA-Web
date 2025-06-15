@@ -26,17 +26,16 @@ const StyledWrapper = styled.div`
   /* button styling */
   .button {
     --border-right: 6px;
-    --text-stroke-color: rgba(255,255,255,0.6);
-    --animation-color: black;
+    --text-stroke-color: black;
+    --animation-color: #8F001A;
     --fs-size: 1.5em;
-    letter-spacing: 3px;
+    letter-spacing: 4px;
     text-decoration: none;
     font-size: var(--fs-size);
     font-family: "Arial";
     position: relative;
     text-transform: uppercase;
-    color: transparent;
-    -webkit-text-stroke: 1px var(--text-stroke-color);
+    -webkit-text-stroke: 2.3px var(--text-stroke-color);
   }
   /* this is the text, when you hover on button */
   .hover-text {
@@ -49,7 +48,7 @@ const StyledWrapper = styled.div`
     border-right: var(--border-right) solid var(--animation-color);
     overflow: hidden;
     transition: 0.5s;
-    -webkit-text-stroke: 1px var(--animation-color);
+    -webkit-text-stroke: 2.3px var(--animation-color);
   }
   /* hover */
   .button:hover .hover-text {

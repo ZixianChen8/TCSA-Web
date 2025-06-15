@@ -7,6 +7,7 @@ import CardJob from '@/components/CardJob/CardJob.jsx';
 import Navbar from "@/components/Navbar/Navbar.jsx"
 import SecHero2 from "@/components/SecHero2/secHero2.jsx"
 import Footer from '@/components/Footer/Footer.jsx'
+import SubmitBtn from '@/components/BtnStar2/BtnStar2.jsx'
 
 // import { FaLock } from 'react-icons/fa';
 
@@ -129,7 +130,7 @@ const PageJoinus = () => {
                 </section>
 
                 <section className={styles.howToApply}>
-                    <h2>How to Apply</h2>
+                    <h2>Tell us About Yourself !</h2>
 
 
                     <div className={styles.applicationContent}>
@@ -152,8 +153,10 @@ const PageJoinus = () => {
 
                             {/* <label>Anything else we should know?</label>
                             <textarea name="message" rows="5" required></textarea> */}
+                            <div className={styles.submitBtn}>
+                              <SubmitBtn title="Submit" />
+                            </div>
 
-                            <button type="submit">Submit Application</button>
                         </form>
 
                     </div>

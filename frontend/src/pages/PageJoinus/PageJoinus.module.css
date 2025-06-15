@@ -91,9 +91,10 @@
   font-style: italic;
   margin-top: 0; /* Remove default top margin from h2 */
   margin-bottom: 0;
-  color: #333;
   text-align: left;
-
+  background: linear-gradient(90deg, #ff006e, #8338ec);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
 .benefitTextContainer p {
@@ -190,7 +191,10 @@
 .applicationDescription{
   margin: 5rem 20rem 5rem 10rem;
 }
-
+.submitBtn{
+  display: flex;
+  justify-content: center;
+}
 
 /* submit button styles */
 .applicationForm button[type="submit"] {

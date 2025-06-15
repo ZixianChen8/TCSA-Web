@@ -5,8 +5,8 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework import generics, status
 
-from .models import Event, Member, CircularGalleryImage, Sponsor, ServicesBgImage, ClubAlumnus, TelferAlumnus, BenefitBgImage, ResourceCarouselImage
-from .serializers import EventSerializer, MemberSerializer, CircularGalleryImageSerializer, SponsorSerializer, ServicesBgImageSerializer, ClubAlumnusSerializer, TelferAlumnusSerializer, BenefitBgImageSerializer, ResourceCarouselImageSerializer
+from .models import Event, Member, CircularGalleryImage, Sponsor, ServicesBgImage, ClubAlumnus, TelferAlumnus, BenefitBgImage, ResourceCarouselImage, Resource, HomeHeroMedia
+from .serializers import EventSerializer, MemberSerializer, CircularGalleryImageSerializer, SponsorSerializer, ServicesBgImageSerializer, ClubAlumnusSerializer, TelferAlumnusSerializer, BenefitBgImageSerializer, ResourceCarouselImageSerializer, ResourceSerializer, HomeHeroMediaSerializer
 
 @api_view(['GET'])
 def get_data(request):
@@ -238,5 +238,49 @@ class ResourceCarouselImageListAPIView(generics.ListAPIView):
             print(f"Error in ResourceCarouselImageListAPIView: {str(e)}")
             return Response(
                 {"error": "Failed to load resource carousel images."},
+                status=status.HTTP_500_INTERNAL_SERVER_ERROR
+            )
+
+
+# Resource list API view
+class ResourceListAPIView(generics.ListAPIView):
+    queryset = Resource.objects.all()
+    serializer_class = ResourceSerializer
+
+    def list(self, request, *args, **kwargs):
+        try:
+            queryset = self.get_queryset()
+            print(f"\nFetched {queryset.count()} Resource items.")
+            for res in queryset:
+                print(f"- {res.title} (URL: {res.resource_url or 'No URL'})")
+
+            serializer = self.get_serializer(queryset, many=True)
+            return Response(serializer.data)
+        except Exception as e:
+            print(f"Error in ResourceListAPIView: {str(e)}")
+            return Response(
+                {"error": "Failed to load resources."},
+                status=status.HTTP_500_INTERNAL_SERVER_ERROR
+            )
+
+# Home hero media API view
+class HomeHeroMediaListAPIView(generics.ListAPIView):
+    queryset = HomeHeroMedia.objects.all()
+    serializer_class = HomeHeroMediaSerializer
+
+    def list(self, request, *args, **kwargs):
+        try:
+            queryset = self.get_queryset()
+            print(f"\nFetched {queryset.count()} HomeHeroMedia items.")
+            for media in queryset:
+                media_type = 'video' if media.video else 'image'
+                print(f"- {media.title} ({media_type}: {getattr(media, media_type).url})")
+
+            serializer = self.get_serializer(queryset, many=True)
+            return Response(serializer.data)
+        except Exception as e:
+            print(f"Error in HomeHeroMediaListAPIView: {str(e)}")
+            return Response(
+                {"error": "Failed to load home hero media."},
                 status=status.HTTP_500_INTERNAL_SERVER_ERROR
             )

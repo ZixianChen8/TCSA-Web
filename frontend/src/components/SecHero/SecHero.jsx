@@ -1,8 +1,29 @@
+import React from "react";
 import Btn1 from "../Btn1/Btn1.jsx"
 import styles from "./SecHero.module.css"
 import SplitText from "../Anim_SplitText/Anim_SplitText.jsx";
 
-const SecHero = ({title, message, showBtn, btnText, btnLink, className}) => {
+const SecHero = ({ title, message, showBtn, btnText, btnLink, className, heroMedia, heroLoading, heroError }) => {
+
+    let backgroundElement;
+    if (heroLoading) {
+      backgroundElement = <div className={styles.loading}>Loading...</div>;
+    } else if (heroError || !heroMedia) {
+      backgroundElement = <div className={styles.heroBgDefault} />;
+    } else if (heroMedia.video) {
+      backgroundElement = (
+        <video autoPlay muted loop className={styles.heroBg}>
+          <source src={heroMedia.video} type="video/mp4" />
+        </video>
+      );
+    } else {
+      backgroundElement = (
+        <div
+          className={styles.heroBg}
+          style={{ backgroundImage: `url(${heroMedia.image})` }}
+        />
+      );
+    }
 
     let displayTitle;
     if (title == "TELFER CHINESE STUDENT ASSOCIATION") {
@@ -66,6 +87,7 @@ const SecHero = ({title, message, showBtn, btnText, btnLink, className}) => {
 
     return (
         <section className={`${styles.hero} ${className || ''}`}>
+            {backgroundElement}
             <div className={styles.heroContent}>
                 <h1>{displayTitle}</h1>
                 <p className={styles.welcomeMessage}>{message}</p>
