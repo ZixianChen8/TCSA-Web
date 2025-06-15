@@ -14,8 +14,13 @@ from pathlib import Path
 from datetime import timedelta
 from dotenv import load_dotenv
 import os
-
 load_dotenv()
+
+AWS_ACCESS_KEY_ID        = os.getenv("AWS_ACCESS_KEY_ID")
+AWS_SECRET_ACCESS_KEY    = os.getenv("AWS_SECRET_ACCESS_KEY")
+AWS_STORAGE_BUCKET_NAME  = os.getenv("AWS_STORAGE_BUCKET_NAME")
+AWS_S3_REGION_NAME       = os.getenv("AWS_S3_REGION_NAME")
+AWS_S3_SIGNATURE_VERSION = os.getenv("AWS_S3_SIGNATURE_VERSION")
 
 # Load secret key from environment for production safety
 
@@ -35,6 +40,10 @@ DEBUG = False
 ALLOWED_HOSTS = ["tcsaofficial.com", "www.tcsaofficial.com"]
 
 
+DEFAULT_FILE_STORAGE = "storages.backends.s3boto3.S3Boto3Storage"
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
+
 
 # Application definition
 
@@ -48,7 +57,9 @@ INSTALLED_APPS = [
     'api',
     'rest_framework',
     'corsheaders',
+    "storages"
 ]
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -138,8 +149,8 @@ STATICFILES_DIRS = [
 ]
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
-MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+# MEDIA_URL = '/media/'  # handled by S3
+# MEDIA_ROOT = os.path.join(BASE_DIR, 'media')  # handled by S3
 
 
 
