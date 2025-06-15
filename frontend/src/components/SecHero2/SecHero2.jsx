@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from './secHero2.module.css'
+import styles from './SecHero2.module.css'
 
 const SecHero2 = ({
   title = 'Welcome to Our Site',

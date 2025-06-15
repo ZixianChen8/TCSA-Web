@@ -5,7 +5,7 @@ import CardJob from '@/components/CardJob/CardJob.jsx';
 // import CardBenefit from '@/components/CardBenefit/CardBenefit.jsx';
 
 import Navbar from "@/components/Navbar/Navbar.jsx"
-import SecHero2 from "@/components/SecHero2/secHero2.jsx"
+import SecHero2 from "@/components/SecHero2/SecHero2.jsx"
 import Footer from '@/components/Footer/Footer.jsx'
 import SubmitBtn from '@/components/BtnStar2/BtnStar2.jsx'
 
