@@ -281,7 +281,7 @@ export default function TeamPyramid() {
             setLoading(true);
             setError(null);
             try {
-                const response = await axios.get('http://127.0.0.1:8000/api/members/', {
+                const response = await axios.get('/api/members/', {
                     headers: {
                         'Accept': 'application/json',
                     }

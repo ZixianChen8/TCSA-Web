@@ -475,7 +475,7 @@ export default function CircularGallery({
       setLoading(true);
       setError(null);
       try {
-        const fetched_images = await axios.get('http://127.0.0.1:8000/api/circularGalleryImages/');
+        const fetched_images = await axios.get('/api/circularGalleryImages/');
         setItemsData(fetched_images.data);
       } catch (err) {
         console.error('Error fetching gallery items:', err);
