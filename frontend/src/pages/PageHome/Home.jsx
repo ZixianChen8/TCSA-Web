@@ -1,4 +1,4 @@
-import { React, useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import SecHero from "@/components/SecHero/SecHero.jsx"
 import CardEvent from "@/components/CardEvent/CardEvent.jsx"
 import TeamPyramid from "@/components/PageHome/TeamPyramid/TeamPyramid.jsx"
@@ -125,12 +125,10 @@ const Home = () => {
         <SecHero
           title="TELFER CHINESE STUDENT ASSOCIATION"
           message={
-            <>
-              <p>Welcome to TCSA</p>
-              <p>TCSA supports Chinese students at the Telfer School of Management by offering academic guidance, cultural experiences, and networking opportunities to enhance their business knowledge and professional growth.</p>
-              <div style={{ marginTop: '1rem' }}>
-              </div>
-            </>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
+              <div>Welcome to TCSA</div>
+              <div>TCSA supports Chinese students at the Telfer School of Management by offering academic guidance, cultural experiences, and networking opportunities to enhance their business knowledge and professional growth.</div>
+            </div>
           }
           btnText="Join us"
           showBtn={true}
@@ -166,7 +164,7 @@ const Home = () => {
             {!loading && !error && events.length === 0 && (
               <p className={styles.noEvents}>No upcoming events at the moment.</p>
             )}
-            {!loading && !error && events.map((event) => (
+            {!loading && !error && Array.isArray(events) && events.map((event) => (
               <div key={event.id} className={styles.eventCardWrapper}>
                 <CardEvent event={event} />
               </div>
@@ -188,7 +186,7 @@ const Home = () => {
           <div className={styles.sponsorLogos}>
             {sponsorsLoading && <p>Loading sponsors...</p>}
             {sponsorsError && <p className={styles.error}>{sponsorsError}</p>}
-            {!sponsorsLoading && !sponsorsError && sponsors.map((sponsor) => (
+            {!sponsorsLoading && !sponsorsError && Array.isArray(sponsors) && sponsors.map((sponsor) => (
               <a key={sponsor.id} href={sponsor.link || '#'} target="_blank" rel="noopener noreferrer">
                 <img src={sponsor.logo_img} alt={sponsor.name} />
               </a>
@@ -202,7 +200,7 @@ const Home = () => {
           <div className={styles.contactContent}>
             <div className={styles.contactInfo}>
               <h3>Get in touch with us</h3>
-              <p>We'd love to hear from you! Whether you have questions, feedback, or just want to say hello, fill out the form below or send us an email. We'll get back to you as soon as possible!</p>
+              {/* <p>We'd love to hear from you! Whether you have questions, feedback, or just want to say hello, fill out the form below or send us an email. We'll get back to you as soon as possible!</p> */}
               <p>📧 tcsaofficial@outlook.com</p>
             </div>
 
@@ -225,5 +223,3 @@ const Home = () => {
 };
 
 export default Home;
-
-

@@ -74,7 +74,7 @@ function PageServices() {
         {/* Left-aligned text (default) */}
         <SectionService
           imageSrc={servicesBgImages[0]?.image || '/images/service-left.png'}
-          subtitle="🎬 Video Production"
+          subtitle="Video Production"
           title="Your Story, Perfectly Framed."
           tagline="Promotional videos, event coverage, interviews, social media content"
           paragraphs={[
@@ -88,7 +88,7 @@ function PageServices() {
         {/* Left-aligned text */}
         <SectionService
           imageSrc={servicesBgImages[1]?.image || '/images/service-center.png'}
-          subtitle="🎨 Graphic & Brand Design"
+          subtitle="Graphic & Brand Design"
           title="Designs That Speak Volumes"
           tagline="Custom logo creation Business card design and printing. Visual identity systems (Brand Guidelines, Typography, Color Palettes)"
           paragraphs={[
@@ -102,7 +102,7 @@ function PageServices() {
         {/* Center-aligned text */}
         <SectionService
           imageSrc={servicesBgImages[2]?.image || '/images/service-right.png'}
-          subtitle="📖 Marketing Materials Design"
+          subtitle="Marketing Materials Design"
           title="Captivate. Convert."
           tagline="Flyers, brochures, posters, roll-up banners. Digital and print-ready formats available"
           paragraphs={[
@@ -116,7 +116,7 @@ function PageServices() {
         {/* Left-aligned text (default) */}
         <SectionService
           imageSrc={servicesBgImages[3]?.image || '/images/service-left.png'}
-          subtitle="🌐 Website Design & Development"
+          subtitle="Website Design & Development"
           title="Your Web, Simplified."
           tagline="Responsive design for mobile and desktop. SEO-friendly and easy-to-manage backends "
           paragraphs={[
@@ -130,7 +130,7 @@ function PageServices() {
         {/* Center-aligned text */}
         <SectionService
           imageSrc={servicesBgImages[4]?.image || '/images/service-right.png'}
-          subtitle="📷 Photography Services"
+          subtitle="Photography Services"
           title="Memories, Made Perfect."
           tagline="Portraits, product photography, event coverage"
           paragraphs={[
