@@ -21,7 +21,7 @@ const PageEvents = () => {
         const fetchEvents = async () => {
             try {
                 console.log('Fetching events...');
-                const response = await axios.get('http://127.0.0.1:8000/api/events/');
+                const response = await axios.get('/api/events/');
                 console.log('Raw response:', response);
                 console.log('Events data received:', response.data);
                 
