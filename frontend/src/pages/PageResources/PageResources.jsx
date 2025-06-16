@@ -27,7 +27,7 @@ function PageResources() {
       setCarouselLoading(true);
       setCarouselError(null);
       try {
-        const { data } = await axios.get('http://127.0.0.1:8000/api/resourceCarouselImages/');
+        const { data } = await axios.get('/api/resourceCarouselImages/');
         // assuming each item has an 'image' field with the URL
         setCarouselImages(data);
       } catch (err) {
@@ -45,7 +45,7 @@ function PageResources() {
       setResourcesLoading(true);
       setResourcesError(null);
       try {
-        const { data } = await axios.get('http://127.0.0.1:8000/api/resources/');
+        const { data } = await axios.get('/api/resources/');
         setResources(data);
       } catch (err) {
         console.error("Error fetching resources:", err);

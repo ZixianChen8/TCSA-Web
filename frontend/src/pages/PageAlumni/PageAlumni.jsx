@@ -26,7 +26,7 @@ const PageAlumni = () => {
         setAlumniLoading(true);
         setAlumniError(null);
         try {
-          const { data } = await axios.get("http://127.0.0.1:8000/api/alumni/");
+          const { data } = await axios.get("/api/alumni/");
           setAlumni(data);
         } catch (err) {
           console.error("Error fetching alumni:", err);
@@ -43,7 +43,7 @@ const PageAlumni = () => {
         setTelferLoading(true);
         setTelferError(null);
         try {
-          const { data } = await axios.get("http://127.0.0.1:8000/api/telferAlumni/");
+          const { data } = await axios.get("/api/telferAlumni/");
           setTelferAlumni(data);
         } catch (err) {
           console.error("Error fetching Telfer alumni:", err);

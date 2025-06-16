@@ -22,7 +22,7 @@ const PageEventDetails = () => {
   // Fetch event details from the backend
   useEffect(() => {
     setLoading(true);
-    axios.get(`http://127.0.0.1:8000/api/events/${id}`, {
+    axios.get(`/api/events/${id}`, {
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json'
@@ -59,9 +59,9 @@ const PageEventDetails = () => {
     console.log('Submitting registration form:', formData);
     
     try {
-      console.log(`Posting to http://127.0.0.1:8000/api/events/${id}/register/`);
+      console.log(`Posting to /api/events/${id}/register/`);
       const response = await axios.post(
-        `http://127.0.0.1:8000/api/events/${id}/register/`,
+        `/api/events/${id}/register/`,
         formData,
         {
           headers: { 'Content-Type': 'application/json' },

@@ -25,7 +25,7 @@ function PageServices() {
         setServicesLoading(true);
         setServicesError(null);
         try {
-          const { data } = await axios.get('http://127.0.0.1:8000/api/servicesBgImages/');
+          const { data } = await axios.get('/api/servicesBgImages/');
           setServicesBgImages(data);
         } catch (err) {
           console.error('Error fetching service background images:', err);
