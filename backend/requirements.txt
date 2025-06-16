@@ -23,3 +23,5 @@ whitenoise==6.6.0  # For serving static files
 Pillow==11.2.1
 django-storages==1.14.6
 boto3==1.38.36
+django-storages==1.14.6
+boto3==1.38.37
