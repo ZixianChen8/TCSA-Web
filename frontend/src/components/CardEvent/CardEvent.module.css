@@ -78,6 +78,7 @@
     margin-top: auto;
     width: 100%;
     background-color: #8F001A;
+    border-radius: 8px; 
 }
 
 .eventBtns a {
@@ -96,6 +97,7 @@
     transition: opacity 0.2s ease;
     height: 40px; /* Fixed height for buttons */
     background-color: #8F001A;
+    border-radius: 8px; 
 }
 
 .reserve-btn, .view-details-btn {

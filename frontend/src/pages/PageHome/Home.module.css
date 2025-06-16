@@ -104,6 +104,7 @@ body {
 .eventCardWrapper {
   height: 100%;
   min-height: 300px;
+  width: 350px;
 }
 
 .loading, .error, .noEvents {
@@ -136,12 +137,6 @@ body {
   }
 }
 
-.eventCard {
-  background: #f9f9f9;
-  padding: 20px;
-  border-radius: 10px;
-  width: 300px;
-}
 
 .eventImage {
   background: lightgrey;
