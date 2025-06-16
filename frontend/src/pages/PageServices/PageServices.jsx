@@ -74,12 +74,11 @@ function PageServices() {
         {/* Left-aligned text (default) */}
         <SectionService
           imageSrc={servicesBgImages[0]?.image || '/images/service-left.png'}
-          subtitle="Career Orientation"
-          title="You Question, We Answer."
-          tagline="Unlock your true potential. With us!"
+          subtitle="🎬 Video Production"
+          title="Your Story, Perfectly Framed."
+          tagline="Promotional videos, event coverage, interviews, social media content"
           paragraphs={[
-            "Our services target our clients’ questions and possibilities beyond. Be it technology, market, operations, or strategy - we cover it all.",
-            "Our holistic approach towards consultation helps us understand your business deeply & helps us focus on your advancement. Helping you achieve viable results."
+
           ]}
           buttonText="Learn More"
           buttonLink="/left"
@@ -89,12 +88,11 @@ function PageServices() {
         {/* Left-aligned text */}
         <SectionService
           imageSrc={servicesBgImages[1]?.image || '/images/service-center.png'}
-          subtitle="Graphic Design"
+          subtitle="🎨 Graphic & Brand Design"
           title="Designs That Speak Volumes"
-          tagline="Turning ideas into visual impact."
+          tagline="Custom logo creation Business card design and printing. Visual identity systems (Brand Guidelines, Typography, Color Palettes)"
           paragraphs={[
-            "Our graphic design team brings your vision to life with creativity, precision, and a deep understanding of visual storytelling.",
-            "From brand identity to digital media, we craft visuals that connect with your audience and elevate your message."
+  
           ]}
           buttonText="Explore Designs"
           buttonLink="/graphic-design"
@@ -104,18 +102,44 @@ function PageServices() {
         {/* Center-aligned text */}
         <SectionService
           imageSrc={servicesBgImages[2]?.image || '/images/service-right.png'}
-          subtitle="Media Campaigns"
-          title="Campaigns That Make Noise"
-          tagline="Delivering your message to the right audience."
+          subtitle="📖 Marketing Materials Design"
+          title="Captivate. Convert."
+          tagline="Flyers, brochures, posters, roll-up banners. Digital and print-ready formats available"
           paragraphs={[
-            "We design and execute targeted media campaigns that get attention and drive engagement.",
-            "Whether it's social media, email marketing, or digital ads, we create a buzz that resonates with your community."
+
           ]}
           buttonText="Launch Campaign"
           buttonLink="/media-campaigns"
           textAlign="center"
         />
 
+        {/* Left-aligned text (default) */}
+        <SectionService
+          imageSrc={servicesBgImages[3]?.image || '/images/service-left.png'}
+          subtitle="🌐 Website Design & Development"
+          title="Your Web, Simplified."
+          tagline="Responsive design for mobile and desktop. SEO-friendly and easy-to-manage backends "
+          paragraphs={[
+
+          ]}
+          buttonText="Learn More"
+          buttonLink="/left"
+          /* textAlign prop omitted → defaults to 'left' */
+        />
+
+        {/* Center-aligned text */}
+        <SectionService
+          imageSrc={servicesBgImages[4]?.image || '/images/service-right.png'}
+          subtitle="📷 Photography Services"
+          title="Memories, Made Perfect."
+          tagline="Portraits, product photography, event coverage"
+          paragraphs={[
+
+          ]}
+          buttonText="Launch Campaign"
+          buttonLink="/media-campaigns"
+          textAlign="center"
+        />
 
       </div>
       {/* Contact Form Section */}

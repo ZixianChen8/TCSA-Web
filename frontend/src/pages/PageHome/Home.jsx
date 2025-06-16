@@ -127,7 +127,7 @@ const Home = () => {
           message={
             <>
               <p>Welcome to TCSA</p>
-              <p><strong>Description text: </strong>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel orci fermentum, dictum mauris in</p>
+              <p>TCSA supports Chinese students at the Telfer School of Management by offering academic guidance, cultural experiences, and networking opportunities to enhance their business knowledge and professional growth.</p>
               <div style={{ marginTop: '1rem' }}>
               </div>
             </>
@@ -202,8 +202,8 @@ const Home = () => {
           <div className={styles.contactContent}>
             <div className={styles.contactInfo}>
               <h3>Get in touch with us</h3>
-              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-              <p>📧 example@email.com</p>
+              <p>We'd love to hear from you! Whether you have questions, feedback, or just want to say hello, fill out the form below or send us an email. We'll get back to you as soon as possible!</p>
+              <p>📧 tcsaofficial@outlook.com</p>
             </div>
 
             <form ref={form} onSubmit={sendEmail} className={styles.contactForm}>
