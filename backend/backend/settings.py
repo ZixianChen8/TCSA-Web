@@ -37,7 +37,7 @@ SECRET_KEY = os.getenv('DJANGO_SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["tcsaofficial.com", "www.tcsaofficial.com", 'localhost', '127.0.0.1']
+ALLOWED_HOSTS = ["tcsaofficial.com", "www.tcsaofficial.com"]
 
 
 DEFAULT_FILE_STORAGE = "storages.backends.s3boto3.S3Boto3Storage"
