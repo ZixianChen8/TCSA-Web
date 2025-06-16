@@ -29,7 +29,7 @@ const Home = () => {
       setSponsorsLoading(true);
       setSponsorsError(null);
       try {
-        const response = await axios.get('http://127.0.0.1:8000/api/sponsorImages/');
+        const response = await axios.get('/api/sponsorImages/');
         setSponsors(response.data);
       } catch (err) {
         console.error('Error fetching sponsors:', err);
@@ -46,7 +46,7 @@ const Home = () => {
       setHeroLoading(true);
       setHeroError(null);
       try {
-        const response = await axios.get('http://127.0.0.1:8000/api/homeHeroMedia/');
+        const response = await axios.get('/api/homeHeroMedia/');
         const data = response.data;
         if (Array.isArray(data) && data.length > 0) {
           setHeroMedia(data[0]);
@@ -68,7 +68,7 @@ const Home = () => {
   useEffect(() => {
     const fetchEvents = async () => {
       try {
-        const response = await axios.get('http://127.0.0.1:8000/api/events/');
+        const response = await axios.get('/api/events/');
         if (Array.isArray(response.data)) {
           // Sort events by date and take the first 3
           const sortedEvents = response.data
