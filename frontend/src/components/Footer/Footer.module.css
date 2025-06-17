@@ -52,3 +52,7 @@
   .bottom p span {
     margin-left: 16px;
   }
+  
+  .bottom p span a {
+    text-decoration: none; /* Remove underline from links */
+  }

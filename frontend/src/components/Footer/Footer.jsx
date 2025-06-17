@@ -19,7 +19,7 @@ const Footer = () => (
       </div>
     </div>
     <div className={styles.bottom}>
-      <p>© 2025 TCSA <span>Privacy Policy - Terms of Service</span></p>
+      <p>© 2025 TCSA <span><a href="/privacy-policy">Privacy Policy</a> - Terms of Service</span></p>
     </div>
   </footer>
 )

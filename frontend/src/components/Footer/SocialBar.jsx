@@ -6,7 +6,7 @@ const socialBar = () => {
     <StyledWrapper>
       <div className="social-links">
         
-        <div id="twitter" className="social-btn flex-center">
+        <a id="tiktok" className="social-btn flex-center" href="https://v.douyin.com/5K9ZMZeb4OI/" target="_blank" rel="noopener noreferrer">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 450 500" fill="#000000" height={30} width={30}>
             <rect rx="15%" height="512" width="512" fill="#ffffff"></rect>
             <defs>
@@ -15,17 +15,17 @@ const socialBar = () => {
             <use href="#t" fill="#f05" x="18" y="15"></use>
             <use href="#t" fill="#0ee"></use>
           </svg>
-          <span>@example</span>
-        </div>
-        <div id="linkedin" className="social-btn flex-center">
+          <span>@63343030134</span>
+        </a>
+        <a id="linkedin" className="social-btn flex-center" href="https://www.linkedin.com/in/example" target="_blank" rel="noopener noreferrer">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" fill="#000000" height={30} width={30}>
             <rect width="512" height="512" rx="15%" fill="#00c70a"></rect>
             <path d="M402 369c23-17 38 -42 38 -70c0-51 -50 -92 -111 -92s-110 41-110 92s49 92 110 92c13 0 25-2 36 -5c4-1 8 0 9 1l25 14c3 2 6 0 5-4l-6-22c0-3 2 -5 4 -6m-110-85a15 15 0 110-29a15 15 0 010 29m74 0a15 15 0 110-29a15 15 0 010 29"></path>
             <path d="m205 105c-73 0-132 50-132 111 0 33 17 63 45 83 3 2 5 5 4 10l-7 24c-1 5 3 7 6 6l30-17c3-2 7-3 11-2 26 8 48 6 51 6-24-84 59-132 123-128-10-52-65-93-131-93m-44 93a18 18 0 1 1 0-35 18 18 0 0 1 0 35m89 0a18 18 0 1 1 0-35 18 18 0 0 1 0 35"></path>
           </svg>
-          <span>@example</span>
-        </div>
-        <div id="github" className="social-btn flex-center">
+          <span>@TelferCSA</span>
+        </a>
+        <a id="github" className="social-btn flex-center" href="https://github.com/example" target="_blank" rel="noopener noreferrer">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="#000000" height={30} width={30}>
             <path
               style={{ fill: "#ff2842", stroke: "none" }}
@@ -33,7 +33,7 @@ const socialBar = () => {
             />
           </svg>
           <span>@example</span>
-        </div>
+        </a>
       </div>
     </StyledWrapper>
   );

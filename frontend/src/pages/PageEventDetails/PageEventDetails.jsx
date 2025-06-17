@@ -22,7 +22,7 @@ const PageEventDetails = () => {
   // Fetch event details from the backend
   useEffect(() => {
     setLoading(true);
-    axios.get(`/api/events/${id}`, {
+    axios.get(`/api/events/${id}/`, {
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json'

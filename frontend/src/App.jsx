@@ -11,6 +11,8 @@ import PageAlumni from './pages/PageAlumni/PageAlumni.jsx'
 import PageEventDetails from './pages/PageEventDetails/PageEventDetails.jsx'
 import PageServices from './pages/PageServices/PageServices.jsx';
 import PageResources from './pages/PageResources/PageResources.jsx'
+import PrivacyPolicy from './pages/PrivacyPolicy/PrivacyPolicy.jsx'
+
 
 import Navbar from "./components/Navbar/Navbar.jsx"
 
@@ -37,6 +39,8 @@ function App() {
         <Route path="events/:id" element={<PageEventDetails />} />
         <Route path="/services" element={<PageServices />} />
         <Route path="/resources" element={<PageResources />} />
+        <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+
       </Routes>
     </>
   );
