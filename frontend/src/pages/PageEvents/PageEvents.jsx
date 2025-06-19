@@ -16,6 +16,7 @@ const PageEvents = () => {
     const [events, setEvents] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
+    const [heroImage, setHeroImage] = useState('');
 
     useEffect(() => {
         const fetchEvents = async () => {
@@ -43,6 +44,20 @@ const PageEvents = () => {
         fetchEvents();
     }, []);
 
+    useEffect(() => {
+        const fetchHeroImage = async () => {
+            try {
+                const res = await axios.get('/api/eventHeroImage/');
+                if (Array.isArray(res.data) && res.data.length > 0) {
+                    setHeroImage(res.data[0].image);
+                }
+            } catch (err) {
+                console.error('Error fetching hero image:', err);
+            }
+        };
+        fetchHeroImage();
+    }, []);
+
     // Debug logging
     useEffect(() => {
         console.log('Current events state:', events);
@@ -52,8 +67,9 @@ const PageEvents = () => {
         <main>
             <header>
                 <SecHero2
-                title="EVENTS"
-                subtitle="Check out some great events"
+                  title="EVENTS"
+                  subtitle="Check out some great events"
+                  image={heroImage}
                 />
             </header>
         

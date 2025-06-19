@@ -1,4 +1,6 @@
 from django.db import models
+from datetime import timedelta
+from django.core.validators import MaxLengthValidator
 
 class Event(models.Model):
     title = models.CharField(max_length=200, null=False)
@@ -8,12 +10,18 @@ class Event(models.Model):
     end_date = models.DateField(null=True, blank=True)
     start_time = models.TimeField(null=True, blank=True)
     end_time = models.TimeField(null=True, blank=True)
+    duration = models.CharField(null=True, blank=True, help_text="Duration of the event")
     location = models.TextField(null=True, blank = True)
     other_link = models.URLField(blank=True, null=True, unique=True)
     poster_img = models.ImageField(upload_to='event_posters/', blank=True, null=True)
 
     def __str__(self):
         return self.title
+
+    class Meta:
+        verbose_name = "Event"
+        verbose_name_plural = "Events"
+
 
 
 class Registration(models.Model):
@@ -29,6 +37,8 @@ class Registration(models.Model):
         return f"{self.first_name} {self.last_name} for {self.event.title}"
 
     class Meta:
+        verbose_name = "Registration"
+        verbose_name_plural = "Registrations"
         constraints = [
             models.UniqueConstraint(fields=['event', 'email'], name='unique_event_email_registration')
         ]
@@ -47,6 +57,10 @@ class Department(models.Model): # Assuming Department model is defined as you pr
 
     def __str__(self):
         return self.name or self.code
+
+    class Meta:
+        verbose_name = "Department"
+        verbose_name_plural = "Departments"
 
 
 class Member(models.Model):
@@ -80,6 +94,10 @@ class Member(models.Model):
     def __str__(self):
         return f"{self.first_name} {self.last_name}"
 
+    class Meta:
+        verbose_name = "Member"
+        verbose_name_plural = "Members"
+
 
 class Resource(models.Model):
     title = models.CharField(max_length=200, null=False, unique=True)
@@ -90,6 +108,10 @@ class Resource(models.Model):
     def __str__(self):
         return self.title
     
+    class Meta:
+        verbose_name = "Resource"
+        verbose_name_plural = "Resources"
+    
 class Sponsor(models.Model):
     name = models.CharField(max_length=200, null=False, unique=True)
     link = models.URLField(blank=True, null=True)
@@ -99,29 +121,29 @@ class Sponsor(models.Model):
     def __str__(self):
         return self.name
     
+    class Meta:
+        verbose_name = "Sponsor"
+        verbose_name_plural = "Sponsors"
+    
 
 # Join Us page hero section (allows only one image)
 class JoinUsHeroImage(models.Model):
     title = models.CharField(max_length=200, null=False)
-    image = models.ImageField(upload_to='join_us_hero/', blank=False, null=False)
+    image = models.ImageField(
+        upload_to='join_us_hero/',
+        blank=False,
+        null=False,
+        help_text='Only one Join Us hero image is allowed. Delete the existing one before adding a new one.'
+    )
     caption = models.TextField(blank=True, null=True)
 
     def __str__(self):
         return self.title
     
-# Join Us page background images (allows up to 3 images)
-class JoinUsBgImage(models.Model):
-    title = models.CharField(max_length=200, null=False)
-    image = models.ImageField(upload_to='join_us_bg/', blank=False, null=False)
-
-    def __str__(self):
-        return self.title
-
-    def save(self, *args, **kwargs):
-        if JoinUsBgImage.objects.count() >= 3 and not self.pk:
-            from django.core.exceptions import ValidationError
-            raise ValidationError("Only 3 background images are allowed for the Join Us page.")
-        super().save(*args, **kwargs)
+    class Meta:
+        verbose_name = "Join Us Hero Image"
+        verbose_name_plural = "Join Us Hero Image"
+    
 
 class CircularGalleryImage(models.Model):
     title = models.CharField(max_length=200, null=False)
@@ -130,6 +152,10 @@ class CircularGalleryImage(models.Model):
 
     def __str__(self):
         return self.title
+
+    class Meta:
+        verbose_name = "Circular Gallery Image"
+        verbose_name_plural = "Circular Gallery Images"
 
 
 # Resource page carousel images
@@ -141,6 +167,10 @@ class ResourceCarouselImage(models.Model):
 
     def __str__(self):
         return self.title
+
+    class Meta:
+        verbose_name = "Resource Carousel Image"
+        verbose_name_plural = "Resource Carousel Images"
 
 class HomeHeroMedia(models.Model):
     title = models.CharField(max_length=200, null=False)
@@ -158,33 +188,64 @@ class HomeHeroMedia(models.Model):
     def __str__(self):
         return self.title
 
+    class Meta:
+        verbose_name = "Home Hero Media"
+        verbose_name_plural = "Home Hero Media"
+
 # Event page hero section (allows only one image)
 class EventHeroImage(models.Model):
     title = models.CharField(max_length=200, null=False)
-    image = models.ImageField(upload_to='event_hero/', blank=False, null=False)
+    image = models.ImageField(
+        upload_to='event_hero/',
+        blank=False,
+        null=False,
+        help_text='Only one Event hero image is allowed. Delete the existing one before adding a new one.'
+    )
     caption = models.TextField(blank=True, null=True)
 
     def __str__(self):
         return self.title
+
+    class Meta:
+        verbose_name = "Event Hero Image"
+        verbose_name_plural = "Event Hero Image"
 
 
 # Services page hero section (allows only one image)
 class ServicesHeroImage(models.Model):
     title = models.CharField(max_length=200, null=False)
-    image = models.ImageField(upload_to='services_hero/', blank=False, null=False)
+    image = models.ImageField(
+        upload_to='services_hero/',
+        blank=False,
+        null=False,
+        help_text='Only one Services hero image is allowed. Delete the existing one before adding a new one.'
+    )
     caption = models.TextField(blank=True, null=True)
 
     def __str__(self):
         return self.title
+
+    class Meta:
+        verbose_name = "Services Hero Image"
+        verbose_name_plural = "Services Hero Image"
 
 # Resource page hero section (allows only one image)
 class ResourceHeroImage(models.Model):
     title = models.CharField(max_length=200, null=False)
-    image = models.ImageField(upload_to='resource_hero/', blank=False, null=False)
+    image = models.ImageField(
+        upload_to='resource_hero/',
+        blank=False,
+        null=False,
+        help_text='Only one Resource hero image is allowed. Delete the existing one before adding a new one.'
+    )
     caption = models.TextField(blank=True, null=True)
 
     def __str__(self):
         return self.title
+
+    class Meta:
+        verbose_name = "Resource Hero Image"
+        verbose_name_plural = "Resource Hero Image"
 
 class ServicesBgImage(models.Model):
     title = models.CharField(max_length=200, null=False)
@@ -193,11 +254,9 @@ class ServicesBgImage(models.Model):
     def __str__(self):
         return self.title
 
-    def save(self, *args, **kwargs):
-        if ServicesBgImage.objects.count() >= 3 and not self.pk:
-            from django.core.exceptions import ValidationError
-            raise ValidationError("Only 3 background images are allowed for the services page.")
-        super().save(*args, **kwargs)
+    class Meta:
+        verbose_name = "Services Background Image"
+        verbose_name_plural = "Services Background Images"
 
 
 # Benefit background images (allows up to 3 images)
@@ -207,6 +266,10 @@ class BenefitBgImage(models.Model):
 
     def __str__(self):
         return self.title
+
+    class Meta:
+        verbose_name = "Benefit Background Image"
+        verbose_name_plural = "Benefit Background Images"
 
     def save(self, *args, **kwargs):
         if BenefitBgImage.objects.count() >= 3 and not self.pk:
@@ -219,11 +282,20 @@ class BenefitBgImage(models.Model):
 # Alumni page hero section (allows only one image)
 class AlumniHeroImage(models.Model):
     title = models.CharField(max_length=200, null=False)
-    image = models.ImageField(upload_to='alumni_hero/', blank=False, null=False)
+    image = models.ImageField(
+        upload_to='alumni_hero/',
+        blank=False,
+        null=False,
+        help_text='Only one Alumni hero image is allowed. Delete the existing one before adding a new one.'
+    )
     caption = models.TextField(blank=True, null=True)
 
     def __str__(self):
         return self.title
+
+    class Meta:
+        verbose_name = "Alumni Hero Image"
+        verbose_name_plural = "Alumni Hero Image"
 
 
 # Alumni model for club alumni
@@ -237,6 +309,10 @@ class ClubAlumnus(models.Model):
     def __str__(self):
         return self.name
 
+    class Meta:
+        verbose_name = "Club Alumnus"
+        verbose_name_plural = "Club Alumni"
+
 
 # Telfer alumni model
 class TelferAlumnus(models.Model):
@@ -248,10 +324,29 @@ class TelferAlumnus(models.Model):
     def __str__(self):
         return self.name
     
+    class Meta:
+        verbose_name = "Telfer Alumnus"
+        verbose_name_plural = "Telfer Alumni"
 
 
 
 
+# Open positions that users can apply for
+class OpenPosition(models.Model):
+    title = models.CharField(max_length=200, null=False, help_text="Position title")
+    description = models.TextField(
+        null=False,
+        help_text="Reminder to list down important things you want the applicant to include in their resume",
+        validators=[MaxLengthValidator(400)]
+    )
+    posted_at = models.DateField(help_text="Datetime when the position was posted")
+
+    def __str__(self):
+        return self.title
+
+    class Meta:
+        verbose_name = "Open Position"
+        verbose_name_plural = "Open Positions"
 
 
 # Navbar logo for the website
@@ -261,3 +356,7 @@ class NavbarLogo(models.Model):
 
     def __str__(self):
         return self.title
+    
+    class Meta:
+        verbose_name = "Navbar Logo"
+        verbose_name_plural = "Navbar Logos"

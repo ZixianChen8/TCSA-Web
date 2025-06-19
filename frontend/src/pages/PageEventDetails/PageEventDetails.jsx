@@ -1,10 +1,58 @@
-// src/pages/EventDetails.jsx
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
+import emailjs from '@emailjs/browser';
+import Divider from '@mui/material/Divider';
+// Utility to read CSRF token from cookie
+function getCookie(name) {
+  let cookieValue = null;
+  if (document.cookie && document.cookie !== '') {
+    const cookies = document.cookie.split(';');
+    for (let i = 0; i < cookies.length; i++) {
+      const cookie = cookies[i].trim();
+      if (cookie.startsWith(name + '=')) {
+        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+        break;
+      }
+    }
+  }
+  return cookieValue;
+}
+
+// Configure axios to include CSRF token and send cookies
+axios.defaults.xsrfCookieName = 'csrftoken';
+axios.defaults.xsrfHeaderName = 'X-CSRFToken';
+axios.defaults.withCredentials = true;
+
+emailjs.init('YOUR_EMAILJS_USER_ID');
+
 import Navbar from "@/components/Navbar/Navbar.jsx";
 import SecHero from "@/components/SecHero/SecHero.jsx";
 import styles from "./PageEventDetails.module.css";
+
+// Format a date string to human-friendly format
+const formatDate = (dateString) => {
+  if (!dateString) return "Date not specified";
+  try {
+    const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+    return new Date(dateString).toLocaleDateString('en-US', options);
+  } catch {
+    return dateString;
+  }
+};
+
+// Format a time string to human-friendly format
+const formatTime = (timeString) => {
+  if (!timeString) return "Time not specified";
+  try {
+    const [hour, minute] = timeString.split(':').map(Number);
+    const date = new Date();
+    date.setHours(hour, minute);
+    return date.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' });
+  } catch {
+    return timeString;
+  }
+};
 
 const PageEventDetails = () => {
   const { id } = useParams();
@@ -64,12 +112,33 @@ const PageEventDetails = () => {
         `/api/events/${id}/register/`,
         formData,
         {
-          headers: { 'Content-Type': 'application/json' },
+          headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': getCookie('csrftoken'),
+          },
+          withCredentials: true,
         }
       );
       
       console.log('Registration successful!', response.data);
       setMessage('Registration successful! You are now registered for this event.');
+
+      // Send confirmation email via EmailJS
+      // emailjs.send(
+      //   import.meta.env.VITE_EMAILJS_SERVICE_ID,
+      //   import.meta.env.VITE_EMAILJS_REG_AUTO_REPLY_TEMPLATE_ID,
+      //   {
+      //     // first_name: formData.first_name,
+      //     // last_name: formData.last_name,
+      //     // email: formData.email,
+      //     // event_title: event?.title,
+      //     // event_date: event?.date,
+      //   }
+      // ).then(
+      //   result => console.log('EmailJS success:', result.text),
+      //   error => console.error('EmailJS error:', error.text)
+      // );
+
       // Clear the form
       setFormData({
         first_name: '',
@@ -119,22 +188,31 @@ const PageEventDetails = () => {
       
       <div className={styles.content}>
 
-        <div className={styles.eventInfo}>
-          {/* <h2>{event?.title}</h2> */}
-          <p>{event?.description}</p>
+        <div className={styles.eventInfo} style={{ display: 'flex', alignItems: 'flex-start' }}>
+          <div className={styles.eventDescription}>
+            <p>{event?.description}</p>
+          </div> {/* end of eventDescription */}
+          <Divider orientation="vertical" flexItem sx={{ mx: 2 }} />
           <div className={styles.eventDetails}>
-            <p><strong>Date: </strong>April 5, 2025</p>
-            {/* <p><strong>Date:</strong> {event?.date}</p> */}
-            <p><strong>Location:</strong> {event?.location}</p>
-            <p><strong>Organizer:</strong> {event?.organizer}</p>
+            <p><strong>Date & Time:</strong></p>
+            <p>
+              {formatDate(event.start_date)}{' '}
+              {formatTime(event.start_time)}
+            </p>
+            <p><strong>Location:</strong></p>
+            <p>{event?.location}</p>
+            <p><strong>Organizer:</strong></p>
+            <p>{event?.organizer}</p>
+            <p><strong>Duration:</strong></p>
+            <p>{event?.duration}</p>
           </div>
         </div>
 
         <div className={styles.lowLevel}>
 
           <div className={styles.eventPoster}>
-            {event?.poster ? (
-              <img src={event.poster} alt="Event Poster" className={styles.posterImg} />
+            {event?.poster_img ? (
+              <img src={event.poster_img} alt="Event Poster" className={styles.posterImg} />
             ) : (
               <div className={styles.noPoster}>No poster available</div>
             )}

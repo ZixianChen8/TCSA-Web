@@ -5,8 +5,8 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework import generics, status
 
-from .models import Event, Member, CircularGalleryImage, Sponsor, ServicesBgImage, ClubAlumnus, TelferAlumnus, BenefitBgImage, ResourceCarouselImage, Resource, HomeHeroMedia
-from .serializers import EventSerializer, MemberSerializer, CircularGalleryImageSerializer, SponsorSerializer, ServicesBgImageSerializer, ClubAlumnusSerializer, TelferAlumnusSerializer, BenefitBgImageSerializer, ResourceCarouselImageSerializer, ResourceSerializer, HomeHeroMediaSerializer
+from .models import Event, Registration, Member, CircularGalleryImage, Sponsor, ServicesBgImage, ClubAlumnus, TelferAlumnus, BenefitBgImage, ResourceCarouselImage, Resource, HomeHeroMedia, EventHeroImage, AlumniHeroImage, ServicesHeroImage, JoinUsHeroImage, ResourceHeroImage, OpenPosition
+from .serializers import EventSerializer, RegistrationSerializer, MemberSerializer, CircularGalleryImageSerializer, SponsorSerializer, ServicesBgImageSerializer, ClubAlumnusSerializer, TelferAlumnusSerializer, BenefitBgImageSerializer, ResourceCarouselImageSerializer, ResourceSerializer, HomeHeroMediaSerializer, EventHeroImageSerializer, AlumniHeroImageSerializer, ServicesHeroImageSerializer, JoinUsHeroImageSerializer, ResourceHeroImageSerializer, OpenPositionSerializer
 
 @api_view(['GET'])
 def get_data(request):
@@ -34,6 +34,7 @@ class EventListAPIView(generics.ListAPIView):
                 print(f"- Location: {event.location}")
                 print(f"- Organizer: {event.organizer}")
                 print(f"- Description: {event.description[:50]}...")
+                print(f"- Duration: {event.duration}")
             
             # Serialize the data
             serializer = self.get_serializer(queryset, many=True)
@@ -63,6 +64,7 @@ class EventDetailAPIView(generics.RetrieveAPIView):
             print(f"Attempting to fetch event with id: {kwargs.get('id')}")
             instance = self.get_object()
             print(f"Found event: {instance}")
+            print(f"- Duration: {instance.duration}")
             serializer = self.get_serializer(instance)
             return Response(serializer.data)
         except Exception as e:
@@ -86,7 +88,7 @@ class CircularGalleryImageListAPIView(generics.ListAPIView):
     serializer_class = CircularGalleryImageSerializer
 
     def list(self, request, *args, **kwargs):
-        try:
+        try: 
             queryset = self.get_queryset()
             print(f"\nFetched {queryset.count()} CircularGalleryImage items.")
             for img in queryset:
@@ -284,3 +286,144 @@ class HomeHeroMediaListAPIView(generics.ListAPIView):
                 {"error": "Failed to load home hero media."},
                 status=status.HTTP_500_INTERNAL_SERVER_ERROR
             )
+
+
+# Event hero image API view
+class EventHeroImageListAPIView(generics.ListAPIView):
+    queryset = EventHeroImage.objects.all()
+    serializer_class = EventHeroImageSerializer
+
+    def list(self, request, *args, **kwargs):
+        try:
+            queryset = self.get_queryset()
+            print(f"\nFetched {queryset.count()} EventHeroImage items.")
+            for img in queryset:
+                print(f"- {img.title} ({img.image.url if img.image else 'No image'})")
+            serializer = self.get_serializer(queryset, many=True)
+            return Response(serializer.data)
+        except Exception as e:
+            print(f"Error in EventHeroImageListAPIView: {str(e)}")
+            return Response(
+                {"error": "Failed to load event hero images."},
+                status=status.HTTP_500_INTERNAL_SERVER_ERROR
+            )
+
+# Alumni hero image API view
+class AlumniHeroImageListAPIView(generics.ListAPIView):
+    queryset = AlumniHeroImage.objects.all()
+    serializer_class = AlumniHeroImageSerializer
+
+    def list(self, request, *args, **kwargs):
+        try:
+            queryset = self.get_queryset()
+            print(f"\nFetched {queryset.count()} AlumniHeroImage items.")
+            for img in queryset:
+                print(f"- {img.title} ({img.image.url if img.image else 'No image'})")
+            serializer = self.get_serializer(queryset, many=True)
+            return Response(serializer.data)
+        except Exception as e:
+            print(f"Error in AlumniHeroImageListAPIView: {str(e)}")
+            return Response(
+                {"error": "Failed to load alumni hero images."},
+                status=status.HTTP_500_INTERNAL_SERVER_ERROR
+            )
+
+# Services page hero image API view
+class ServicesHeroImageListAPIView(generics.ListAPIView):
+    queryset = ServicesHeroImage.objects.all()
+    serializer_class = ServicesHeroImageSerializer
+
+    def list(self, request, *args, **kwargs):
+        try:
+            queryset = self.get_queryset()
+            print(f"\nFetched {queryset.count()} ServicesHeroImage items.")
+            for img in queryset:
+                print(f"- {img.title} ({img.image.url if img.image else 'No image'})")
+            serializer = self.get_serializer(queryset, many=True)
+            return Response(serializer.data)
+        except Exception as e:
+            print(f"Error in ServicesHeroImageListAPIView: {str(e)}")
+            return Response(
+                {"error": "Failed to load services hero images."},
+                status=status.HTTP_500_INTERNAL_SERVER_ERROR
+            )
+
+# Resource page hero image API view
+# Resource page hero image API view
+class ResourceHeroImageListAPIView(generics.ListAPIView):
+    queryset = ResourceHeroImage.objects.all()
+    serializer_class = ResourceHeroImageSerializer
+
+    def list(self, request, *args, **kwargs):
+        try:
+            queryset = self.get_queryset()
+            print(f"\nFetched {queryset.count()} ResourceHeroImage items.")
+            for img in queryset:
+                print(f"- {img.title} ({img.image.url if img.image else 'No image'})")
+            serializer = self.get_serializer(queryset, many=True)
+            return Response(serializer.data)
+        except Exception as e:
+            print(f"Error in ResourceHeroImageListAPIView: {str(e)}")
+            return Response(
+                {"error": "Failed to load resource hero images."},
+                status=status.HTTP_500_INTERNAL_SERVER_ERROR
+            )
+
+# Open positions API view
+class OpenPositionListAPIView(generics.ListAPIView):
+    queryset = OpenPosition.objects.all().order_by('-posted_at')
+    serializer_class = OpenPositionSerializer
+
+    def list(self, request, *args, **kwargs):
+        try:
+            queryset = self.get_queryset()
+            print(f"\nFetched {queryset.count()} OpenPosition items.")
+            for pos in queryset:
+                print(f"- {pos.title} (posted at: {pos.posted_at})")
+            serializer = self.get_serializer(queryset, many=True)
+            return Response(serializer.data)
+        except Exception as e:
+            print(f"Error in OpenPositionListAPIView: {str(e)}")
+            return Response(
+                {"error": "Failed to load open positions."},
+                status=status.HTTP_500_INTERNAL_SERVER_ERROR
+            )
+
+# Join Us page hero image API view
+class JoinUsHeroImageListAPIView(generics.ListAPIView):
+    queryset = JoinUsHeroImage.objects.all()
+    serializer_class = JoinUsHeroImageSerializer
+
+    def list(self, request, *args, **kwargs):
+        try:
+            queryset = self.get_queryset()
+            print(f"\nFetched {queryset.count()} JoinUsHeroImage items.")
+            if queryset.exists():
+                img = queryset.first()
+                print(f"- {img.title} ({img.image.url if img.image else 'No image'})")
+            serializer = self.get_serializer(queryset, many=True)
+            return Response(serializer.data)
+        except Exception as e:
+            print(f"Error in JoinUsHeroImageListAPIView: {str(e)}")
+            return Response(
+                {"error": "Failed to load join us hero images."},
+                status=status.HTTP_500_INTERNAL_SERVER_ERROR
+            )
+
+@api_view(['POST'])
+def register_for_event(request, id):
+    """Register a user for the given event by ID."""
+    try:
+        event = Event.objects.get(pk=id)
+    except Event.DoesNotExist:
+        return Response({'error': 'Event not found'}, status=status.HTTP_404_NOT_FOUND)
+
+    # Merge posted data with event reference
+    data = request.data.copy()
+    data['event'] = event.id
+
+    serializer = RegistrationSerializer(data=data)
+    if serializer.is_valid():
+        serializer.save()
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
+    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

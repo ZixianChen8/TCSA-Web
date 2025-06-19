@@ -3,17 +3,6 @@
   height: 400px;
 }
 
-/* General container styling */
-.pageResourcesContainer {
-  display: flex;
-  flex-direction: column;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  padding: 2rem;
-  max-width: 1000px;
-  margin: 0 auto;
-  font-family: Arial, sans-serif;
-}
-
 
 /* Navbar styling */
 .navbar {
@@ -33,7 +22,6 @@
 
 .slideShow{
   min-height: 400px;
-  
 }
 
 /* Resources grid layout */

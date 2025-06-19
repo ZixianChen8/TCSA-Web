@@ -2,7 +2,6 @@ import React, { useState, useEffect, useRef } from "react";
 import SecHero from "@/components/SecHero/SecHero.jsx"
 import CardEvent from "@/components/CardEvent/CardEvent.jsx"
 import TeamPyramid from "@/components/PageHome/TeamPyramid/TeamPyramid.jsx"
-import Gallery from "@/components/PageHome/Gallery/Gallery.jsx"
 import CircularGallery from '@/components/PageHome/CircularGallery/CircularGallery.jsx'
 import Footer from '@/components/Footer/Footer.jsx'
 import Btn3 from '@/components/Btn3/Btn3.jsx'
@@ -14,6 +13,10 @@ import emailjs from '@emailjs/browser'
 
 
 const Home = () => {
+  useEffect(() => {
+    emailjs.init(import.meta.env.VITE_EMAILJS_PUBLIC_KEY);
+  }, []);
+
   const [events, setEvents] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -99,7 +102,7 @@ const Home = () => {
       emailjs
         .sendForm(
           import.meta.env.VITE_EMAILJS_SERVICE_ID,
-          import.meta.env.VITE_EMAILJS_TEMPLATE_ID,
+          import.meta.env.VITE_EMAILJS_CONTACTUS_TEMPLATE_ID,
           form.current,
           import.meta.env.VITE_EMAILJS_PUBLIC_KEY
         )
@@ -108,7 +111,8 @@ const Home = () => {
             alert('Message sent successfully!');
           },
           (error) => {
-            alert('An error occurred, please try again.');
+            console.error('EmailJS error:', error);
+            alert('An error occurred, please try again. See console for details.');
           }
         );
   
@@ -205,7 +209,18 @@ const Home = () => {
             </div>
 
             <form ref={form} onSubmit={sendEmail} className={styles.contactForm}>
-              <input type="text" name="sender_name" placeholder="Enter your contact information" required/>
+              <input
+                type="text"
+                name="sender_name"
+                placeholder="Enter your name"
+                required
+              />
+              <input
+                type="email"
+                name="sender_email"
+                placeholder="Enter your email"
+                required
+              />
               <textarea name="message" placeholder="Enter your message" required></textarea>
               <button type="submit" className={styles.button}>Send</button>
             </form>

@@ -19,6 +19,7 @@ function PageServices() {
     const [servicesBgImages, setServicesBgImages] = useState([]);
     const [servicesLoading, setServicesLoading] = useState(true);
     const [servicesError, setServicesError] = useState(null);
+    const [heroImage, setHeroImage] = useState('');
 
     useEffect(() => {
       const fetchBgImages = async () => {
@@ -35,6 +36,20 @@ function PageServices() {
         }
       };
       fetchBgImages();
+    }, []);
+
+    useEffect(() => {
+      const fetchHeroImage = async () => {
+        try {
+          const res = await axios.get('/api/servicesHeroImage/');
+          if (Array.isArray(res.data) && res.data.length > 0) {
+            setHeroImage(res.data[0].image);
+          }
+        } catch (err) {
+          console.error('Error fetching services hero image:', err);
+        }
+      };
+      fetchHeroImage();
     }, []);
 
     const sendEmail = (e) => {
@@ -66,6 +81,7 @@ function PageServices() {
           <SecHero2
           title="COLLABORATE WITH US"
           subtitle="Vast services. Rich experience. Real results. "
+          image={heroImage}
           />
       </header>
 

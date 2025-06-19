@@ -87,6 +87,9 @@ body {
   justify-content: end;
   margin: 0 2rem 1rem 0;
 }
+.moreEventsBtn a {
+  text-decoration: none;
+}
 
 .events h2 {
   margin-bottom: 2rem;

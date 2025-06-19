@@ -1,12 +1,16 @@
 import React from 'react';
-import styles from './SecHero2.module.css'
+import styles from './SecHero2.module.css';
 
 const SecHero2 = ({
   title = 'Welcome to Our Site',
-  subtitle = 'This is a simple hero section with a title and a paragraph under it.'
+  subtitle,
+  image = '',
 }) => {
   return (
-    <section className={styles.heroSection}>
+    <section
+      className={styles.heroSection}
+      {...(image ? { style: { backgroundImage: `url(${image})` } } : {})}
+    >
       <h1 className={styles.heroTitle}>
         {title}
       </h1>

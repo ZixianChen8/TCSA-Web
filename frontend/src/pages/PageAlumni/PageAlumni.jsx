@@ -17,6 +17,8 @@ const PageAlumni = () => {
     const [alumniLoading, setAlumniLoading] = useState(true);
     const [alumniError, setAlumniError] = useState(null);
 
+    const [heroImage, setHeroImage] = useState('');
+
     const [telferAlumni, setTelferAlumni] = useState([]);
     const [telferLoading, setTelferLoading] = useState(true);
     const [telferError, setTelferError] = useState(null);
@@ -54,13 +56,28 @@ const PageAlumni = () => {
       };
       fetchTelfer();
     }, []);
+
+    useEffect(() => {
+      const fetchHeroImage = async () => {
+        try {
+          const res = await axios.get('/api/alumniHeroImage/');
+          if (Array.isArray(res.data) && res.data.length > 0) {
+            setHeroImage(res.data[0].image);
+          }
+        } catch (err) {
+          console.error('Error fetching alumni hero image:', err);
+        }
+      };
+      fetchHeroImage();
+    }, []);
     
     return (
         <main>
             <header>
                 <SecHero2
-                title="MEET THE ALUMNI "
+                title="MEET THE ALUMNI"
                 subtitle="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla id nisl condimentum, volutpat dolor et, tincidunt tortor. Maecenas finibus est eu justo pulvinar blandit."
+                image={heroImage}
                 />
             </header>
             <Divider> <h2 className={styles.sectionTitle}>Former Club Members</h2> </Divider>

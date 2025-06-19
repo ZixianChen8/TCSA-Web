@@ -135,11 +135,11 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'America/New_York'
 
 USE_I18N = True
 
-USE_TZ = True
+USE_TZ = False
 
 
 # Static files (CSS, JavaScript, Images)
@@ -163,12 +163,14 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
 # CORS Settings
-CORS_ALLOW_ALL_ORIGINS = True
-CORS_ALLOW_CREDENTIALS = False  # Changed to False since we're not using credentials
+CORS_ALLOW_ALL_ORIGINS = False
+CORS_ALLOW_CREDENTIALS = True  # Enable credentials for CSRF cookie
 
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:5173",
     "http://127.0.0.1:5173",
+    "https://tcsaofficial.com",
+    "https://www.tcsaofficial.com",
 ]
 
 CORS_ALLOW_METHODS = [
@@ -197,6 +199,9 @@ CORS_EXPOSE_HEADERS = ['*']
 
 # Add CORS_PREFLIGHT_MAX_AGE
 CORS_PREFLIGHT_MAX_AGE = 86400  # 24 hours
+
+# CSRF trusted origins for production
+CSRF_TRUSTED_ORIGINS = ["https://tcsaofficial.com", "https://www.tcsaofficial.com"]
 
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': [

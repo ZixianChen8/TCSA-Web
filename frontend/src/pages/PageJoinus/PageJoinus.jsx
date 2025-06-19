@@ -13,12 +13,22 @@ import SubmitBtn from '@/components/BtnStar2/BtnStar2.jsx'
 
 import styles from "./PageJoinus.module.css"
 
+// Helper to parse a date string as a local date to avoid UTC shift
+const parseLocalDate = (isoDate) => {
+  const [year, month, day] = isoDate.split('-').map(Number);
+  return new Date(year, month - 1, day);
+};
+
 
 
 const PageJoinus = () => {
     const [benefitImages, setBenefitImages] = useState([]);
     const [bgLoading, setBgLoading] = useState(true);
     const [bgError, setBgError] = useState(null);
+    const [heroImage, setHeroImage] = useState('');
+    const [positions, setPositions] = useState([]);
+    const [posLoading, setPosLoading] = useState(true);
+    const [posError, setPosError] = useState(null);
 
     useEffect(() => {
       const fetchBenefitImages = async () => {
@@ -35,6 +45,37 @@ const PageJoinus = () => {
         }
       };
       fetchBenefitImages();
+    }, []);
+
+    useEffect(() => {
+      const fetchHeroImage = async () => {
+        try {
+          const res = await axios.get('/api/joinUsHeroImage/');
+          if (Array.isArray(res.data) && res.data.length > 0) {
+            setHeroImage(res.data[0].image);
+          }
+        } catch (err) {
+          console.error('Error fetching join-us hero image:', err);
+        }
+      };
+      fetchHeroImage();
+    }, []);
+
+    useEffect(() => {
+      const fetchPositions = async () => {
+        setPosLoading(true);
+        setPosError(null);
+        try {
+          const { data } = await axios.get('/api/openPositions/');
+          setPositions(data);
+        } catch (err) {
+          console.error('Error fetching open positions:', err);
+          setPosError('Failed to load positions');
+        } finally {
+          setPosLoading(false);
+        }
+      };
+      fetchPositions();
     }, []);
 
     const placeholderText = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi.";
@@ -75,6 +116,7 @@ const PageJoinus = () => {
                 <SecHero2
                 title="BECOME A MEMBER OF TCSA"
                 subtitle="Join the club"
+                image={heroImage}
                 />
             </header>
 
@@ -121,11 +163,16 @@ const PageJoinus = () => {
                 <section className={styles.jobSection}>
                     <h2 className={styles.heading}>Available Positions</h2>
                     <div className={styles.jobGrid}>
-                        <CardJob />
-                        <CardJob />
-                        <CardJob />
-                        <CardJob />
-                        <CardJob />
+                        {posLoading && <p>Loading positions...</p>}
+                        {posError && <p className={styles.error}>{posError}</p>}
+                        {!posLoading && !posError && positions.map((pos) => (
+                          <CardJob
+                            key={pos.id}
+                            title={pos.title}
+                            description={pos.description}
+                            postedAt={parseLocalDate(pos.posted_at)}
+                          />
+                        ))}
                     </div>
                 </section>
 

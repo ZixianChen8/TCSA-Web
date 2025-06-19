@@ -21,6 +21,7 @@ function PageResources() {
   const [resources, setResources] = useState([]);
   const [resourcesLoading, setResourcesLoading] = useState(true);
   const [resourcesError, setResourcesError] = useState(null);
+  const [heroImage, setHeroImage] = useState('');
 
   useEffect(() => {
     const fetchCarouselImages = async () => {
@@ -57,6 +58,20 @@ function PageResources() {
     fetchResources();
   }, []);
 
+  useEffect(() => {
+    const fetchHeroImage = async () => {
+      try {
+        const res = await axios.get('/api/resourceHeroImage/');
+        if (Array.isArray(res.data) && res.data.length > 0) {
+          setHeroImage(res.data[0].image);
+        }
+      } catch (err) {
+        console.error('Error fetching resource hero image:', err);
+      }
+    };
+    fetchHeroImage();
+  }, []);
+
   return (
     <>
       <section className={styles.navbar}>
@@ -69,6 +84,7 @@ function PageResources() {
         <SecHero2
           title="USEFUL RESOURCES"
           subtitle="For your academic & career journey"
+          image={heroImage}
         />
 
       </section>

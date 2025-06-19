@@ -12,6 +12,8 @@ import {
 import styles from './CircularGallery.module.css';
 import axios from 'axios';
 
+
+
 function debounce(func, wait) {
   let timeout
   return function (...args) {

@@ -7,7 +7,6 @@ from .models import (
     Resource,
     Sponsor,
     JoinUsHeroImage,
-    JoinUsBgImage,
     CircularGalleryImage,
     ResourceCarouselImage,
     ResourceHeroImage,
@@ -20,6 +19,7 @@ from .models import (
     TelferAlumnus,
     NavbarLogo,
     BenefitBgImage,
+    OpenPosition,
 )
 
 # Note: ImageField and FileField are automatically handled by ModelSerializer.
@@ -32,8 +32,8 @@ class EventSerializer(serializers.ModelSerializer):
 
 
 class RegistrationSerializer(serializers.ModelSerializer):
-    # Represents the 'event' ForeignKey by its string representation (__str__ method)
-    event = serializers.StringRelatedField()
+    # Allow writing the event by its primary key
+    event = serializers.PrimaryKeyRelatedField(queryset=Event.objects.all())
 
     class Meta:
         model = Registration
@@ -97,10 +97,6 @@ class JoinUsHeroImageSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
-class JoinUsBgImageSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = JoinUsBgImage
-        fields = '__all__'
 
 
 class CircularGalleryImageSerializer(serializers.ModelSerializer):
@@ -173,4 +169,10 @@ class TelferAlumnusSerializer(serializers.ModelSerializer):
 class NavbarLogoSerializer(serializers.ModelSerializer):
     class Meta:
         model = NavbarLogo
+        fields = '__all__'
+
+
+class OpenPositionSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = OpenPosition
         fields = '__all__'

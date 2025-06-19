@@ -3,7 +3,7 @@ import Icon from "@/components/Icon/Icon.jsx"; // Import reusable Icon component
 import styles from './CardJob.module.css';
 
 
-const CardJob = () => {
+const CardJob = ({ title, description, postedAt }) => {
     return (
       <div className={styles.card}>
 
@@ -19,12 +19,17 @@ const CardJob = () => {
             <h3>Open</h3>
           </div>
 
-          <h2 className={styles.card__iconTitle}>WeChat Operator</h2>
+          <h2 className={styles.card__iconTitle}>{title}</h2>
         </div>
 
         <div className={styles.card__content}>
-          <p className={styles.card__title}>Card Title</p>
-          <p className={styles.card__description}>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco.</p>
+          <p className={styles.card__description}>
+
+            Posted: {new Date(postedAt).toLocaleDateString()} 
+            <br />
+            {description}
+            
+          </p>
         </div>
       </div>
     );
