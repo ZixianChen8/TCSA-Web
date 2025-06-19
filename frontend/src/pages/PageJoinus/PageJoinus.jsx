@@ -89,6 +89,10 @@ const PageJoinus = () => {
 
     const sendEmail = (e) => {
       e.preventDefault();
+      // Ask user to confirm submission
+      if (!window.confirm("Are you sure you want to submit your application?")) {
+          return; // user cancelled
+      }
       // Capture applicant data before sending
       const applicantName = form.current['applicant_name'].value;
       const applicantEmail = form.current['applicant_email'].value;
@@ -107,14 +111,14 @@ const PageJoinus = () => {
             import.meta.env.VITE_EMAILJS_SERVICE_ID,
             import.meta.env.VITE_EMAILJS_JOB_APPLICATION_APPLICANT_TEMPLATE_ID,
             {
-              applicant_name: applicant_name,
-              applicant_email: applicant_email,
-              position: position,
+              applicant_name: applicantName,
+              applicant_email: applicantEmail,
+              position: positionApplied,
             }
           )
           .then(
             () => {
-              alert('Application sent and confirmation email delivered!');
+              alert('Your application has been submitted. You should receive a confirmation email shortly.');
               form.current.reset();
             },
             (error) => {
