@@ -24,7 +24,7 @@ axios.defaults.xsrfCookieName = 'csrftoken';
 axios.defaults.xsrfHeaderName = 'X-CSRFToken';
 axios.defaults.withCredentials = true;
 
-emailjs.init('YOUR_EMAILJS_USER_ID');
+emailjs.init(import.meta.env.VITE_EMAILJS_PUBLIC_KEY);
 
 import Navbar from "@/components/Navbar/Navbar.jsx";
 import SecHero from "@/components/SecHero/SecHero.jsx";
@@ -123,21 +123,36 @@ const PageEventDetails = () => {
       console.log('Registration successful!', response.data);
       setMessage('Registration successful! You are now registered for this event.');
 
-      // Send confirmation email via EmailJS
-      // emailjs.send(
-      //   import.meta.env.VITE_EMAILJS_SERVICE_ID,
-      //   import.meta.env.VITE_EMAILJS_REG_AUTO_REPLY_TEMPLATE_ID,
-      //   {
-      //     // first_name: formData.first_name,
-      //     // last_name: formData.last_name,
-      //     // email: formData.email,
-      //     // event_title: event?.title,
-      //     // event_date: event?.date,
-      //   }
-      // ).then(
-      //   result => console.log('EmailJS success:', result.text),
-      //   error => console.error('EmailJS error:', error.text)
-      // );
+      // Send notification to admin
+      emailjs.send(
+        import.meta.env.VITE_EMAILJS_SERVICE_ID,
+        import.meta.env.VITE_EMAILJS_REG_AUTO_REPLY_ADMIN_TEMPLATE_ID,
+        {
+          first_name: formData.first_name,
+          last_name: formData.last_name,
+          email: formData.email,
+          event_title: event?.title,
+          event_date: event?.start_date,
+        }
+      ).then(
+        result => console.log('Admin notification sent:', result.text),
+        error => console.error('Admin notification error:', error.text)
+      );
+
+      // Send confirmation email to registrant via EmailJS
+      emailjs.send(
+        import.meta.env.VITE_EMAILJS_SERVICE_ID,
+        import.meta.env.VITE_EMAILJS_REG_AUTO_REPLY_REGISTRANT_TEMPLATE_ID,
+        {
+          first_name: formData.first_name,
+          email: formData.email,
+          event_title: event?.title,
+          event_date: event?.start_date,
+        }
+      ).then(
+        result => console.log('Confirmation email sent:', result.text),
+        error => console.error('Confirmation email error:', error.text)
+      );
 
       // Clear the form
       setFormData({

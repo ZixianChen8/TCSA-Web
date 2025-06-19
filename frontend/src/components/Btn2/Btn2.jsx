@@ -1,11 +1,11 @@
 import React from 'react';
 import styled from 'styled-components';
 
-const Btn2 = ({ title }) => {
+const Btn2 = ({ title, href = '#' }) => {
   return (
     <StyledWrapper>
       <div className="btn-container">
-        <a className="btn-content">
+        <a href={href} className="btn-content">
           <span className="btn-title">{title}</span>
           <span className="icon-arrow">
             <svg width="66px" height="43px" viewBox="0 0 66 43" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink">
@@ -128,10 +128,4 @@ const StyledWrapper = styled.div`
       outline-offset: 0;
     }
   }`;
-
-
-Btn2.defaultProps = {
-  href: '#',
-};
-
 export default Btn2;

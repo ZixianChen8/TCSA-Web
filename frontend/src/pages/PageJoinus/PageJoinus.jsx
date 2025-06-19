@@ -1,5 +1,6 @@
 import { useRef, useEffect, useState } from 'react';
 import emailjs from '@emailjs/browser';
+emailjs.init(import.meta.env.VITE_EMAILJS_PUBLIC_KEY);
 import axios from 'axios';
 import CardJob from '@/components/CardJob/CardJob.jsx';
 // import CardBenefit from '@/components/CardBenefit/CardBenefit.jsx';
@@ -88,19 +89,39 @@ const PageJoinus = () => {
 
     const sendEmail = (e) => {
       e.preventDefault();
+      // Capture applicant data before sending
+      const applicantName = form.current['applicant_name'].value;
+      const applicantEmail = form.current['applicant_email'].value;
+      const positionApplied = form.current['position'].value;
 
       emailjs.sendForm(
-        'YOUR_SERVICE_ID', // Replace with your EmailJS service ID
-        'YOUR_TEMPLATE_ID', // Replace with your EmailJS template ID
+        import.meta.env.VITE_EMAILJS_SERVICE_ID,
+        import.meta.env.VITE_EMAILJS_JOB_APPLICATION_ADMIN_TEMPLATE_ID,
         form.current,
-        {
-          publicKey: 'YOUR_PUBLIC_KEY', // Replace with your EmailJS public key
-        }
+        import.meta.env.VITE_EMAILJS_PUBLIC_KEY
       )
       .then(
         () => {
-          alert('Application sent successfully!');
-          form.current.reset();
+          // Notify admin succeeded, now send auto-reply to applicant
+          emailjs.send(
+            import.meta.env.VITE_EMAILJS_SERVICE_ID,
+            import.meta.env.VITE_EMAILJS_JOB_APPLICATION_APPLICANT_TEMPLATE_ID,
+            {
+              applicant_name: applicant_name,
+              applicant_email: applicant_email,
+              position: position,
+            }
+          )
+          .then(
+            () => {
+              alert('Application sent and confirmation email delivered!');
+              form.current.reset();
+            },
+            (error) => {
+              console.error('Applicant auto-reply error:', error);
+              alert('Application sent but failed to send confirmation email.');
+            }
+          );
         },
         (error) => {
           alert('Failed to send application. Please try again later.');
@@ -196,7 +217,7 @@ const PageJoinus = () => {
                             <input type="text" name="position" required />
 
                             <label>Upload Resume:</label>
-                            <input type="file" name="resume" required />
+                            <input type="file" name="resume_file" required />
 
                             {/* <label>Anything else we should know?</label>
                             <textarea name="message" rows="5" required></textarea> */}
