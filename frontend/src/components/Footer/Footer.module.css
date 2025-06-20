@@ -25,6 +25,9 @@
     color: #000;
     font-size: 16px;
   }
+  .nav li a:hover {
+      color: #8F001A;
+  }
   
   .social {
     display: flex;

@@ -9,10 +9,10 @@ const Footer = () => (
       <ul className={styles.nav}>
         <li><a href="/">TCSA</a></li>
         <li><a href="/events">Events</a></li>
-        <li><a href="/resources">Resources</a></li>
-        <li><a href="/joinus">Join us</a></li>
         <li><a href="/ourteam">Alumni</a></li>
-        <li><a href="/sponsors">Sponsors</a></li>
+        <li><a href="/joinus">Join us</a></li>
+        <li><a href="/resources">Resources</a></li>
+        <li><a href="/services">Services</a></li>
       </ul>
       <div className={styles.social}>
         <SocialBar />
