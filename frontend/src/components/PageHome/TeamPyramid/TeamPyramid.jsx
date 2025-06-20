@@ -310,9 +310,15 @@ export default function TeamPyramid() {
                       };
 
                       if (memberObject.position === 'President' && !memberObject.reports_to_id) {
-                        loadedAdvisors.push(memberObject);
+                        loadedAdvisors.push({
+                          ...memberObject,
+                          department: memberObject.position,
+                        });
                       } else if (memberObject.position === 'Vice President') {
-                        loadedExecutives.push(memberObject);
+                        loadedExecutives.push({
+                          ...memberObject,
+                          department: memberObject.position,
+                        });
                       } else if (memberObject.position && (memberObject.position.includes('Lead') || memberObject.position.includes('Manager'))) {
                         loadedDeptLeaders.push({
                           ...memberObject,
@@ -322,6 +328,7 @@ export default function TeamPyramid() {
                         loadedTeamMembers.push({
                           ...memberObject,
                           leaderId: memberObject.reports_to_id,
+                          department: memberObject.department_name,
                         });
                       }
                     });
@@ -338,6 +345,7 @@ export default function TeamPyramid() {
                         quote: financeExecData.quote,
                         pfp_img: financeExecData.pfp_img,
                         position: financeExecData.position,
+                        department: financeExecData.department?.name,
                       };
                       financeMembersArray = membersData
                         .filter(m => m.reports_to === financeExecData.id)
@@ -349,6 +357,7 @@ export default function TeamPyramid() {
                           pfp_img: fm.pfp_img,
                           position: fm.position,
                           leaderId: fm.reports_to,
+                          department: fm.department?.name,
                         }));
                       // Remove finance exec and its members from general teamMembers to avoid duplicate rendering
                       loadedTeamMembers = loadedTeamMembers.filter(m =>

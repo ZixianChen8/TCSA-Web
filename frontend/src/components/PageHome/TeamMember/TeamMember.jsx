@@ -28,9 +28,9 @@ const StyledWrapper = styled.div`
     border-radius: 1rem;
     overflow: hidden;
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-    font-size: 16px;
-    --gradient: linear-gradient(to bottom, #2eadff, #3d83ff, #7e61ff);
-    --color: #32a6ff
+    font-size: 12px;
+    --gradient: linear-gradient(to bottom, #c1121f, #ff4d6d, #ffb3c1);
+    --color: #c1121f
   }
 
   .notification:before {
@@ -59,7 +59,7 @@ const StyledWrapper = styled.div`
 
   .notititle {
     color: var(--color);
-    padding: 0.65rem 0.25rem 0.4rem 1.25rem;
+    padding: 0.65rem 0.25rem 0rem 1.25rem;
     font-weight: 500;
     font-size: 1.1rem;
     transition: transform 300ms ease;
@@ -79,7 +79,7 @@ const StyledWrapper = styled.div`
 
   .notidepartment {
     color: #99999d;
-    padding: 0 1.25rem 0.2rem 1.25rem;
+    padding: 0 1.25rem 0 1.25rem;
     font-size: 0.9rem;
     transition: transform 300ms ease;
     z-index: 5;
