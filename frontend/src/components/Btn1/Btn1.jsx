@@ -77,7 +77,7 @@ const StyledWrapper = styled.div`
     color: white;
     border: 3px solid #8F001A;
     border-radius: 50px;
-    box-shadow: 0 0 0 #fffdef;
+    box-shadow: 0 0 0 #ff4d6d;
     transition: all 0.3s ease-in-out;
     cursor: pointer;
     color: #FFFDEF;
@@ -89,7 +89,7 @@ const StyledWrapper = styled.div`
     left: 20%;
     width: 25px;
     height: auto;
-    filter: drop-shadow(0 0 0 #fffdef);
+    filter: drop-shadow(0 0 0 #ff4d6d);
     z-index: -5;
     transition: all 1s cubic-bezier(0.05, 0.83, 0.43, 0.96);
   }
@@ -100,7 +100,7 @@ const StyledWrapper = styled.div`
     left: 45%;
     width: 15px;
     height: auto;
-    filter: drop-shadow(0 0 0 #fffdef);
+    filter: drop-shadow(0 0 0 #ff4d6d);
     z-index: -5;
     transition: all 1s cubic-bezier(0, 0.4, 0, 1.01);
   }
@@ -111,7 +111,7 @@ const StyledWrapper = styled.div`
     left: 40%;
     width: 5px;
     height: auto;
-    filter: drop-shadow(0 0 0 #fffdef);
+    filter: drop-shadow(0 0 0 #ff4d6d);
     z-index: -5;
     transition: all 1s cubic-bezier(0, 0.4, 0, 1.01);
   }
@@ -122,7 +122,7 @@ const StyledWrapper = styled.div`
     left: 40%;
     width: 8px;
     height: auto;
-    filter: drop-shadow(0 0 0 #fffdef);
+    filter: drop-shadow(0 0 0 #ff4d6d);
     z-index: -5;
     transition: all 0.8s cubic-bezier(0, 0.4, 0, 1.01);
   }
@@ -133,7 +133,7 @@ const StyledWrapper = styled.div`
     left: 45%;
     width: 15px;
     height: auto;
-    filter: drop-shadow(0 0 0 #fffdef);
+    filter: drop-shadow(0 0 0 #ff4d6d);
     z-index: -5;
     transition: all 0.6s cubic-bezier(0, 0.4, 0, 1.01);
   }
@@ -144,15 +144,15 @@ const StyledWrapper = styled.div`
     left: 50%;
     width: 5px;
     height: auto;
-    filter: drop-shadow(0 0 0 #fffdef);
+    filter: drop-shadow(0 0 0 #ff4d6d);
     z-index: -5;
     transition: all 0.8s ease;
   }
 
   button:hover {
     background: transparent;
-    color: black;
-    box-shadow: 0 0 25px #fffdef;
+    color: white;
+    box-shadow: 0 0 25px #ff4d6d;
   }
 
   button:hover .star-1 {
@@ -161,7 +161,7 @@ const StyledWrapper = styled.div`
     left: -30%;
     width: 25px;
     height: auto;
-    filter: drop-shadow(0 0 10px #fffdef);
+    filter: drop-shadow(0 0 10px #ff4d6d);
     z-index: 2;
   }
 
@@ -171,7 +171,7 @@ const StyledWrapper = styled.div`
     left: 10%;
     width: 15px;
     height: auto;
-    filter: drop-shadow(0 0 10px #fffdef);
+    filter: drop-shadow(0 0 10px #ff4d6d);
     z-index: 2;
   }
 
@@ -181,7 +181,7 @@ const StyledWrapper = styled.div`
     left: 25%;
     width: 5px;
     height: auto;
-    filter: drop-shadow(0 0 10px #fffdef);
+    filter: drop-shadow(0 0 10px #ff4d6d);
     z-index: 2;
   }
 
@@ -191,7 +191,7 @@ const StyledWrapper = styled.div`
     left: 80%;
     width: 8px;
     height: auto;
-    filter: drop-shadow(0 0 10px #fffdef);
+    filter: drop-shadow(0 0 10px #ff4d6d);
     z-index: 2;
   }
 
@@ -201,7 +201,7 @@ const StyledWrapper = styled.div`
     left: 115%;
     width: 15px;
     height: auto;
-    filter: drop-shadow(0 0 10px #fffdef);
+    filter: drop-shadow(0 0 10px #ff4d6d);
     z-index: 2;
   }
 
@@ -211,12 +211,12 @@ const StyledWrapper = styled.div`
     left: 60%;
     width: 5px;
     height: auto;
-    filter: drop-shadow(0 0 10px #fffdef);
+    filter: drop-shadow(0 0 10px #ff4d6d);
     z-index: 2;
   }
 
   .fil0 {
-    fill: #fffdef; 
+    fill: #ff4d6d; 
   }`;
 
 export default Button;

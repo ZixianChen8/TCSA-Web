@@ -7,7 +7,7 @@ const SecHero = ({ title, message, showBtn, btnText, btnLink, className, heroMed
 
     let backgroundElement;
     if (heroLoading) {
-      backgroundElement = <div className={styles.loading}>Loading...</div>;
+      backgroundElement = <div className={styles.loading}></div>;
     } else if (heroError || !heroMedia) {
       backgroundElement = <div className={styles.heroBgDefault} />;
     } else if (heroMedia.video) {
