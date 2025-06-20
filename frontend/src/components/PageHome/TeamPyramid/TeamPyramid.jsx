@@ -219,7 +219,7 @@ export default function TeamPyramid() {
         lastMouseEvent.current = { x: event.clientX, y: event.clientY };
         setHoveredPerson(personData.data);
         setIsHovering(true);
-        if (personData.data.department) {
+        if (departmentLeaders.some(leader => leader.id === personData.data.id)) {
           // Department leader
           setHoveredLeaderId(personData.data.id);
           setHoveredMemberId(null);
@@ -310,15 +310,9 @@ export default function TeamPyramid() {
                       };
 
                       if (memberObject.position === 'President' && !memberObject.reports_to_id) {
-                        loadedAdvisors.push({
-                          ...memberObject,
-                          department: memberObject.position,
-                        });
+                        loadedAdvisors.push({ ...memberObject, department: memberObject.position });
                       } else if (memberObject.position === 'Vice President') {
-                        loadedExecutives.push({
-                          ...memberObject,
-                          department: memberObject.position,
-                        });
+                        loadedExecutives.push({ ...memberObject, department: memberObject.position });
                       } else if (memberObject.position && (memberObject.position.includes('Lead') || memberObject.position.includes('Manager'))) {
                         loadedDeptLeaders.push({
                           ...memberObject,
