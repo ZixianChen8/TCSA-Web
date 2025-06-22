@@ -80,9 +80,11 @@
   background-color: #f5f5f5;
 }
 
-h1{
+
+.contactSection h1{
     font-size: 3rem;
     margin: 0;
+    text-align: center;
 }
 h2{
     margin: 0;

@@ -160,8 +160,8 @@ body {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 2rem;
   align-items: center;
+  gap: 2rem;
 }
 
 .sponsorLogos img {
@@ -256,4 +256,3 @@ body {
 .button:hover {
   background-color: #7A0016;
 }
-
