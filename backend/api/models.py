@@ -349,14 +349,29 @@ class OpenPosition(models.Model):
         verbose_name_plural = "Open Positions"
 
 
+
 # Navbar logo for the website
+
 class NavbarLogo(models.Model):
     title = models.CharField(max_length=200, null=False)
     logo = models.ImageField(upload_to='navbar_logo/', blank=False, null=False)
 
     def __str__(self):
         return self.title
-    
+
     class Meta:
         verbose_name = "Navbar Logo"
         verbose_name_plural = "Navbar Logos"
+
+class Design(models.Model):
+    title = models.CharField(max_length=200, null=False)
+    description = models.TextField(null=True, blank=True)
+    image = models.ImageField(upload_to='designs/', max_length=500, null=False, blank=False)
+    type = models.CharField(max_length=100, null=False)
+
+    def __str__(self):
+        return self.title
+
+    class Meta:
+        verbose_name = "Design"
+        verbose_name_plural = "Designs"

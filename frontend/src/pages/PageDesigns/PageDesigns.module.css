@@ -1,0 +1,21 @@
+.pageDesigns {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+  padding: 2rem;
+  margin-top: 3rem;
+}
+
+.designItem {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  max-width: 2000px;
+}
+
+.loading, .error {
+  text-align: center;
+  font-size: 1.25rem;
+  margin-top: 2rem;
+}

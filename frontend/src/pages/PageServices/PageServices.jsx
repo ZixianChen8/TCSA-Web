@@ -98,40 +98,28 @@ function PageServices() {
           ]}
           buttonText="Learn More"
           buttonLink="/left"
+          showButton={false}
           /* textAlign prop omitted → defaults to 'left' */
-        />
-
-        {/* Left-aligned text */}
-        <SectionService
-          imageSrc={servicesBgImages[1]?.image || '/images/service-center.png'}
-          subtitle="Graphic & Brand Design"
-          title="Designs That Speak Volumes"
-          tagline="Custom logo creation Business card design and printing. Visual identity systems (Brand Guidelines, Typography, Color Palettes)"
-          paragraphs={[
-  
-          ]}
-          buttonText="Explore Designs"
-          buttonLink="/graphic-design"
-          textAlign="right"
         />
 
         {/* Center-aligned text */}
         <SectionService
-          imageSrc={servicesBgImages[2]?.image || '/images/service-right.png'}
+          imageSrc={servicesBgImages[1]?.image || '/images/service-right.png'}
           subtitle="Marketing Materials Design"
           title="Captivate. Convert."
-          tagline="Flyers, brochures, posters, roll-up banners. Digital and print-ready formats available"
+          tagline="Graphic design, brand Design, Flyers, brochures, posters, roll-up banners, Custom logo creation Business card design and printing. Visual identity systems (Brand Guidelines, Typography, Color Palettes)"
           paragraphs={[
 
           ]}
-          buttonText="Launch Campaign"
-          buttonLink="/media-campaigns"
-          textAlign="center"
+          buttonText="Explore Designs"
+          buttonLink="/designs"
+          showButton={true}
+          textAlign="right"
         />
 
         {/* Left-aligned text (default) */}
         <SectionService
-          imageSrc={servicesBgImages[3]?.image || '/images/service-left.png'}
+          imageSrc={servicesBgImages[2]?.image || '/images/service-left.png'}
           subtitle="Website Design & Development"
           title="Your Web, Simplified."
           tagline="Responsive design for mobile and desktop. SEO-friendly and easy-to-manage backends "
@@ -140,21 +128,24 @@ function PageServices() {
           ]}
           buttonText="Learn More"
           buttonLink="/left"
-          /* textAlign prop omitted → defaults to 'left' */
+          showButton={false}
+          textAlign="center"
+
         />
 
         {/* Center-aligned text */}
         <SectionService
-          imageSrc={servicesBgImages[4]?.image || '/images/service-right.png'}
-          subtitle="Photography Services"
-          title="Memories, Made Perfect."
-          tagline="Portraits, product photography, event coverage"
+          imageSrc={servicesBgImages[3]?.image || '/images/service-right.png'}
+          subtitle="Event Hosting Service"
+          title="Elevate Every Occasion."
+          tagline="We manage all aspects of your event—from setup to support—ensuring a smooth and memorable experience."
           paragraphs={[
 
           ]}
           buttonText="Launch Campaign"
           buttonLink="/media-campaigns"
-          textAlign="center"
+          showButton={false}
+          textAlign="left"
         />
 
       </div>

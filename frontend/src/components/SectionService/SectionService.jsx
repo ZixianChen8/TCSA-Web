@@ -1,5 +1,6 @@
 import React from 'react';
 import Btn2 from '@/components/Btn2/Btn2.jsx'
+import { Link } from 'react-router-dom';
 
 import styles from './SectionService.module.css'
 
@@ -11,6 +12,7 @@ const SectionService = ({
   paragraphs,
   buttonText,
   buttonLink,
+  showButton = true,
   textAlign = 'left',
 }) => {
     return (
@@ -35,11 +37,13 @@ const SectionService = ({
                         ))}
                     </div>
 
-                    {/* <div style={{ textAlign }}>
-                        <a href={buttonLink} className={styles.button} >
-                            <Btn2 title={buttonText} />
-                        </a>      
-                    </div> */}
+                    {showButton && (
+                        <div style={{ textAlign }}>
+                            <Link to={buttonLink} className={styles.button}>
+                                <Btn2 title={buttonText} />
+                            </Link>
+                        </div>
+                    )}
 
                 
                     

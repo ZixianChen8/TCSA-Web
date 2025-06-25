@@ -6,7 +6,7 @@
 # from django.conf.urls.static import static
 
 from django.urls import path
-from .views import get_data, EventDetailAPIView, EventListAPIView, MemberListView, CircularGalleryImageListAPIView, SponsorLogoListAPIView, ServicesBgImageListAPIView, ClubAlumnusListAPIView, TelferAlumnusListAPIView, BenefitBgImageListAPIView, ResourceCarouselImageListAPIView, ResourceListAPIView, HomeHeroMediaListAPIView, register_for_event, EventHeroImageListAPIView, ServicesHeroImageListAPIView, AlumniHeroImageListAPIView, ResourceHeroImageListAPIView, JoinUsHeroImageListAPIView, OpenPositionListAPIView
+from .views import get_data, EventDetailAPIView, EventListAPIView, MemberListView, CircularGalleryImageListAPIView, SponsorLogoListAPIView, ServicesBgImageListAPIView, ClubAlumnusListAPIView, TelferAlumnusListAPIView, BenefitBgImageListAPIView, ResourceCarouselImageListAPIView, ResourceListAPIView, HomeHeroMediaListAPIView, register_for_event, EventHeroImageListAPIView, ServicesHeroImageListAPIView, AlumniHeroImageListAPIView, ResourceHeroImageListAPIView, JoinUsHeroImageListAPIView, OpenPositionListAPIView, DesignListAPIView
 
 urlpatterns = [
     path('data/', get_data, name='get_data'),
@@ -29,5 +29,6 @@ urlpatterns = [
     path('resourceHeroImage/', ResourceHeroImageListAPIView.as_view(), name='resource_hero_image'),
     path('joinUsHeroImage/', JoinUsHeroImageListAPIView.as_view(), name='join_us_hero_image'),
     path('openPositions/', OpenPositionListAPIView.as_view(), name='open_positions'),
+    path('designs/', DesignListAPIView.as_view(), name='design_list'),
     
 ]

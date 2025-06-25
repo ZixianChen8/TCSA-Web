@@ -300,11 +300,12 @@ class Media {
 }
 
 class App {
-  constructor(container, { items, bend, textColor = "#ffffff", borderRadius = 0, font = "bold 30px DM Sans" } = {}) {
+  constructor(container, { items, bend, textColor = "#ffffff", borderRadius = 0, font = "bold 30px DM Sans", scrollSpeed = 2 } = {}) {
     document.documentElement.classList.remove('no-js')
     this.container = container
     this.scroll = { ease: 0.05, current: 0, target: 0, last: 0 }
     this.onCheckDebounce = debounce(this.onCheck, 200)
+    this.scrollSpeed = scrollSpeed;
     this.createRenderer()
     this.createCamera()
     this.createScene()
@@ -386,7 +387,7 @@ class App {
     this.onCheck()
   }
   onWheel() {
-    this.scroll.target += 2
+    this.scroll.target += this.scrollSpeed
     this.onCheckDebounce()
   }
   onCheck() {
@@ -466,7 +467,8 @@ export default function CircularGallery({
   bend = 3,
   textColor = "#ffffff",
   borderRadius = 0.05,
-  font = "bold 30px DM Sans"
+  font = "bold 30px DM Sans",
+  scrollSpeed = 0.4
 }) {
   const [itemsData, setItemsData] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -493,11 +495,11 @@ export default function CircularGallery({
 
   useEffect(() => {
     if (loading || error) return;
-    const app = new App(containerRef.current, { items: itemsData, bend, textColor, borderRadius, font });
+    const app = new App(containerRef.current, { items: itemsData, bend, textColor, borderRadius, font, scrollSpeed });
     return () => {
       app.destroy();
     };
-  }, [loading, error, itemsData, bend, textColor, borderRadius, font]);
+  }, [loading, error, itemsData, bend, textColor, borderRadius, font, scrollSpeed]);
 
   if (loading) {
     return <div className={styles.circular_gallery}>Loading gallery...</div>;

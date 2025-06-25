@@ -1,6 +1,4 @@
 import React, { useState } from 'react';
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
 import { BrowserRouter as Router, Routes, Route, useNavigate } from "react-router-dom"; // Import Router components
 import './App.css'
 
@@ -12,6 +10,7 @@ import PageEventDetails from './pages/PageEventDetails/PageEventDetails.jsx'
 import PageServices from './pages/PageServices/PageServices.jsx';
 import PageResources from './pages/PageResources/PageResources.jsx'
 import PrivacyPolicy from './pages/PrivacyPolicy/PrivacyPolicy.jsx'
+import PageDesigns from './pages/PageDesigns/PageDesigns.jsx'
 
 
 import Navbar from "./components/Navbar/Navbar.jsx"
@@ -40,6 +39,8 @@ function App() {
         <Route path="/services" element={<PageServices />} />
         <Route path="/resources" element={<PageResources />} />
         <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+        <Route path="/designs" element={<PageDesigns />} />
+
 
       </Routes>
     </>

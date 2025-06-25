@@ -310,9 +310,9 @@ export default function TeamPyramid() {
                       };
 
                       if (memberObject.position === 'President' && !memberObject.reports_to_id) {
-                        loadedAdvisors.push({ ...memberObject, department: memberObject.position });
+                        loadedAdvisors.push({ ...memberObject });
                       } else if (memberObject.position === 'Vice President') {
-                        loadedExecutives.push({ ...memberObject, department: memberObject.position });
+                        loadedExecutives.push({ ...memberObject });
                       } else if (memberObject.position && (memberObject.position.includes('Lead') || memberObject.position.includes('Manager'))) {
                         loadedDeptLeaders.push({
                           ...memberObject,
@@ -744,6 +744,7 @@ export default function TeamPyramid() {
                 email={hoveredPerson.email}
                 quote={hoveredPerson.quote}
                 department={hoveredPerson.department}
+                position={hoveredPerson.position}
               />
             )}
           </div>

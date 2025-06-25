@@ -22,7 +22,8 @@ from .models import (
     NavbarLogo,
     ResourceHeroImage,
     OpenPosition,
-    BenefitBgImage
+    BenefitBgImage,
+    Design,
 )
 
 # Custom form for Member with validation rules
@@ -255,3 +256,8 @@ class OpenPositionAdmin(admin.ModelAdmin):
     list_display = ('title', 'posted_at')
     list_editable = ('posted_at',)
     search_fields = ('title',)
+
+@admin.register(Design)
+class DesignAdmin(admin.ModelAdmin):
+    list_display = ('title', 'type', 'image')
+    search_fields = ('title', 'type')

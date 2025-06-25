@@ -1,0 +1,43 @@
+.secDesignShowcase {
+  width: 80vw;
+  height: 80vh;
+  display: flex;
+  overflow: hidden;
+  border: 3px solid #ccc;
+  border-radius: 25px;
+  box-sizing: border-box;
+}
+
+.showcaseText {
+  flex: 1;
+  padding: 1rem;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.showcaseTitle {
+  margin: 0 0 0.5rem;
+  font-size: 1.5rem;
+}
+
+.showcaseDescription {
+  margin: 0;
+  flex: 1;
+}
+
+.showcaseImageContainer {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: auto;
+  
+}
+
+.showcaseImage {
+  /* constrain image size */
+  max-width: 90%;
+  max-height: 90%;
+}

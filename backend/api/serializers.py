@@ -20,6 +20,7 @@ from .models import (
     NavbarLogo,
     BenefitBgImage,
     OpenPosition,
+    Design,
 )
 
 # Note: ImageField and FileField are automatically handled by ModelSerializer.
@@ -175,4 +176,11 @@ class NavbarLogoSerializer(serializers.ModelSerializer):
 class OpenPositionSerializer(serializers.ModelSerializer):
     class Meta:
         model = OpenPosition
+        fields = '__all__'
+
+
+# Serializer for Design model
+class DesignSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Design
         fields = '__all__'

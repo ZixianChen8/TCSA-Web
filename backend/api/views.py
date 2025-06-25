@@ -5,8 +5,8 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework import generics, status
 
-from .models import Event, Registration, Member, CircularGalleryImage, Sponsor, ServicesBgImage, ClubAlumnus, TelferAlumnus, BenefitBgImage, ResourceCarouselImage, Resource, HomeHeroMedia, EventHeroImage, AlumniHeroImage, ServicesHeroImage, JoinUsHeroImage, ResourceHeroImage, OpenPosition
-from .serializers import EventSerializer, RegistrationSerializer, MemberSerializer, CircularGalleryImageSerializer, SponsorSerializer, ServicesBgImageSerializer, ClubAlumnusSerializer, TelferAlumnusSerializer, BenefitBgImageSerializer, ResourceCarouselImageSerializer, ResourceSerializer, HomeHeroMediaSerializer, EventHeroImageSerializer, AlumniHeroImageSerializer, ServicesHeroImageSerializer, JoinUsHeroImageSerializer, ResourceHeroImageSerializer, OpenPositionSerializer
+from .models import Event, Registration, Member, CircularGalleryImage, Sponsor, ServicesBgImage, ClubAlumnus, TelferAlumnus, BenefitBgImage, ResourceCarouselImage, Resource, HomeHeroMedia, EventHeroImage, AlumniHeroImage, ServicesHeroImage, JoinUsHeroImage, ResourceHeroImage, OpenPosition, Design
+from .serializers import EventSerializer, RegistrationSerializer, MemberSerializer, CircularGalleryImageSerializer, SponsorSerializer, ServicesBgImageSerializer, ClubAlumnusSerializer, TelferAlumnusSerializer, BenefitBgImageSerializer, ResourceCarouselImageSerializer, ResourceSerializer, HomeHeroMediaSerializer, EventHeroImageSerializer, AlumniHeroImageSerializer, ServicesHeroImageSerializer, JoinUsHeroImageSerializer, ResourceHeroImageSerializer, OpenPositionSerializer, DesignSerializer
 
 @api_view(['GET'])
 def get_data(request):
@@ -370,6 +370,7 @@ class ResourceHeroImageListAPIView(generics.ListAPIView):
             )
 
 # Open positions API view
+# Open positions API view
 class OpenPositionListAPIView(generics.ListAPIView):
     queryset = OpenPosition.objects.all().order_by('-posted_at')
     serializer_class = OpenPositionSerializer
@@ -386,6 +387,26 @@ class OpenPositionListAPIView(generics.ListAPIView):
             print(f"Error in OpenPositionListAPIView: {str(e)}")
             return Response(
                 {"error": "Failed to load open positions."},
+                status=status.HTTP_500_INTERNAL_SERVER_ERROR
+            )
+
+# Design API view
+class DesignListAPIView(generics.ListAPIView):
+    queryset = Design.objects.all()
+    serializer_class = DesignSerializer
+
+    def list(self, request, *args, **kwargs):
+        try:
+            queryset = self.get_queryset()
+            print(f"\nFetched {queryset.count()} Design items.")
+            for design in queryset:
+                print(f"- {design.title} (Image URL: {design.image.url if design.image else 'No image'})")
+            serializer = self.get_serializer(queryset, many=True)
+            return Response(serializer.data)
+        except Exception as e:
+            print(f"Error in DesignListAPIView: {str(e)}")
+            return Response(
+                {"error": "Failed to load designs."},
                 status=status.HTTP_500_INTERNAL_SERVER_ERROR
             )
 
