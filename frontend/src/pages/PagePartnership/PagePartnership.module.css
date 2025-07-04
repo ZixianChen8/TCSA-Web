@@ -1,0 +1,13 @@
+.partnersContainer{
+    display: flex;
+    gap: 10px;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 2rem;
+}
+
+.pagePartnership p {
+    white-space: pre-wrap;
+}
+
+

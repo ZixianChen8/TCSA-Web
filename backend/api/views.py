@@ -128,6 +128,29 @@ class SponsorLogoListAPIView(generics.ListAPIView):
                 status=status.HTTP_500_INTERNAL_SERVER_ERROR
             )
 
+# Sponsor List API view (all sponsors)
+class SponsorListAPIView(generics.ListAPIView):
+    """
+    GET: List all sponsors with full details.
+    """
+    queryset = Sponsor.objects.all().order_by('name')
+    serializer_class = SponsorSerializer
+
+    def list(self, request, *args, **kwargs):
+        try:
+            queryset = self.get_queryset()
+            print(f"\nFetched {queryset.count()} Sponsor items.")
+            for sponsor in queryset:
+                print(f"- {sponsor.name} ({sponsor.logo_img.url if sponsor.logo_img else 'No logo'})")
+            serializer = self.get_serializer(queryset, many=True)
+            return Response(serializer.data)
+        except Exception as e:
+            print(f"Error in SponsorListAPIView: {str(e)}")
+            return Response(
+                {"error": "Failed to load sponsor data."},
+                status=status.HTTP_500_INTERNAL_SERVER_ERROR
+            )
+
 
 # Services background images API view
 class ServicesBgImageListAPIView(generics.ListAPIView):

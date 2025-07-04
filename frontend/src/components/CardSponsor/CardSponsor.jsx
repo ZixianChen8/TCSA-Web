@@ -12,6 +12,7 @@ import IconButton from '@mui/material/IconButton';
 // npm install @mui/icons-material
 import InstagramIcon from '@mui/icons-material/Instagram'; // Example Icon
 
+
 /**
  * SponsorCard Component
  * Displays information about a sponsor/partner in a card format.
@@ -50,9 +51,9 @@ function CardSponsor({
     <Card
       sx={{
         display: 'flex',
-        width: 600, // Adjust max width as needed
+        border: '2px solid #212529', // Thick dark border
+        width: 800, // Increased max width for a larger card
         height: 'auto', // Allow height to adjust dynamically
-        boxShadow: '0 2px 4px rgba(0,0,0,0.1)', // Subtle shadow
         borderRadius: '8px', // Slightly rounded corners
         overflow: 'hidden', // Ensure content stays within bounds
         padding: 2, // Add padding around the card content (1 = 8px theme spacing)
@@ -79,7 +80,7 @@ function CardSponsor({
           <Typography component="div" variant="h6" sx={{ fontWeight: 'bold', mb: 0.5 }}>
             {name}
           </Typography>
-          <Typography variant="body2" color="text.secondary" component="div">
+          <Typography variant="body2" color="text.secondary" component="div" sx={{ whiteSpace: 'pre-wrap' }}>
             {truncatedDescription}
             {needsShowMore && (
               <Link

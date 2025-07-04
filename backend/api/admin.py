@@ -2,6 +2,7 @@ from django.contrib import admin
 from django.contrib import messages
 from django import forms
 from django.core.exceptions import ValidationError
+from django.db import models
 from .models import (
     Event,
     Registration,
@@ -151,6 +152,10 @@ class ResourceAdmin(admin.ModelAdmin):
 class SponsorAdmin(admin.ModelAdmin):
     list_display = ('name', 'link', 'logo_img')
     search_fields = ('name',)
+    # Use a textarea widget for text fields to preserve newlines
+    formfield_overrides = {
+        models.TextField: {'widget': forms.Textarea(attrs={'rows': 6, 'cols': 60})},
+    }
 
 
 # Additional admin registrations for other models

@@ -6,12 +6,12 @@ import Home from "./pages/PageHome/Home.jsx";
 import PageEvents from './pages/PageEvents/PageEvents.jsx';
 import PageJoinus from './pages/PageJoinus/PageJoinus.jsx'
 import PageAlumni from './pages/PageAlumni/PageAlumni.jsx'
-import PageEventDetails from './pages/PageEventDetails/PageEventDetails.jsx'
+import PageEventDetails from './pages/PageEventDetails/PageEventDetails.jsx';
 import PageServices from './pages/PageServices/PageServices.jsx';
-import PageResources from './pages/PageResources/PageResources.jsx'
-import PrivacyPolicy from './pages/PrivacyPolicy/PrivacyPolicy.jsx'
-import PageDesigns from './pages/PageDesigns/PageDesigns.jsx'
-
+import PageResources from './pages/PageResources/PageResources.jsx';
+import PrivacyPolicy from './pages/PrivacyPolicy/PrivacyPolicy.jsx';
+import PageDesigns from './pages/PageDesigns/PageDesigns.jsx';
+import PagePartnership from './pages/PagePartnership/PagePartnership.jsx';
 
 import Navbar from "./components/Navbar/Navbar.jsx"
 
@@ -40,6 +40,8 @@ function App() {
         <Route path="/resources" element={<PageResources />} />
         <Route path="/privacy-policy" element={<PrivacyPolicy />} />
         <Route path="/designs" element={<PageDesigns />} />
+        <Route path="/partnerships" element={<PagePartnership />} />
+
 
 
       </Routes>
