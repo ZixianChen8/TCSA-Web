@@ -1,3 +1,4 @@
 User-agent: *
 Disallow:
-Sitemap: https://tcsaofficial.com/
+
+Sitemap: https://tcsaofficial.com/sitemap.xml

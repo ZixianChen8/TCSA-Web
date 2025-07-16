@@ -3,6 +3,7 @@ import axios from 'axios';
 // Adjust the import path below to point to your SecDesignShowcase component
 import SecDesignShowcase from '@/components/SecDesignShowcase/SecDesignShowcase.jsx';
 import styles from './PageDesigns.module.css';
+import { Helmet } from 'react-helmet';
 
 function PageDesigns() {
   const [designs, setDesigns] = useState([]);
@@ -35,17 +36,22 @@ function PageDesigns() {
   }
 
   return (
-    <div className={styles.pageDesigns}>
-      {designs.map((design) => (
-        <div key={design.id} className={styles.designItem}>
-          <SecDesignShowcase
-            image={design.image}
-            title={design.title}
-            description={design.description || ''}
-          />
-        </div>
-      ))}
-    </div>
+    <>
+      <Helmet>
+        <title>Design Portfolio - TCSA</title>
+      </Helmet>
+      <div className={styles.pageDesigns}>
+        {designs.map((design) => (
+          <div key={design.id} className={styles.designItem}>
+            <SecDesignShowcase
+              image={design.image}
+              title={design.title}
+              description={design.description || ''}
+            />
+          </div>
+        ))}
+      </div>
+    </>
   );
 }
 
