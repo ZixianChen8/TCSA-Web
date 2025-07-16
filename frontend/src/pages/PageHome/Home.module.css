@@ -42,6 +42,13 @@ body {
   
 }
 
+/* Roadmap Chart */
+
+.roadmapChart {
+  margin: 5rem 10rem 10rem 10rem;
+
+}
+
 /* Pyramid */
 
 .teamPyramid {

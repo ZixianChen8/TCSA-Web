@@ -5,6 +5,7 @@ import TeamPyramid from "@/components/PageHome/TeamPyramid/TeamPyramid.jsx"
 import CircularGallery from '@/components/PageHome/CircularGallery/CircularGallery.jsx'
 import Footer from '@/components/Footer/Footer.jsx'
 import Btn3 from '@/components/Btn3/Btn3.jsx'
+import ChartRoadmap from '@/components/ChartRoadmap/ChartRoadmap.jsx'
 
 import axios from 'axios';
 import styles from "./Home.module.css";
@@ -13,6 +14,7 @@ import emailjs from '@emailjs/browser'
 
 
 const Home = () => {
+  
   useEffect(() => {
     emailjs.init(import.meta.env.VITE_EMAILJS_PUBLIC_KEY);
   }, []);
@@ -119,6 +121,12 @@ const Home = () => {
       e.target.reset();
       }
 
+  const roadmapData = [
+    { year: '2023', events: 2, influenced: 3300 },
+    { year: '2024', events: 10, influenced: 4527 },
+    { year: '2025', events: 4, influenced: 1466 },
+  ];
+
   return (
     <div className={styles.container}>
 
@@ -143,6 +151,14 @@ const Home = () => {
       </section>
 
       <main>
+        {/* Roadmap Chart */}
+        <section className={styles.roadmapChart}>
+          <h2>CLUB ROADMAP</h2>
+          <ChartRoadmap data={roadmapData} height={200} />
+        </section>
+        
+
+
         {/* Team Pyramid */}
         <section className={styles.teamPyramid}>
           <h2>OUR TEAM STRUCTURE</h2>
