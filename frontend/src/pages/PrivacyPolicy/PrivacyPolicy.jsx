@@ -1,6 +1,8 @@
 import React from 'react';
 import styles from './PrivacyPolicy.module.css';
 
+import { Helmet } from 'react-helmet';
+
 import SecHero2 from "@/components/SecHero2/SecHero2.jsx"
 import Footer from '@/components/Footer/Footer.jsx'
 
@@ -9,11 +11,15 @@ import Footer from '@/components/Footer/Footer.jsx'
 const PrivacyPolicy = () => {
   return (
     <div className={styles.container}>
+      <Helmet>
+        <title>TCSA - Privacy Policy</title>
+      </Helmet>
     <header>
         <SecHero2
         title="Privacy Policy"
         subtitle=""
         />
+        
     </header>
       <p className={styles.effectiveDate}>Effective Date: [Insert Date]</p>
       <p className={styles.lastUpdated}>Last Updated: [Insert Date]</p>

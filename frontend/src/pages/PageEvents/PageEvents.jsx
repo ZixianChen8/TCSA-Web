@@ -3,6 +3,8 @@ import axios from 'axios'; // Import Axios for API requests
 
 import CardEvent from '@/components/CardEvent/CardEvent.jsx'
 
+import { Helmet } from 'react-helmet';
+
 import Navbar from "@/components/Navbar/Navbar.jsx"
 import SecHero2 from "@/components/SecHero2/SecHero2.jsx" 
 import Footer from '@/components/Footer/Footer.jsx'
@@ -65,6 +67,9 @@ const PageEvents = () => {
 
     return (
         <main>
+            <Helmet>
+                <title>Events - TCSA</title>
+            </Helmet>
             <header>
                 <SecHero2
                   title="EVENTS"

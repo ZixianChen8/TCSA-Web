@@ -6,7 +6,7 @@ import axios from 'axios';
 
 import SecHero2 from "@/components/SecHero2/SecHero2.jsx" 
 import Footer from '@/components/Footer/Footer.jsx'
-
+import { Helmet } from 'react-helmet';
 
 const PagePartnership = () => {
   const [partners, setPartners] = useState([]);
@@ -46,6 +46,9 @@ const PagePartnership = () => {
 
   return (
     <div className={styles.pagePartnership}>
+      <Helmet>
+        <title>Our Partners - TCSA</title>
+      </Helmet>
       <header>
           <SecHero2
             title="OUR PARTNERS"

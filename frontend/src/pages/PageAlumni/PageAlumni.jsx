@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { Helmet } from 'react-helmet';
 import Navbar from "@/components/Navbar/Navbar.jsx";
 import SecHero2 from "@/components/SecHero2/SecHero2.jsx" 
 import Footer from '@/components/Footer/Footer.jsx'
@@ -73,6 +74,9 @@ const PageAlumni = () => {
     
     return (
         <main>
+            <Helmet>
+                <title>Alumni - TCSA</title>
+            </Helmet>
             <header>
                 <SecHero2
                 title="MEET THE ALUMNI"

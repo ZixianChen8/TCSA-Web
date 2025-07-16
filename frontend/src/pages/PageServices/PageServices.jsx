@@ -1,4 +1,5 @@
 import React, { useRef, useState, useEffect } from 'react';
+import { Helmet } from 'react-helmet';
 import SponsorCard from '@/components/CardSponsor/CardSponsor.jsx'; 
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
@@ -77,6 +78,9 @@ function PageServices() {
 
   return (
     <>
+      <Helmet>
+        <title>Our Services - TCSA</title>
+      </Helmet>
       <header>
           <SecHero2
           title="COLLABORATE WITH US"

@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Helmet } from 'react-helmet';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import emailjs from '@emailjs/browser';
@@ -192,6 +193,10 @@ const PageEventDetails = () => {
   return (
     <div className={styles.container}>
       <Navbar />
+
+      <Helmet>
+        <title>{event?.title ? `${event.title} - TCSA` : 'Event Details - TCSA'}</title>
+      </Helmet>
 
     <h2 className={styles.bigTitle}>{event?.title}</h2>
 {/* 

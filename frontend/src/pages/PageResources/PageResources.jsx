@@ -1,5 +1,6 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
+import { Helmet } from 'react-helmet';
 import axios from 'axios';
 import styles from './PageResources.module.css';
 import Navbar from '../../components/Navbar/Navbar';
@@ -74,6 +75,9 @@ function PageResources() {
 
   return (
     <>
+      <Helmet>
+        <title>Resources - TCSA</title>
+      </Helmet>
       <section className={styles.navbar}>
       </section>
 

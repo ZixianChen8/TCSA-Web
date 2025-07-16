@@ -10,6 +10,8 @@ import SecHero2 from "@/components/SecHero2/SecHero2.jsx"
 import Footer from '@/components/Footer/Footer.jsx'
 import SubmitBtn from '@/components/BtnStar2/BtnStar2.jsx'
 
+import { Helmet } from 'react-helmet';
+
 // import { FaLock } from 'react-icons/fa';
 
 import styles from "./PageJoinus.module.css"
@@ -137,6 +139,9 @@ const PageJoinus = () => {
     return (
 
         <main>
+            <Helmet>
+              <title>Join Our Team - TCSA</title>
+            </Helmet>
             <header>
                 <SecHero2
                 title="BECOME A MEMBER OF TCSA"
