@@ -73,7 +73,7 @@ const PageEvents = () => {
             <header className={styles.header}>
                 <SecHero2
                   title="EVENTS"
-                  subtitle="Check out some great events"
+                  subtitle="Stay Connected, Stay Inspired. Discover Our Events!"
                   image={heroImage}
                 />
             </header>
