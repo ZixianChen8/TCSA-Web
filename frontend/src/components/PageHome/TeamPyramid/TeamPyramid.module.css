@@ -46,3 +46,25 @@
     /* no transform here */
   }
 }
+
+@media (max-width: 600px) {
+  .pyramidContainer {
+    max-height: none;
+    overflow: auto;
+  }
+
+  .pyramid-svg {
+    width: 100%;
+    height: auto;
+  }
+
+  .popcardContainerMobile {
+    position: absolute;
+    z-index: 10;
+    animation: fadeIn 0.2s ease-out forwards;
+    pointer-events: none;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+  }
+}

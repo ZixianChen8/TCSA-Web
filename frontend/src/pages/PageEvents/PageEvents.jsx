@@ -70,7 +70,7 @@ const PageEvents = () => {
             <Helmet>
                 <title>Events - TCSA</title>
             </Helmet>
-            <header>
+            <header className={styles.header}>
                 <SecHero2
                   title="EVENTS"
                   subtitle="Check out some great events"

@@ -6,6 +6,8 @@
   height: 400px;
   text-align: center;
   padding: 0 20px;
+  background-size: cover;
+  background-position: center;
 }
 
 .heroTitle {
@@ -17,4 +19,33 @@
   font-size: 1.25rem;
   max-width: 600px;
   margin-top: 0;
+}
+
+@media (max-width: 768px) {
+  .heroSection {
+    height: 500px;
+    padding: 0 10px;
+  }
+  .heroTitle {
+    font-size: 2.5rem;
+  }
+  .heroSubtitle {
+    font-size: 1rem;
+    max-width: 90%;
+  }
+}
+
+@media (max-width: 480px) {
+  .heroSection {
+    height: 250px;
+    padding: 20px 10px;
+  }
+  .heroTitle {
+    font-size: 1.75rem;
+    line-height: 2.25rem;
+  }
+  .heroSubtitle {
+    font-size: 0.9rem;
+    max-width: 95%;
+  }
 }

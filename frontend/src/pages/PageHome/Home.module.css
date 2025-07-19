@@ -135,6 +135,91 @@ body {
   color: #666;
 }
 
+/* Center and size sponsor logos on desktop */
+.sponsorLogos {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 1.5rem;
+  margin-top: 1rem;
+  margin-bottom: 5rem;
+}
+
+.sponsorLogos img {
+  max-width: 200px;
+  max-height: 200px;
+  object-fit: contain;
+}
+
+/* Contact Section */
+.contact {
+  margin: 0rem auto;
+  padding: 4rem 10%;
+  background-color: #f9f9f9;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  width: 100%;
+}
+
+.contact h2 {
+  text-align: center;
+  font-size: 2rem;
+  margin-bottom: 2rem;
+}
+
+.contactContent {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 2rem;
+  flex-wrap: wrap;
+}
+
+.contactInfo {
+  flex: 1;
+  min-width: 250px;
+}
+
+.contactForm {
+  flex: 2;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  min-width: 300px;
+}
+
+.contactForm input,
+.contactForm textarea {
+  width: 100%;
+  padding: 1rem;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  font-size: 1rem;
+}
+
+.contactForm textarea {
+  resize: vertical;
+  min-height: 150px;
+}
+
+.contactForm .button {
+  width: 100%;
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  background-color: #000000;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  /* Removed align-self */
+}
+
+.contactForm .button:hover {
+  background-color: #333333;
+}
+
 @media (max-width: 1024px) {
   .eventList {
     grid-template-columns: repeat(2, 1fr);
@@ -147,119 +232,76 @@ body {
   }
 }
 
+@media (max-width: 600px) {
+  .container {
+    /* padding: 0 1rem; */
+  }
 
-.eventImage {
-  background: lightgrey;
-  height: 100px;
-  margin-bottom: 10px;
-}
+  h2 {
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
+  }
 
-/* Sponsors */
-.sponsors {
-  display: flex;
-  flex-direction: column;
-  text-align: center;
-  padding: 50px;
-  gap: 3rem;
-}
+  .hero {
+    min-height: auto;
+    padding: 0rem 0;
+    margin: 0 -1rem;
+    /* width: calc(100% + 2rem); */
+  }
 
-.sponsorLogos {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  align-items: center;
-  gap: 2rem;
-}
+  .roadmapChart {
+    margin: 2rem 1rem;
+  }
 
-.sponsorLogos img {
-  max-width: 200px;
-  max-height: 200px;
-  width: auto;
-  height: auto;
-  object-fit: contain;
-  margin: 0 1rem;
-}
+  .teamPyramid {
+    padding: 0 1rem;
+  }
 
+  .events {
+    margin: 1rem auto;
+    padding: 20px;
+    width: 100%;
+  }
 
-/* Contact */
-.contact {
-  padding: 50px;
-  background: #f5f5f5;
-}
+  .moreEventsBtn {
+    margin: 0 1rem 1rem 0;
+  }
 
-.contact h2 {
-  font-weight: 300;
-  font-style: italic;
-  margin-bottom: 2rem;
-}
+  .eventList {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+    padding: 0 10px;
+  }
 
-.contactContent {
-  display: flex;
-  justify-content: space-between;
-}
+  .eventCardWrapper {
+    width: 100%;
+    min-height: auto;
+  }
 
-.contactForm {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  width: 50%;
-}
+  .sponsors {
+    padding: 20px 1rem;
+  }
 
-.contactForm input,
-.contactForm textarea {
-  padding: 10px;
-  width: 100%;
-}
+  .sponsorLogos img {
+    max-width: 100px;
+    max-height: 100px;
+    margin: 0.5rem;
+  }
 
-.contactForm textarea {
-  padding: 10px;
-  width: 100%;
-  min-height: 150px;
-}
+  .contactContent {
+    flex-direction: column;
+  }
 
-/* Footer */
-.footer {
-  background: #e0e0e0;
-  text-align: center;
-  padding: 20px;
-}
+  .contactForm {
+    width: 100%;
+  }
 
-.footerLinks {
-  display: flex;
-  justify-content: center;
-  gap: 15px;
-  padding: 10px 0;
-}
+  .contact {
+    padding: 2rem 1rem;
+  }
 
-.footerSocial {
-  display: flex;
-  justify-content: center;
-  gap: 10px;
-  padding: 10px 0;
-}
-
-.socialIcon {
-  width: 30px;
-  height: 30px;
-  background: lightgray;
-  border-radius: 50%;
-}
-
-/* Ensure footer stays at bottom */
-.container > :last-child {
-  margin-top: auto;
-}
-
-/* Buttons */
-.button {
-  background-color: #8F001A;
-  color: #FFFDEF;
-  padding: 10px 20px;
-  border: none;
-  cursor: pointer;
-  border-radius: 5px;
-}
-
-.button:hover {
-  background-color: #7A0016;
+  .Gallery {
+    display: flex;
+    justify-content: center;
+  }
 }

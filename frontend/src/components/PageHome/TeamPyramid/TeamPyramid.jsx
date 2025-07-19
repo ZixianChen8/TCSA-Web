@@ -57,6 +57,14 @@ export default function TeamPyramid() {
       const containerRef = useRef(null);
       const tooltipRef = useRef(null);
       const [isHovering, setIsHovering] = useState(false);
+      const [isMobile, setIsMobile] = useState(false);
+
+      useEffect(() => {
+        const handleResize = () => setIsMobile(window.innerWidth <= 600);
+        handleResize();
+        window.addEventListener('resize', handleResize);
+        return () => window.removeEventListener('resize', handleResize);
+      }, []);
       const lastMouseEvent = useRef({ x: 0, y: 0 });
 
 
@@ -216,6 +224,19 @@ export default function TeamPyramid() {
 
       // Handles mouse entering a node area
       const handleMouseEnter = (personData, event) => {
+        if (isMobile) {
+          setHoveredPerson(personData.data);
+          setIsHovering(true);
+          if (tooltipRef.current) {
+            tooltipRef.current.style.visibility = 'visible';
+            Object.assign(tooltipRef.current.style, {
+              left: '50%',
+              top: '50%',
+              transform: 'translate(-50%, -50%)'
+            });
+          }
+          return;
+        }
         lastMouseEvent.current = { x: event.clientX, y: event.clientY };
         setHoveredPerson(personData.data);
         setIsHovering(true);
@@ -247,7 +268,7 @@ export default function TeamPyramid() {
       };
 
       useEffect(() => {
-        if (!isHovering) return;
+        if (!isHovering || isMobile) return;
         const virtualEl = {
           getBoundingClientRect: () => {
             const { x, y } = lastMouseEvent.current;
@@ -273,7 +294,7 @@ export default function TeamPyramid() {
           document.removeEventListener('mousemove', onMouseMove);
           if (tooltipRef.current) tooltipRef.current.style.visibility = 'hidden';
         };
-      }, [isHovering]);
+      }, [isHovering, isMobile]);
       
       // --- Data Fetching ---
       useEffect(() => {
@@ -412,7 +433,7 @@ export default function TeamPyramid() {
 
 
 
-          <svg viewBox="0 -5 100 60" className={styles.pyramidSvg}>
+          <svg viewBox="-5 -5 110 60" preserveAspectRatio="xMidYMid meet" className={styles.pyramidSvg}>
             {/* --- SVG Definitions for circular clipPaths --- */}
             <defs>
               <clipPath id="clipCircleAdvisor">
@@ -735,8 +756,8 @@ export default function TeamPyramid() {
           {/* --- Tooltip Popup --- */}
           <div
             ref={tooltipRef}
-            className={styles.popcardContainer}
-            style={{ position: 'absolute', visibility: 'hidden' }}
+            className={isMobile ? styles.popcardContainerMobile : styles.popcardContainer}
+            style={{ visibility: 'hidden' }}
           >
             {hoveredPerson && (
               <TeamMember

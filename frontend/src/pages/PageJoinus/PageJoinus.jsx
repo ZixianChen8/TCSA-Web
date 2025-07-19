@@ -158,32 +158,32 @@ const PageJoinus = () => {
                       <>
                         {/* Benefit 1 */}
                         <div className={styles.benefitItem}>
+                          <div className={styles.benefitImageContainer}>
+                            <img src={image1} alt="Benefit 1 visual representation" className={styles.benefitImage} />
+                          </div>
                           <div className={styles.benefitTextContainer}>
                             <h2>BENEFIT 1</h2>
                             <p>{placeholderText}</p>
                           </div>
-                          <div className={styles.benefitImageContainer}>
-                            <img src={image1} alt="Benefit 1 visual representation" className={styles.benefitImage} />
-                          </div>
                         </div>
                         {/* Benefit 2 */}
                         <div className={`${styles.benefitItem} ${styles.reverseOrder}`}>
+                          <div className={styles.benefitImageContainer}>
+                            <img src={image2} alt="Benefit 2 visual representation" className={styles.benefitImage} />
+                          </div>
                           <div className={styles.benefitTextContainer}>
                             <h2>BENEFIT 2</h2>
                             <p>{placeholderText}</p>
                           </div>
-                          <div className={styles.benefitImageContainer}>
-                            <img src={image2} alt="Benefit 2 visual representation" className={styles.benefitImage} />
-                          </div>
                         </div>
                         {/* Benefit 3 */}
                         <div className={styles.benefitItem}>
+                          <div className={styles.benefitImageContainer}>
+                            <img src={image3} alt="Benefit 3 visual representation" className={styles.benefitImage} />
+                          </div>
                           <div className={styles.benefitTextContainer}>
                             <h2>BENEFIT 3</h2>
                             <p>{placeholderText}</p>
-                          </div>
-                          <div className={styles.benefitImageContainer}>
-                            <img src={image3} alt="Benefit 3 visual representation" className={styles.benefitImage} />
                           </div>
                         </div>
                       </>
