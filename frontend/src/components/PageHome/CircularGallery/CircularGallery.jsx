@@ -473,6 +473,13 @@ export default function CircularGallery({
   const [itemsData, setItemsData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [isMobile, setIsMobile] = useState(false);
+  useEffect(() => {
+    const handleResize = () => setIsMobile(window.innerWidth <= 600);
+    handleResize();
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   useEffect(() => {
     const fetchItems = async () => {
@@ -495,11 +502,11 @@ export default function CircularGallery({
 
   useEffect(() => {
     if (loading || error) return;
-    const app = new App(containerRef.current, { items: itemsData, bend, textColor, borderRadius, font, scrollSpeed });
+    const app = new App(containerRef.current, { items: itemsData, bend: isMobile ? 0 : bend, textColor, borderRadius, font, scrollSpeed });
     return () => {
       app.destroy();
     };
-  }, [loading, error, itemsData, bend, textColor, borderRadius, font, scrollSpeed]);
+  }, [loading, error, itemsData, bend, textColor, borderRadius, font, scrollSpeed, isMobile]);
 
   if (loading) {
     return <div className={styles.circular_gallery}>Loading gallery...</div>;

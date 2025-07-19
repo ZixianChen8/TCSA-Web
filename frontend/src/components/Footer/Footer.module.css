@@ -60,3 +60,32 @@
   .bottom p span a {
     text-decoration: none; /* Remove underline from links */
   }
+
+/* Mobile responsiveness */
+@media (max-width: 600px) {
+  .footer {
+    padding: 20px 10px;
+  }
+  .top {
+    flex-direction: column;
+  }
+  .nav {
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 1rem;
+  }
+  .nav li a {
+    font-size: 14px;
+  }
+  .social {
+    margin-top: 16px;
+  }
+  .icon {
+    width: 24px;
+    height: 24px;
+  }
+  .bottom p {
+    font-size: 12px;
+  }
+}

@@ -4,15 +4,6 @@
 }
 
 
-/* Navbar styling */
-.navbar {
-  width: 100%;
-  position: sticky;
-  top: 0;
-  z-index: 100;
-}
-
-
 .ResourcesTitle{
   font-weight: 400;
   font-style: italic;
@@ -20,9 +11,6 @@
 
 /* Slideshow */
 
-.slideShow{
-  min-height: 400px;
-}
 
 /* Resources grid layout */
 .resources {
@@ -31,4 +19,27 @@
   gap: 2rem;
   justify-items: center;
   padding: 2rem 0;
+}
+
+
+@media (max-width: 768px) {
+  .hero {
+    padding: 0 1rem;
+    box-sizing: border-box;
+  }
+  .slideShow img {
+    width: 100%;
+    height: auto;
+  }
+  .resources {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+    padding: 1rem;
+    justify-items: stretch;
+  }
+  .ResourcesTitle {
+    font-size: 1.5rem;
+    text-align: center;
+  }
 }

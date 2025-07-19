@@ -51,24 +51,26 @@ function CardSponsor({
     <Card
       sx={{
         display: 'flex',
+        flexDirection: { xs: 'column', sm: 'row' }, // Column on mobile, row on larger screens
         border: '2px solid #212529', // Thick dark border
-        width: 800, // Increased max width for a larger card
+        minWidth: '100%', // Responsive width
         height: 'auto', // Allow height to adjust dynamically
         borderRadius: '8px', // Slightly rounded corners
         overflow: 'hidden', // Ensure content stays within bounds
-        padding: 2, // Add padding around the card content (1 = 8px theme spacing)
+        padding: (theme) => theme.spacing(2), // Responsive padding
       }}
     >
       {/* Logo Section */}
       <CardMedia
         component="img"
         sx={{
-          width: 120, // Fixed width for the logo
-          height: 120, // Fixed height for the logo
+          width: { xs: '100%', sm: 120 }, // Full width on mobile, fixed on larger screens
+          height: { xs: 120, sm: 120 },
           objectFit: 'contain', // Scale image nicely
           flexShrink: 0, // Prevent logo from shrinking
-          alignSelf: 'start', // Center logo vertically if card is taller
-          mr: 2, // Margin to the right of the logo
+          alignSelf: { xs: 'center', sm: 'start' },
+          mr: { sm: 2, xs: 0 },
+          mb: { xs: 2, sm: 0 },
         }}
         image={logo}
         alt={`${name} logo`}

@@ -1,5 +1,3 @@
-
-
 /* Hero section */
 .coreHero{
   height: 400px;
@@ -85,6 +83,10 @@
   margin-left: 100px;
 }
 
+.benefitItem:last-child .benefitTextContainer {
+  margin-bottom: 2rem;
+}
+
 .benefitTextContainer h2 {
   font-size: 4em;
   font-weight: 800;
@@ -113,31 +115,90 @@
 @media (max-width: 768px) {
   .benefitItem,
   .benefitItem.reverseOrder {
-    flex-direction: column; /* Stack items vertically */
+    display: flex;
+    flex-direction: column;
     text-align: center;
   }
 
-  .benefitImageContainer,
-  .benefitTextContainer {
-    max-width: 100%; /* Allow full width */
-    margin-bottom: 20px;
-  }
-
-  /* Re-order for mobile if text should come first when stacked */
-  .benefitItem.reverseOrder .benefitImageContainer {
-     order: -1; /* If you want image on top in reversed stacked view, remove or set to 1 */
-  }
-
-
   .benefitImageContainer {
-    max-width: 80%; /* Or control image size as preferred on mobile */
-    margin-left: auto;
-    margin-right: auto;
+    width: 100vw;
+    margin-bottom: 1rem;
+    margin-left: calc((100% - 100vw) / 2);
+  }
+
+  .benefitImage {
+    width: 90vw;
+    max-width: none;
+    height: 200px;
+    object-fit: cover;
+    display: block;
+    margin-left: calc((100% - 100vw) / 2);
+  }
+
+  .benefitTextContainer {
+    width: 100vw;
+    max-width: none;
+    margin: 0;
+    padding: 0;
   }
 
   .benefitsSection {
-    padding: 15px;
-    margin: 20px auto;
+    padding: 0;
+    margin: 0 auto;
+    width: 100vw;
+  }
+
+  .content {
+    padding: 0 1rem;
+  }
+  .jobSection {
+    padding: 1rem 0;
+  }
+  .jobGrid {
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+    max-width: 90vw;
+    width: 100%;
+  }
+  .jobGrid > * {
+    width: 100%;
+    margin: 0 auto;
+  }
+  .applicationContent {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    padding: 0;
+    align-items: center;
+  }
+  .applicationDescription {
+    width: 90%;
+    margin: 0 0 0 5%;
+  }
+  .applicationDescription p {
+    width: 100%;
+    text-align: left;
+    margin-left: 5rem !important;
+  }
+  .applicationForm {
+    width: 100%;
+    max-width: 100%;
+  }
+  .submitBtn {
+    margin-top: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .heading {
+    font-size: 24px;
+  }
+  .benefitTextContainer h2 {
+    font-size: 3em;
+  }
+  .howToApply h2 {
+    font-size: 1.5rem;
   }
 }
 
@@ -146,6 +207,9 @@
 .howToApply{
   background-color: #f5f5f5;
   padding: 2rem 0 0 0;
+  width: 100vw;
+  margin-left: calc((100% - 100vw) / 2);
+  box-sizing: border-box;
 }
 
 .applicationForm {

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import styles from './Navbar.module.css'
 
 import Logo from './Logo.jsx'
@@ -6,6 +6,8 @@ import Logo from './Logo.jsx'
 
 const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
+  const [mobileOpen, setMobileOpen] = useState(false);
+  const navRef = useRef(null);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -13,13 +15,26 @@ const Navbar = () => {
     };
     window.addEventListener('scroll', handleScroll);
     handleScroll();
-    return () => window.removeEventListener('scroll', handleScroll);
+    const handleClickOutside = (event) => {
+      if (navRef.current && !navRef.current.contains(event.target)) {
+        setMobileOpen(false);
+      }
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
   }, []);
 
   return (
-    <nav className={`${styles.navbar} ${scrolled ? styles.navbarScrolled : ''}`}>
+    <nav ref={navRef} className={`${styles.navbar} ${scrolled && !mobileOpen ? styles.navbarScrolled : ''}`}>
       <div className={styles['navbar-toolbar']}>
-        
+        <div className={styles.hamburger} onClick={() => setMobileOpen(!mobileOpen)}>
+          <div />
+          <div />
+          <div />
+        </div>
         {/* Left Side */}
         <a href="/">
           <Logo />
@@ -27,7 +42,8 @@ const Navbar = () => {
 
 
         {/* Right Side: Navigation Links */}
-        <div className={styles['navbar-links']}>
+        <div className={`${styles['navbar-links']} ${mobileOpen ? styles.open : ''}`}>
+          <a href="/" className={styles['nav-link']}>Home</a>
           <a href="/events" className={styles['nav-link']}>Events</a>
           <a href="/alumni" className={styles['nav-link']}>Alumni</a>
           <a href="/joinus" className={styles['nav-link']}>Join us</a>

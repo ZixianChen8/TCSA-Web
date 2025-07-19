@@ -41,3 +41,22 @@
   max-width: 90%;
   max-height: 90%;
 }
+
+
+@media (max-width: 768px) {
+  .secDesignShowcase {
+    flex-direction: column;
+    height: auto;
+    width: 95vw;
+  }
+
+  .showcaseText {
+    align-items: center;
+    text-align: center;
+  }
+
+  .divider {
+    display: none;
+  }
+
+}

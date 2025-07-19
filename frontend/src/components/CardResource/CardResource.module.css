@@ -46,3 +46,27 @@
     margin: 1rem 0 0 auto;
     align-self: flex-end;
 }
+
+@media (max-width: 600px) {
+  .card {
+    width: 100%;
+    padding: 12px;
+    max-height: none;
+  }
+
+  .imageContainer {
+    height: 140px;
+  }
+
+  .title {
+    font-size: 1rem;
+  }
+
+  .description {
+    font-size: 0.9rem;
+  }
+
+  .button {
+    font-size: 0.875rem;
+  }
+}
