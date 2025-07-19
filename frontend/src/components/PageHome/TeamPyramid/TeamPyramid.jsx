@@ -433,14 +433,14 @@ export default function TeamPyramid() {
 
 
 
-          <svg viewBox="-5 -5 110 60" preserveAspectRatio="xMidYMid meet" className={styles.pyramidSvg}>
+          <svg viewBox="-5 -5 110 60" preserveAspectRatio="xMidYMid meet" className={styles['pyramid-svg']}>
             {/* --- SVG Definitions for circular clipPaths --- */}
             <defs>
               <clipPath id="clipCircleAdvisor">
-                <circle cx={4} cy={4} r={4} />
+                <circle cx={isMobile ? 4 : 4} cy={isMobile ? 4 : 4} r={isMobile ? 4 : 4} />
               </clipPath>
               <clipPath id="clipCircleRegular">
-                <circle cx={3.5} cy={3.5} r={3.5} />
+                <circle cx={isMobile ? 4 : 3.5} cy={isMobile ? 4 : 3.5} r={isMobile ? 4 : 3.5} />
               </clipPath>
               <clipPath id="clipCircle" clipPathUnits="objectBoundingBox">
                 <circle cx="0.5" cy="0.5" r="0.5" />
@@ -575,8 +575,8 @@ export default function TeamPyramid() {
                   href={financeDepartment.executive.pfp_img}
                   x={topMostLevel[0].x + 30}
                   y={topMostLevel[0].y + 12}
-                  width={7}
-                  height={7}
+                  width={isMobile ? 8 : 8}
+                  height={isMobile ? 8 : 8}
                   clipPath="url(#clipCircle)"
                   preserveAspectRatio="xMidYMid slice"
                   className={styles.pyramidNode}
@@ -585,10 +585,10 @@ export default function TeamPyramid() {
                 <rect
                   x={topMostLevel[0].x + 30}
                   y={topMostLevel[0].y + 12}
-                  width={7}
-                  height={7}
+                  width={isMobile ? 8 : 8}
+                  height={isMobile ? 8 : 8}
                   fill="#CCCCCC"
-                  rx={3.5}
+                  rx={isMobile ? 4 : 4}
                   className={styles.pyramidNode}
                 />
               )}
@@ -606,8 +606,8 @@ export default function TeamPyramid() {
                   href={financeDepartment.members[0].pfp_img}
                   x={topMostLevel[0].x + 38}
                   y={topMostLevel[0].y + 10}
-                  width={7}
-                  height={7}
+                  width={isMobile ? 8 : 8}
+                  height={isMobile ? 8 : 8}
                   clipPath="url(#clipCircle)"
                   preserveAspectRatio="xMidYMid slice"
                   className={`${styles.pyramidNode} cursor-pointer`}
@@ -616,10 +616,10 @@ export default function TeamPyramid() {
                 <rect
                   x={topMostLevel[0].x + 38}
                   y={topMostLevel[0].y + 10}
-                  width={7}
-                  height={7}
+                  width={isMobile ? 8 : 8}
+                  height={isMobile ? 8 : 8}
                   fill="#CCCCCC"
-                  rx={3.5}
+                  rx={isMobile ? 4 : 4}
                   className={`${styles.pyramidNode} cursor-pointer`}
                 />
               )}
@@ -636,22 +636,22 @@ export default function TeamPyramid() {
                 {advisor.pfp_img ? (
                   <image
                     href={advisor.pfp_img}
-                    x={advisor.x - 4}
+                    x={advisor.x - (isMobile ? 4 : 4)}
                     y={advisor.y}
-                    width={8}
-                    height={8}
+                    width={isMobile ? 8 : 8}
+                    height={isMobile ? 8 : 8}
                     clipPath="url(#clipCircle)"
                     preserveAspectRatio="xMidYMid slice"
                     className={styles.pyramidNode}
                   />
                 ) : (
                   <rect
-                    x={advisor.x - 4}
+                    x={advisor.x - (isMobile ? 4 : 4)}
                     y={advisor.y}
-                    width={8}
-                    height={8}
+                    width={isMobile ? 8 : 8}
+                    height={isMobile ? 8 : 8}
                     fill="#CCCCCC"
-                    rx={4}
+                    rx={isMobile ? 4 : 4}
                     className={styles.pyramidNode}
                   />
                 )}
@@ -668,22 +668,22 @@ export default function TeamPyramid() {
                 {exec.pfp_img ? (
                   <image
                     href={exec.pfp_img}
-                    x={exec.x - 3.5}
+                    x={exec.x - (isMobile ? 4 : 3.5)}
                     y={exec.y}
-                    width={7}
-                    height={7}
+                    width={isMobile ? 8 : 7}
+                    height={isMobile ? 8 : 7}
                     clipPath="url(#clipCircle)"
                     preserveAspectRatio="xMidYMid slice"
                     className={styles.pyramidNode}
                   />
                 ) : (
                   <rect
-                    x={exec.x - 3.5}
+                  x={exec.x - (isMobile ? 4 : 3.5)}
                     y={exec.y}
-                    width={7}
-                    height={7}
+                  width={isMobile ? 8 : 7}
+                  height={isMobile ? 8 : 7}
                     fill="#CCCCCC"
-                    rx={3.5}
+                  rx={isMobile ? 4 : 3.5}
                     className={styles.pyramidNode}
                   />
                 )}
@@ -699,22 +699,22 @@ export default function TeamPyramid() {
                 {leader.pfp_img ? (
                   <image
                     href={leader.pfp_img}
-                    x={leader.x - 3.5}
+                    x={leader.x - (isMobile ? 4 : 3.5)}
                     y={leader.y}
-                    width={7}
-                    height={7}
+                    width={isMobile ? 8 : 7}
+                    height={isMobile ? 8 : 7}
                     clipPath="url(#clipCircle)"
                     preserveAspectRatio="xMidYMid slice"
                     className={`${styles.pyramidNode} cursor-pointer`}
                   />
                 ) : (
                   <rect
-                    x={leader.x - 3.5}
+                  x={leader.x - (isMobile ? 4 : 3.5)}
                     y={leader.y}
-                    width={7}
-                    height={7}
+                  width={isMobile ? 8 : 7}
+                  height={isMobile ? 8 : 7}
                     fill="#CCCCCC"
-                    rx={3.5}
+                  rx={isMobile ? 4 : 3.5}
                     className={`${styles.pyramidNode} cursor-pointer`}
                   />
                 )}
@@ -730,22 +730,22 @@ export default function TeamPyramid() {
                 {member.pfp_img ? (
                   <image
                     href={member.pfp_img}
-                    x={member.x - 3.5}
+                    x={member.x - (isMobile ? 4 : 3.5)}
                     y={member.y}
-                    width={7}
-                    height={7}
+                    width={isMobile ? 8 : 7}
+                    height={isMobile ? 8 : 7}
                     clipPath="url(#clipCircle)"
                     preserveAspectRatio="xMidYMid slice"
                     className={`${styles.pyramidNode} cursor-pointer`}
                   />
                 ) : (
                   <rect
-                    x={member.x - 3.5}
+                  x={member.x - (isMobile ? 4 : 3.5)}
                     y={member.y}
-                    width={7}
-                    height={7}
+                  width={isMobile ? 8 : 7}
+                  height={isMobile ? 8 : 7}
                     fill="#CCCCCC"
-                    rx={3.5}
+                  rx={isMobile ? 4 : 3.5}
                     className={`${styles.pyramidNode} cursor-pointer`}
                   />
                 )}
