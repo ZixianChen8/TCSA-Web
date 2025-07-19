@@ -71,3 +71,10 @@
   font-size: 1.25rem;
 }
 
+
+@media (max-width: 768px) {
+  .imageContainer {
+    height: 150px;
+  }
+}
+

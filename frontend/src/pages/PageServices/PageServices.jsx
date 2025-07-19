@@ -166,7 +166,7 @@ function PageServices() {
 
             <label>Tell us about your needs!</label>
             <textarea name="needs" rows="5" required></textarea>
-            <button type="submit">Submit Application</button>
+            <button type="submit">Send</button>
         </form>
       </div>
 

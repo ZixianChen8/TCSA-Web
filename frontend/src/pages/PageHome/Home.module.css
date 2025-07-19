@@ -304,4 +304,7 @@ body {
     display: flex;
     justify-content: center;
   }
+  .Gallery > div {
+    width: 100%;
+  }
 }
