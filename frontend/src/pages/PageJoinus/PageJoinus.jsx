@@ -81,7 +81,7 @@ const PageJoinus = () => {
       fetchPositions();
     }, []);
 
-    const placeholderText = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi.";
+    // const placeholderText = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi.";
 
     const image1 = benefitImages[0]?.image || "https://via.placeholder.com/400x300/E0E0E0/B0B0B0?text=Image+1";
     const image2 = benefitImages[1]?.image || "https://via.placeholder.com/400x300/D8D8D8/A8A8A8?text=Image+2";
@@ -145,7 +145,7 @@ const PageJoinus = () => {
             <header>
                 <SecHero2
                 title="BECOME A MEMBER OF TCSA"
-                subtitle="Join the club"
+                subtitle="Unlock Your Potential — Join the TCSA Family"
                 image={heroImage}
                 />
             </header>
@@ -158,32 +158,32 @@ const PageJoinus = () => {
                       <>
                         {/* Benefit 1 */}
                         <div className={styles.benefitItem}>
+                          <div className={styles.benefitTextContainer}>
+                            <h2>Professional Growth & Networking</h2>
+                            <p>Connect with industry professionals, alumni, and peers through exclusive networking events, career fairs, and mentorship programs — build a powerful foundation for your future career.</p>
+                          </div>
                           <div className={styles.benefitImageContainer}>
                             <img src={image1} alt="Benefit 1 visual representation" className={styles.benefitImage} />
-                          </div>
-                          <div className={styles.benefitTextContainer}>
-                            <h2>BENEFIT 1</h2>
-                            <p>{placeholderText}</p>
                           </div>
                         </div>
                         {/* Benefit 2 */}
                         <div className={`${styles.benefitItem} ${styles.reverseOrder}`}>
+                          <div className={styles.benefitTextContainer}>
+                            <h2>Leadership & Real-society Experience</h2>
+                            <p>Take on leadership roles, plan real events, and manage projects that enhance your resume and give you hands-on experience outside the classroom.</p>
+                          </div>
                           <div className={styles.benefitImageContainer}>
                             <img src={image2} alt="Benefit 2 visual representation" className={styles.benefitImage} />
-                          </div>
-                          <div className={styles.benefitTextContainer}>
-                            <h2>BENEFIT 2</h2>
-                            <p>{placeholderText}</p>
                           </div>
                         </div>
                         {/* Benefit 3 */}
                         <div className={styles.benefitItem}>
+                          <div className={styles.benefitTextContainer}>
+                            <h2>Community & Campus Engagement</h2>
+                            <p>Be part of a dynamic and inclusive student community. Make lifelong friends while contributing to meaningful initiatives that shape student life at Telfer.</p>
+                          </div>
                           <div className={styles.benefitImageContainer}>
                             <img src={image3} alt="Benefit 3 visual representation" className={styles.benefitImage} />
-                          </div>
-                          <div className={styles.benefitTextContainer}>
-                            <h2>BENEFIT 3</h2>
-                            <p>{placeholderText}</p>
                           </div>
                         </div>
                       </>

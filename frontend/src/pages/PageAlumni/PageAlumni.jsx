@@ -80,7 +80,7 @@ const PageAlumni = () => {
             <header>
                 <SecHero2
                 title="MEET THE ALUMNI"
-                subtitle="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla id nisl condimentum, volutpat dolor et, tincidunt tortor. Maecenas finibus est eu justo pulvinar blandit."
+                subtitle="Connect, Inspire, Thrive: Meet Our Alumni Community!"
                 image={heroImage}
                 />
             </header>

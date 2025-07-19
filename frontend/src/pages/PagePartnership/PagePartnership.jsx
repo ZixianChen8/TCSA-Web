@@ -52,7 +52,7 @@ const PagePartnership = () => {
       <header>
           <SecHero2
             title="OUR PARTNERS"
-            subtitle=""
+            subtitle="Stronger Together - the Partners Behind Our Success"
           />
       </header>
 
