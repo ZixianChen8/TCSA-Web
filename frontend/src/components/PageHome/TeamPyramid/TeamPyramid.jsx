@@ -575,8 +575,8 @@ export default function TeamPyramid() {
                   href={financeDepartment.executive.pfp_img}
                   x={topMostLevel[0].x + 30}
                   y={topMostLevel[0].y + 12}
-                  width={isMobile ? 8 : 8}
-                  height={isMobile ? 8 : 8}
+                  width={isMobile ? 8 : 7}
+                  height={isMobile ? 8 : 7}
                   clipPath="url(#clipCircle)"
                   preserveAspectRatio="xMidYMid slice"
                   className={styles.pyramidNode}
@@ -585,10 +585,10 @@ export default function TeamPyramid() {
                 <rect
                   x={topMostLevel[0].x + 30}
                   y={topMostLevel[0].y + 12}
-                  width={isMobile ? 8 : 8}
-                  height={isMobile ? 8 : 8}
+                  width={isMobile ? 8 : 7}
+                  height={isMobile ? 8 : 7}
                   fill="#CCCCCC"
-                  rx={isMobile ? 4 : 4}
+                  rx={isMobile ? 4 : 3.5}
                   className={styles.pyramidNode}
                 />
               )}
@@ -606,8 +606,8 @@ export default function TeamPyramid() {
                   href={financeDepartment.members[0].pfp_img}
                   x={topMostLevel[0].x + 38}
                   y={topMostLevel[0].y + 10}
-                  width={isMobile ? 8 : 8}
-                  height={isMobile ? 8 : 8}
+                  width={isMobile ? 8 : 7}
+                  height={isMobile ? 8 : 7}
                   clipPath="url(#clipCircle)"
                   preserveAspectRatio="xMidYMid slice"
                   className={`${styles.pyramidNode} cursor-pointer`}
@@ -616,10 +616,10 @@ export default function TeamPyramid() {
                 <rect
                   x={topMostLevel[0].x + 38}
                   y={topMostLevel[0].y + 10}
-                  width={isMobile ? 8 : 8}
-                  height={isMobile ? 8 : 8}
+                  width={isMobile ? 8 : 7}
+                  height={isMobile ? 8 : 7}
                   fill="#CCCCCC"
-                  rx={isMobile ? 4 : 4}
+                  rx={isMobile ? 4 : 3.5}
                   className={`${styles.pyramidNode} cursor-pointer`}
                 />
               )}
