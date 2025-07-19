@@ -194,7 +194,10 @@ const Home = () => {
 
         {/* Gallery Section */}
         <section className={styles.Gallery}>
-          <div style={{ height: '400px', position: 'relative' }}>
+          <div style={{
+            height: window.innerWidth <= 600 ? '230px' : '400px',
+            position: 'relative'
+          }}>
             <CircularGallery bend={window.innerWidth <= 600 ? 7 : 3} textColor="#ffffff" borderRadius={0.05} />
           </div>
         </section>
