@@ -124,7 +124,7 @@ const Home = () => {
   const roadmapData = [
     { year: '2023', events: 2, influenced: 3300 },
     { year: '2024', events: 10, influenced: 4527 },
-    { year: '2025', events: 4, influenced: 1466 },
+    { year: '2025', events: 6, influenced: 3836 },
   ];
 
   return (
