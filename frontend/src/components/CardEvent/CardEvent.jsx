@@ -12,34 +12,49 @@ const CardEvent = ({ event }) => {
         title: "No Event Title",
         description: "No description available",
         location: "Location not specified",
+        start_date: null,
+        end_date: null,
+        start_time: null,
+        end_time: null,
         date: "Date not specified",
         organizer: "Organizer not specified"
     };
 
     // Use provided event or default values
     const currentEvent = event || defaultEvent;
+    // Normalize event fields to handle snake_case and camelCase from API
+    const startDateValue = currentEvent.start_date ?? currentEvent.startDate ?? currentEvent.date ?? null;
+    const endDateValue   = currentEvent.end_date ?? currentEvent.endDate ?? null;
+    const startTimeValue = currentEvent.start_time ?? currentEvent.startTime ?? null;
 
     const truncate = (text, maxLength = 32) => {
       if (!text) return "";
       return text.length > maxLength ? text.slice(0, maxLength) + "..." : text;
     };
 
-    // Format a date or date range
-    const formatDateRange = (startDateString, endDateString) => {
-      if (!startDateString) return "Date not specified";
+    // Format a date or date range (accepts Date objects or strings)
+    const formatDateRange = (startDateInput, endDateInput) => {
+      if (!startDateInput) return "Date not specified";
       try {
         const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-        const startDate = new Date(startDateString);
+        const parse = (v) => {
+          if (!v) return null;
+          const d = v instanceof Date ? v : new Date(v);
+          return isNaN(d.getTime()) ? null : d;
+        };
+        const startDate = parse(startDateInput);
+        if (!startDate) return String(startDateInput);
         const formattedStart = startDate.toLocaleDateString('en-US', options);
-        if (endDateString) {
-          const endDate = new Date(endDateString);
+
+        const endDate = parse(endDateInput);
+        if (endDate) {
           const formattedEnd = endDate.toLocaleDateString('en-US', options);
           return `${formattedStart} – ${formattedEnd}`;
         }
         return formattedStart;
       } catch (e) {
         console.error('Error formatting date range:', e);
-        return startDateString + (endDateString ? ' – ' + endDateString : '');
+        return String(startDateInput) + (endDateInput ? ' – ' + String(endDateInput) : '');
       }
     };
 
@@ -68,7 +83,7 @@ const CardEvent = ({ event }) => {
                     </p>
                     <p>
                         <Icon iconName="IconCalendar" color="#8F001A" size="20" />
-                        {truncate(formatDateRange(currentEvent.start_date))} {' '} {formatTime(currentEvent.start_time)}
+                        {truncate(formatDateRange(startDateValue, endDateValue))} {' '} {formatTime(startTimeValue)}
                     </p>
                     <p>
                         <Icon iconName="IconStar" color="#8F001A" size="20" />

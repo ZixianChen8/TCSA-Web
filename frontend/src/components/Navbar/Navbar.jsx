@@ -49,7 +49,7 @@ const Navbar = () => {
           <a href="/joinus" className={styles['nav-link']}>Join us</a>
           <a href="/resources" className={styles['nav-link']}>Resources</a>
           <a href="/services" className={styles['nav-link']}>Services</a>
-          <a href="/partnerships" className={styles['nav-link']}>Partnerships</a>
+          {/* <a href="/partnerships" className={styles['nav-link']}>Partnerships</a> */}
 
         </div>
       </div>

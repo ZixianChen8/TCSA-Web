@@ -13,7 +13,7 @@ const Footer = () => (
         <li><a href="/joinus">Join us</a></li>
         <li><a href="/resources">Resources</a></li>
         <li><a href="/services">Services</a></li>
-        <li><a href="/partnerships">Partnerships</a></li>
+        {/* <li><a href="/partnerships">Partnerships</a></li> */}
 
       </ul>
       <div className={styles.social}>

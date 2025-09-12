@@ -46,8 +46,8 @@
 .benefitItem {
   display: flex;
   align-items: center;
-  min-height: 500px;
-  gap: 30px; /* Space between image and text within an item */
+  min-height: 400px;
+  gap: 10px; /* Space between image and text within an item */
 
 }
 
@@ -62,23 +62,23 @@
 
 .benefitImageContainer {
   flex: 0.5; /* Takes up 1 part of the available space */
-  max-width: 50%;
-  height: 100%;
+  max-width: 35%;
+  max-height: 100%;
 }
 
 .benefitImage {
   width: 100%;
-  height: 100%;
+  height: auto;
   border-radius: 15px;
   background-color: #d3d3d3; /* Placeholder color */
-  aspect-ratio: 1 / 0.85; /* Or your desired aspect ratio */
+  aspect-ratio: 1 / 0.6; /* Or your desired aspect ratio */
   object-fit: cover; /* Ensures images cover the area well */
   display: block; /* Removes any extra space below the image */
 }
 
 .benefitTextContainer {
   flex: 0.6; /* Takes up 1.5 parts, giving more room for text */
-  max-width: 60%;
+  max-width: 50%;
   margin-left: 100px;
 }
 
@@ -87,7 +87,7 @@
 }
 
 .benefitTextContainer h2 {
-  font-size: 4em;
+  font-size: 2em;
   font-weight: 800;
   font-style: italic;
   margin-top: 0; /* Remove default top margin from h2 */
