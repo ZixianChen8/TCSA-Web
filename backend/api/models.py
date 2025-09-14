@@ -271,12 +271,6 @@ class BenefitBgImage(models.Model):
         verbose_name = "Benefit Background Image"
         verbose_name_plural = "Benefit Background Images"
 
-    def save(self, *args, **kwargs):
-        if BenefitBgImage.objects.count() >= 3 and not self.pk:
-            from django.core.exceptions import ValidationError
-            raise ValidationError("Only 3 background images are allowed for the Benefit page.")
-        super().save(*args, **kwargs)
-
 
 
 # Alumni page hero section (allows only one image)
