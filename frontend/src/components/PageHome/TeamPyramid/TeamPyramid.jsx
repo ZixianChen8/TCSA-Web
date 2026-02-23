@@ -7,7 +7,7 @@ import { computePosition, offset, flip, shift } from '@floating-ui/dom';
 
 export default function TeamPyramid() {
 
-      // --- Test member data, to be replaced by actual database ---
+      // --- Test member data ---
       // const [advisors, setAdvisors] = useState([
       //   { id: 1, name: 'President', email: 'president@uottawa.ca', quote: 'Good design is obvious. Great design is transparent.' },
       // ]);
@@ -30,7 +30,7 @@ export default function TeamPyramid() {
       //   { id: 13, name: 'Member 8', leaderId: 5, email: 'member8@uottawa.ca', quote: 'Plans are nothing; planning is everything.' },
       //   { id: 14, name: 'Member 9', leaderId: 5, email: 'member9@uottawa.ca', quote: 'It always seems impossible until it’s done.' },
       // ]);
-      
+
       // // --- Finance Department Constant ---
       // const financeDepartment = {
       //   executive: { id: 18, name: 'VP Finance', email: 'vp.finance@uottawa.ca', quote: 'Budgeting is telling your money where to go.' },
@@ -39,7 +39,7 @@ export default function TeamPyramid() {
       //   ]
       // };
 
-      // --- Members ---
+      // --- members ---
       const [advisors, setAdvisors] = useState([]);
       const [executives, setExecutives] = useState([]);
       const [departmentLeaders, setDepartmentLeaders] = useState([]);
@@ -48,12 +48,12 @@ export default function TeamPyramid() {
       const [loading, setLoading] = useState(true); // Added loading state
       const [error, setError] = useState(null); // Added error state
 
-      // --- State for Hover Effects ---
+      // state for hover effects
       const [hoveredLeaderId, setHoveredLeaderId] = useState(null);
       const [hoveredMemberId, setHoveredMemberId] = useState(null);
       const [hoveredPerson, setHoveredPerson] = useState(null);
 
-      // --- Ref for Timeout ---
+      // refs
       const containerRef = useRef(null);
       const tooltipRef = useRef(null);
       const [isHovering, setIsHovering] = useState(false);
@@ -67,15 +67,120 @@ export default function TeamPyramid() {
       }, []);
       const lastMouseEvent = useRef({ x: 0, y: 0 });
 
+      // 1) data fetch
+      useEffect(() => {
+        const fetchTeamData = async () => {
+            setLoading(true);
+            setError(null);
+            try {
+                const response = await axios.get('/api/members/', {
+                    headers: {
+                        'Accept': 'application/json',
+                    }
+                });
 
-      // --- Helper Functions ---
+                if (response.data) {
+                    const membersData = response.data;
+
+                    // --- categorize members into advisors, executives, leaders, and team members ---
+                    const loadedAdvisors = [];
+                    const loadedExecutives = [];
+                    const loadedDeptLeaders = [];
+                    let loadedTeamMembers = [];
+
+                    // first pass: general roles (excluding finance)
+                    membersData.forEach(member => {
+                      const memberObject = {
+                        id: member.id,
+                        name: `${member.first_name} ${member.last_name}`,
+                        email: member.email,
+                        quote: member.quote,
+                        pfp_img: member.pfp_img,
+                        position: member.position,
+                        reports_to_id: member.reports_to,
+                        department_name: member.department?.name || null,
+                      };
+
+                      if (memberObject.position === 'President' && !memberObject.reports_to_id) {
+                        loadedAdvisors.push({ ...memberObject });
+                      } else if (memberObject.position === 'Vice President') {
+                        loadedExecutives.push({ ...memberObject });
+                      } else if (memberObject.position && (memberObject.position.includes('Lead') || memberObject.position.includes('Manager'))) {
+                        loadedDeptLeaders.push({
+                          ...memberObject,
+                          department: memberObject.department_name || memberObject.position.replace(/ (Lead|Manager)$/, ''),
+                        });
+                      } else if (memberObject.reports_to_id) {
+                        loadedTeamMembers.push({
+                          ...memberObject,
+                          leaderId: memberObject.reports_to_id,
+                          department: memberObject.department_name,
+                        });
+                      }
+                    });
+
+                    // --- finance department separate categorization ---
+                    const financeExecData = membersData.find(m => m.position === 'VP Finance');
+                    let financeExecObj = null;
+                    let financeMembersArray = [];
+                    if (financeExecData) {
+                      financeExecObj = {
+                        id: financeExecData.id,
+                        name: `${financeExecData.first_name} ${financeExecData.last_name}`,
+                        email: financeExecData.email,
+                        quote: financeExecData.quote,
+                        pfp_img: financeExecData.pfp_img,
+                        position: financeExecData.position,
+                        department: financeExecData.department?.name,
+                      };
+                      financeMembersArray = membersData
+                        .filter(m => m.reports_to === financeExecData.id)
+                        .map(fm => ({
+                          id: fm.id,
+                          name: `${fm.first_name} ${fm.last_name}`,
+                          email: fm.email,
+                          quote: fm.quote,
+                          pfp_img: fm.pfp_img,
+                          position: fm.position,
+                          leaderId: fm.reports_to,
+                          department: fm.department?.name,
+                        }));
+                      // Remove finance exec and its members from general teamMembers to avoid duplicate rendering
+                      loadedTeamMembers = loadedTeamMembers.filter(m =>
+                        m.id !== financeExecData.id && m.reports_to_id !== financeExecData.id
+                      );
+                    }
+
+                    // set general state
+                    setAdvisors(loadedAdvisors);
+                    setExecutives(loadedExecutives);
+                    setDepartmentLeaders(loadedDeptLeaders);
+                    setTeamMembers(loadedTeamMembers);
+
+                    setFinanceDepartment({ executive: financeExecObj, members: financeMembersArray });
+                    setError(null);
+                } else {
+                   setError("No member data received");
+                }
+            } catch (err) {
+                console.error("Error fetching team members:", err);
+                setError(err.response?.data?.detail || err.response?.data?.error || err.message || "Failed to load team members.");
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchTeamData();
+      }, []);
+
+
+      // 2) Helper functions
       const getLeaderIdForMember = (memberId) => {
         const member = teamMembers.find(m => m.id === memberId);
         return member ? member.leaderId : null;
       };
       
-      // --- Position Calculations ---
-      // (Using the original calculations provided)
+      // 3) position calculations
       const getTopMostLevelPositions = () => {
         return advisors.map((advisor) => ({
           ...advisor, x: 50, y: 0 // centered at top
@@ -109,33 +214,38 @@ export default function TeamPyramid() {
         }));
       };
       
+      // 4) compute positions now that helpers are defined
       const topMostLevel = getTopMostLevelPositions();
       const topLevel = getTopLevelPositions();
       const middleLevel = getMiddleLevelPositions();
       const bottomLevel = getBottomLevelPositions();
       
-      // --- Group members by leader ---
+      // 5) derived groupings
       const membersByLeader = {};
       departmentLeaders.forEach(leader => {
         membersByLeader[leader.id] = teamMembers.filter(member => member.leaderId === leader.id);
       });
       
-      // --- Highlight Logic ---
+      // 6) highlight logic (uses current hover state)
       const isLineHighlighted = (leaderId, memberId = null) => {
-        // Special logic for finance department: highlight only finance-related lines when hovering finance member or VP Finance
-        if (
+        const financeExecutiveId = financeDepartment.executive?.id ?? null;
+        const financeMemberIds = financeDepartment.members.map(m => m.id);
+        const hoveredPersonIsFinance = Boolean(
           hoveredPerson &&
           (
-            hoveredPerson.id === financeDepartment.executive.id ||
-            financeDepartment.members.some(m => m.id === hoveredPerson.id)
+            hoveredPerson.id === financeExecutiveId ||
+            financeMemberIds.includes(hoveredPerson.id)
           )
-        ) {
+        );
+
+        // special logic for finance department: highlight only finance-related lines when hovering finance member or VP Finance
+        if (hoveredPersonIsFinance) {
           // Highlight finance-specific lines: advisor→VP Finance and VP Finance→member
           if (
-            leaderId === financeDepartment.executive.id && memberId === null ||
-            leaderId === financeDepartment.executive.id &&
+            leaderId === financeExecutiveId && memberId === null ||
+            leaderId === financeExecutiveId &&
             memberId !== null &&
-            financeDepartment.members.some(m => m.id === memberId)
+            financeMemberIds.includes(memberId)
           ) {
             return true;
           }
@@ -144,12 +254,9 @@ export default function TeamPyramid() {
 
         // Highlight advisor→vice president line when hovering any non-finance leader or member
         if ((hoveredLeaderId !== null || hoveredMemberId !== null) &&
-            !(hoveredPerson && (
-              hoveredPerson.id === financeDepartment.executive.id ||
-              financeDepartment.members.some(m => m.id === hoveredPerson.id)
-            ))) {
+            !hoveredPersonIsFinance) {
           // topLevel[0] is the vice president
-          if (leaderId === topLevel[0].id && memberId === null) {
+          if (topLevel[0] && leaderId === topLevel[0].id && memberId === null) {
             return true;
           }
         }
@@ -171,8 +278,8 @@ export default function TeamPyramid() {
           if (isVP) {
             // Don't highlight finance lines
             if (
-              leaderId === financeDepartment.executive.id ||
-              (memberId !== null && financeDepartment.members.some(m => m.id === memberId))
+              (financeExecutiveId !== null && leaderId === financeExecutiveId) ||
+              (memberId !== null && financeMemberIds.includes(memberId))
             ) {
               return false;
             }
@@ -182,12 +289,11 @@ export default function TeamPyramid() {
           // Highlight all lines connected to this leader
           if (leaderId === hoveredLeaderId) {
             return true;
-            // [PATCH] Additional logic for top-level leader highlight
             if (topMostLevel[0] && topLevel[0] && topLevel[0].id) {
               if (
                 leaderId === topLevel[0].id &&
                 memberId === null &&
-                ![financeDepartment.executive.id, ...financeDepartment.members.map(m => m.id)].includes(hoveredLeaderId)
+                ![financeExecutiveId, ...financeMemberIds].includes(hoveredLeaderId)
               ) {
                 return true;
               }
@@ -198,12 +304,11 @@ export default function TeamPyramid() {
             const member = teamMembers.find(m => m.id === memberId);
             if (member && member.leaderId === hoveredLeaderId) {
               return true;
-              // [PATCH] Additional logic for top-level leader highlight on member line
               if (
                 topMostLevel[0] && topLevel[0] && topLevel[0].id &&
                 leaderId === topLevel[0].id &&
                 memberId === null &&
-                ![financeDepartment.executive.id, ...financeDepartment.members.map(m => m.id)].includes(member.leaderId)
+                ![financeExecutiveId, ...financeMemberIds].includes(member.leaderId)
               ) {
                 return true;
               }
@@ -220,8 +325,7 @@ export default function TeamPyramid() {
         return false;
       };
 
-
-
+      // 7) Interaction handlers (set hover state)
       // Handles mouse entering a node area
       const handleMouseEnter = (personData, event) => {
         if (isMobile) {
@@ -296,111 +400,6 @@ export default function TeamPyramid() {
         };
       }, [isHovering, isMobile]);
       
-      // --- Data Fetching ---
-      useEffect(() => {
-        const fetchTeamData = async () => {
-            setLoading(true);
-            setError(null);
-            try {
-                const response = await axios.get('/api/members/', {
-                    headers: {
-                        'Accept': 'application/json',
-                    }
-                });
-
-                if (response.data) {
-                    const membersData = response.data;
-
-                    // --- Categorize members into advisors, executives, leaders, and team members ---
-                    const loadedAdvisors = [];
-                    const loadedExecutives = [];
-                    const loadedDeptLeaders = [];
-                    let loadedTeamMembers = [];
-
-                    // First pass: general roles (excluding finance)
-                    membersData.forEach(member => {
-                      const memberObject = {
-                        id: member.id,
-                        name: `${member.first_name} ${member.last_name}`,
-                        email: member.email,
-                        quote: member.quote,
-                        pfp_img: member.pfp_img,
-                        position: member.position,
-                        reports_to_id: member.reports_to,
-                        department_name: member.department?.name || null,
-                      };
-
-                      if (memberObject.position === 'President' && !memberObject.reports_to_id) {
-                        loadedAdvisors.push({ ...memberObject });
-                      } else if (memberObject.position === 'Vice President') {
-                        loadedExecutives.push({ ...memberObject });
-                      } else if (memberObject.position && (memberObject.position.includes('Lead') || memberObject.position.includes('Manager'))) {
-                        loadedDeptLeaders.push({
-                          ...memberObject,
-                          department: memberObject.department_name || memberObject.position.replace(/ (Lead|Manager)$/, ''),
-                        });
-                      } else if (memberObject.reports_to_id) {
-                        loadedTeamMembers.push({
-                          ...memberObject,
-                          leaderId: memberObject.reports_to_id,
-                          department: memberObject.department_name,
-                        });
-                      }
-                    });
-
-                    // --- Finance department separate categorization ---
-                    const financeExecData = membersData.find(m => m.position === 'VP Finance');
-                    let financeExecObj = null;
-                    let financeMembersArray = [];
-                    if (financeExecData) {
-                      financeExecObj = {
-                        id: financeExecData.id,
-                        name: `${financeExecData.first_name} ${financeExecData.last_name}`,
-                        email: financeExecData.email,
-                        quote: financeExecData.quote,
-                        pfp_img: financeExecData.pfp_img,
-                        position: financeExecData.position,
-                        department: financeExecData.department?.name,
-                      };
-                      financeMembersArray = membersData
-                        .filter(m => m.reports_to === financeExecData.id)
-                        .map(fm => ({
-                          id: fm.id,
-                          name: `${fm.first_name} ${fm.last_name}`,
-                          email: fm.email,
-                          quote: fm.quote,
-                          pfp_img: fm.pfp_img,
-                          position: fm.position,
-                          leaderId: fm.reports_to,
-                          department: fm.department?.name,
-                        }));
-                      // Remove finance exec and its members from general teamMembers to avoid duplicate rendering
-                      loadedTeamMembers = loadedTeamMembers.filter(m =>
-                        m.id !== financeExecData.id && m.reports_to_id !== financeExecData.id
-                      );
-                    }
-
-                    // Set general state
-                    setAdvisors(loadedAdvisors);
-                    setExecutives(loadedExecutives);
-                    setDepartmentLeaders(loadedDeptLeaders);
-                    setTeamMembers(loadedTeamMembers);
-
-                    setFinanceDepartment({ executive: financeExecObj, members: financeMembersArray });
-                    setError(null);
-                } else {
-                   setError("No member data received");
-                }
-            } catch (err) {
-                console.error("Error fetching team members:", err);
-                setError(err.response?.data?.detail || err.response?.data?.error || err.message || "Failed to load team members.");
-            } finally {
-                setLoading(false);
-            }
-        };
-
-        fetchTeamData();
-    }, []);
 
     if (loading) {
         return (
@@ -418,13 +417,13 @@ export default function TeamPyramid() {
         );
     }
 
-      // --- Debug logs for loaded arrays ---
+      // --- Ddebug ---
       console.log('Department leaders:', departmentLeaders);
       console.log('Team members:', teamMembers);
       console.log('Finance department:', financeDepartment);
       console.log('Executives:', executives);
 
-      // --- Component Rendering ---
+      // 8) Render
       return (
 
         
@@ -753,7 +752,7 @@ export default function TeamPyramid() {
             ))}
           </svg>
 
-          {/* --- Tooltip Popup --- */}
+          {/* Tooltip Popup */}
           <div
             ref={tooltipRef}
             className={isMobile ? styles.popcardContainerMobile : styles.popcardContainer}

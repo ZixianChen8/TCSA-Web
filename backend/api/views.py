@@ -77,8 +77,7 @@ class EventDetailAPIView(generics.RetrieveAPIView):
 
 class MemberListView(generics.ListAPIView):
     queryset = Member.objects.select_related('department', 'reports_to').all()
-    # Using select_related('department', 'reports_to') can help optimize database queries
-    # by fetching related objects in a single query.
+
     serializer_class = MemberSerializer
 
 

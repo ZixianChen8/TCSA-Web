@@ -46,14 +46,11 @@ class Registration(models.Model):
 
     
 
-class Department(models.Model): # Assuming Department model is defined as you provided or similar
+class Department(models.Model): 
     code = models.CharField(max_length=10, null=False, unique=True) # Make code unique
     name = models.CharField(max_length=100, null=True, blank=True) # Add a display name
     manager = models.ForeignKey('Member', on_delete=models.SET_NULL, null=True, blank=True, related_name='managed_departments')
-    # members = models.ManyToManyField('Member', related_name='member_of_departments', blank=True) # Corrected related_name
-    # The 'members' field on Department model as ManyToManyField to Member creates a relationship
-    # where a Member can belong to multiple Departments.
-    # If a member belongs to only one department, you might put a ForeignKey to Department on the Member model instead.
+
 
     def __str__(self):
         return self.name or self.code
@@ -68,24 +65,24 @@ class Member(models.Model):
     last_name = models.CharField(max_length=100, null=False)
     phone = models.CharField(max_length=20, blank=True, null=True)
     email = models.EmailField(max_length=100, blank=True, null=True)
-    position = models.CharField(max_length=100, blank=True, null=True) # e.g., "President", "VP Finance", "Media Lead", "Developer"
-    description = models.TextField(null=True, blank=True) # General description if needed
+    position = models.CharField(max_length=100, blank=True, null=True) 
+    description = models.TextField(null=True, blank=True) 
     pfp_img = models.ImageField(upload_to='member_pfps/', max_length=200, blank=True, null=True)
 
-    # --- Fields for pyramid structure ---
+    # ----- fields for pyramid structure -----
     reports_to = models.ForeignKey(
         'self',
         on_delete=models.SET_NULL,
         null=True,
         blank=True,
-        related_name='direct_reports' # member.direct_reports.all() gives subordinates
+        related_name='direct_reports' 
     )
     quote = models.TextField(blank=True, null=True)
 
     # --- Department Relationship (Member belongs to ONE Department) ---
     department = models.ForeignKey(
         Department,
-        on_delete=models.SET_NULL, # Or models.PROTECT if a member must always have a department (and handle deletions carefully)
+        on_delete=models.SET_NULL, 
         null=True,                 # Allow member to not be in any department (e.g., CEO, President)
         blank=True,
         related_name='team_members'  # department.team_members.all() gives all members in that department
