@@ -366,3 +366,333 @@ class Design(models.Model):
     class Meta:
         verbose_name = "Design"
         verbose_name_plural = "Designs"
+
+
+# ---------------------------------------------------------------------------
+# Paid membership (do not reuse Member / Event / Registration)
+# ---------------------------------------------------------------------------
+
+class MembershipType(models.Model):
+    slug = models.SlugField(max_length=50, unique=True)
+    name = models.CharField(max_length=100)
+    price_cad = models.DecimalField(max_digits=8, decimal_places=2)
+    valid_from = models.DateField(null=True, blank=True)
+    valid_until = models.DateField(null=True, blank=True)
+    is_open = models.BooleanField(default=True)
+
+    def __str__(self):
+        return f"{self.name} (CAD ${self.price_cad})"
+
+    class Meta:
+        verbose_name = "Membership type"
+        verbose_name_plural = "Membership types"
+        ordering = ["price_cad"]
+
+
+class MembershipSettings(models.Model):
+    """Singleton: Interac payee details shown after apply."""
+
+    payee_name = models.CharField(max_length=200, default="TCSA")
+    interac_email = models.EmailField(blank=True)
+    interac_phone = models.CharField(max_length=40, blank=True)
+    instruction_text = models.TextField(
+        blank=True,
+        default=(
+            "Send an Interac e-transfer for the exact amount. "
+            "Put your member ID in the memo so VP Finance can match your payment."
+        ),
+    )
+    contact_email = models.EmailField(blank=True, default="membership@tcsaofficial.com")
+
+    def save(self, *args, **kwargs):
+        self.pk = 1
+        super().save(*args, **kwargs)
+
+    def delete(self, *args, **kwargs):
+        pass
+
+    @classmethod
+    def load(cls):
+        obj, _ = cls.objects.get_or_create(pk=1)
+        return obj
+
+    def __str__(self):
+        return "Membership settings"
+
+    class Meta:
+        verbose_name = "Membership settings"
+        verbose_name_plural = "Membership settings"
+
+
+class ClubMember(models.Model):
+    STATUS_PENDING = "pending"
+    STATUS_ACTIVE = "active"
+    STATUS_PAYMENT_REVIEW = "payment_review"
+    STATUS_SUSPENDED = "suspended"
+    STATUS_EXPIRED = "expired"
+    STATUS_REFUNDED = "refunded"
+    STATUS_CANCELLED = "cancelled"
+    STATUS_CHOICES = [
+        (STATUS_PENDING, "Pending"),
+        (STATUS_ACTIVE, "Active"),
+        (STATUS_PAYMENT_REVIEW, "Payment Review"),
+        (STATUS_SUSPENDED, "Suspended"),
+        (STATUS_EXPIRED, "Expired"),
+        (STATUS_REFUNDED, "Refunded"),
+        (STATUS_CANCELLED, "Cancelled"),
+    ]
+    BLOCKING_STATUSES = (
+        STATUS_PENDING,
+        STATUS_ACTIVE,
+        STATUS_PAYMENT_REVIEW,
+        STATUS_SUSPENDED,
+    )
+
+    legal_name = models.CharField(max_length=200)
+    preferred_name = models.CharField(max_length=200)
+    uottawa_email = models.EmailField()
+    personal_email = models.EmailField(blank=True)
+    wechat_id = models.CharField(max_length=100, blank=True)
+    linkedin_url = models.URLField(blank=True)
+    program = models.CharField(max_length=200)
+    year_of_study = models.CharField(max_length=20)
+    expected_graduation_year = models.PositiveIntegerField()
+    membership_type = models.ForeignKey(
+        MembershipType,
+        on_delete=models.PROTECT,
+        related_name="members",
+    )
+    interested_industries = models.JSONField(default=list, blank=True)
+    preferred_event_types = models.JSONField(default=list, blank=True)
+    notify_consent = models.BooleanField(default=False)
+    terms_agreed = models.BooleanField(default=False)
+    privacy_agreed = models.BooleanField(default=False)
+    member_id = models.CharField(max_length=20, unique=True)
+    status = models.CharField(max_length=20, choices=STATUS_CHOICES, default=STATUS_PENDING)
+    valid_from = models.DateField(null=True, blank=True)
+    valid_until = models.DateField(null=True, blank=True)
+    no_show_count = models.PositiveIntegerField(default=0)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return f"{self.member_id} — {self.preferred_name}"
+
+    class Meta:
+        verbose_name = "Club member"
+        verbose_name_plural = "Club members"
+        constraints = [
+            models.UniqueConstraint(
+                fields=["uottawa_email"],
+                condition=models.Q(status__in=["pending", "active", "payment_review", "suspended"]),
+                name="unique_blocking_uottawa_email",
+            )
+        ]
+
+
+class MembershipApplication(models.Model):
+    club_member = models.OneToOneField(
+        ClubMember,
+        on_delete=models.CASCADE,
+        related_name="application",
+    )
+    application_ref = models.CharField(max_length=20, unique=True)
+    form_snapshot = models.JSONField(default=dict, blank=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.application_ref
+
+    class Meta:
+        verbose_name = "Membership application"
+        verbose_name_plural = "Membership applications"
+
+
+class MembershipPayment(models.Model):
+    METHOD_ETRANSFER = "etransfer"
+    METHOD_CHOICES = [(METHOD_ETRANSFER, "Interac e-transfer")]
+
+    STATUS_AWAITING = "awaiting"
+    STATUS_CONFIRMED = "confirmed"
+    STATUS_MISMATCH = "mismatch"
+    STATUS_REFUNDED = "refunded"
+    STATUS_CHOICES = [
+        (STATUS_AWAITING, "Awaiting"),
+        (STATUS_CONFIRMED, "Confirmed"),
+        (STATUS_MISMATCH, "Mismatch"),
+        (STATUS_REFUNDED, "Refunded"),
+    ]
+
+    club_member = models.ForeignKey(
+        ClubMember,
+        on_delete=models.CASCADE,
+        related_name="payments",
+    )
+    application = models.ForeignKey(
+        MembershipApplication,
+        on_delete=models.CASCADE,
+        related_name="payments",
+    )
+    amount_expected = models.DecimalField(max_digits=8, decimal_places=2)
+    amount_received = models.DecimalField(max_digits=8, decimal_places=2, null=True, blank=True)
+    method = models.CharField(max_length=20, choices=METHOD_CHOICES, default=METHOD_ETRANSFER)
+    interac_reference = models.CharField(max_length=20)
+    status = models.CharField(max_length=20, choices=STATUS_CHOICES, default=STATUS_AWAITING)
+    confirmed_at = models.DateTimeField(null=True, blank=True)
+    confirmed_by = models.ForeignKey(
+        "auth.User",
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name="confirmed_membership_payments",
+    )
+    refund_amount = models.DecimalField(max_digits=8, decimal_places=2, null=True, blank=True)
+    refund_reason = models.TextField(blank=True)
+    refunded_at = models.DateTimeField(null=True, blank=True)
+    notes = models.TextField(blank=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"{self.interac_reference} ({self.status})"
+
+    class Meta:
+        verbose_name = "Membership payment"
+        verbose_name_plural = "Membership payments"
+
+
+class MembershipStatusLog(models.Model):
+    club_member = models.ForeignKey(
+        ClubMember,
+        on_delete=models.CASCADE,
+        related_name="status_logs",
+    )
+    from_status = models.CharField(max_length=20)
+    to_status = models.CharField(max_length=20)
+    actor = models.ForeignKey(
+        "auth.User",
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name="membership_status_changes",
+    )
+    reason = models.TextField(blank=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"{self.club_member.member_id}: {self.from_status} → {self.to_status}"
+
+    class Meta:
+        verbose_name = "Membership status log"
+        verbose_name_plural = "Membership status logs"
+        ordering = ["-created_at"]
+
+
+class MemberEvent(models.Model):
+    title = models.CharField(max_length=200)
+    description = models.TextField(blank=True)
+    category = models.CharField(max_length=100, blank=True)
+    start_date = models.DateField()
+    end_date = models.DateField(null=True, blank=True)
+    start_time = models.TimeField(null=True, blank=True)
+    end_time = models.TimeField(null=True, blank=True)
+    location = models.TextField(blank=True)
+    total_capacity = models.PositiveIntegerField(default=0)
+    member_slots = models.PositiveIntegerField(default=0)
+    public_slots = models.PositiveIntegerField(default=0)
+    staff_slots = models.PositiveIntegerField(default=0)
+    member_registration_opens = models.DateTimeField(null=True, blank=True)
+    public_registration_opens = models.DateTimeField(null=True, blank=True)
+    registration_deadline = models.DateTimeField(null=True, blank=True)
+    waitlist_enabled = models.BooleanField(default=True)
+    requires_review = models.BooleanField(default=False)
+    requires_deposit = models.BooleanField(default=False)
+    is_cancelled = models.BooleanField(default=False)
+    is_completed = models.BooleanField(default=False)
+    leads = models.ManyToManyField(
+        "auth.User",
+        blank=True,
+        related_name="led_member_events",
+    )
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.title
+
+    class Meta:
+        verbose_name = "Member event"
+        verbose_name_plural = "Member events"
+        ordering = ["start_date"]
+
+
+class MemberEventSignup(models.Model):
+    STATUS_SUBMITTED = "submitted"
+    STATUS_UNDER_REVIEW = "under_review"
+    STATUS_CONFIRMED = "confirmed"
+    STATUS_WAITLISTED = "waitlisted"
+    STATUS_DECLINED = "declined"
+    STATUS_CANCELLED = "cancelled"
+    STATUS_ATTENDED = "attended"
+    STATUS_NO_SHOW = "no_show"
+    STATUS_CHOICES = [
+        (STATUS_SUBMITTED, "Submitted"),
+        (STATUS_UNDER_REVIEW, "Under Review"),
+        (STATUS_CONFIRMED, "Confirmed"),
+        (STATUS_WAITLISTED, "Waitlisted"),
+        (STATUS_DECLINED, "Declined"),
+        (STATUS_CANCELLED, "Cancelled"),
+        (STATUS_ATTENDED, "Attended"),
+        (STATUS_NO_SHOW, "No-show"),
+    ]
+
+    ATTENDANCE_NONE = ""
+    ATTENDANCE_ATTENDED = "attended"
+    ATTENDANCE_CANCELLED_ON_TIME = "cancelled_on_time"
+    ATTENDANCE_LATE_CANCEL = "late_cancel"
+    ATTENDANCE_NO_SHOW = "no_show"
+    ATTENDANCE_EXCUSED = "excused"
+    ATTENDANCE_CHOICES = [
+        (ATTENDANCE_NONE, "—"),
+        (ATTENDANCE_ATTENDED, "Attended"),
+        (ATTENDANCE_CANCELLED_ON_TIME, "Cancelled on time"),
+        (ATTENDANCE_LATE_CANCEL, "Late cancellation"),
+        (ATTENDANCE_NO_SHOW, "No-show"),
+        (ATTENDANCE_EXCUSED, "Excused absence"),
+    ]
+
+    event = models.ForeignKey(
+        MemberEvent,
+        on_delete=models.CASCADE,
+        related_name="signups",
+    )
+    club_member = models.ForeignKey(
+        ClubMember,
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name="event_signups",
+    )
+    legal_name = models.CharField(max_length=200)
+    email = models.EmailField()
+    member_id_entered = models.CharField(max_length=20, blank=True)
+    status = models.CharField(max_length=20, choices=STATUS_CHOICES, default=STATUS_SUBMITTED)
+    attendance = models.CharField(
+        max_length=30,
+        choices=ATTENDANCE_CHOICES,
+        blank=True,
+        default=ATTENDANCE_NONE,
+    )
+    notes = models.TextField(blank=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"{self.email} → {self.event.title}"
+
+    class Meta:
+        verbose_name = "Member event signup"
+        verbose_name_plural = "Member event signups"
+        constraints = [
+            models.UniqueConstraint(
+                fields=["event", "email"],
+                name="unique_member_event_email_signup",
+            )
+        ]

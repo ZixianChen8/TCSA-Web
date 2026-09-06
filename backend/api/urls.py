@@ -7,6 +7,14 @@
 
 from django.urls import path
 from .views import get_data, EventDetailAPIView, EventListAPIView, MemberListView, CircularGalleryImageListAPIView, SponsorLogoListAPIView, ServicesBgImageListAPIView, ClubAlumnusListAPIView, TelferAlumnusListAPIView, BenefitBgImageListAPIView, ResourceCarouselImageListAPIView, ResourceListAPIView, HomeHeroMediaListAPIView, register_for_event, EventHeroImageListAPIView, ServicesHeroImageListAPIView, AlumniHeroImageListAPIView, ResourceHeroImageListAPIView, JoinUsHeroImageListAPIView, OpenPositionListAPIView, DesignListAPIView, SponsorListAPIView
+from .membership_views import (
+    membership_config,
+    membership_apply,
+    membership_lookup,
+    member_event_list,
+    member_event_detail,
+    member_event_register,
+)
 
 urlpatterns = [
     path('data/', get_data, name='get_data'),
@@ -31,5 +39,11 @@ urlpatterns = [
     path('openPositions/', OpenPositionListAPIView.as_view(), name='open_positions'),
     path('designs/', DesignListAPIView.as_view(), name='design_list'),
     path('sponsors/', SponsorListAPIView.as_view(), name='sponsor_list'),
+    path('membership/config/', membership_config, name='membership_config'),
+    path('membership/apply/', membership_apply, name='membership_apply'),
+    path('membership/lookup/', membership_lookup, name='membership_lookup'),
+    path('membership/events/', member_event_list, name='membership_event_list'),
+    path('membership/events/<int:id>/', member_event_detail, name='membership_event_detail'),
+    path('membership/events/<int:id>/register/', member_event_register, name='membership_event_register'),
 
 ]

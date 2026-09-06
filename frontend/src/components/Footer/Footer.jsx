@@ -1,5 +1,6 @@
 // Footer.jsx
 import React from 'react'
+import { Link } from 'react-router-dom'
 import styles from './Footer.module.css'
 import SocialBar from './SocialBar.jsx'
 
@@ -9,6 +10,7 @@ const Footer = () => (
       <ul className={styles.nav}>
         <li><a href="/">TCSA</a></li>
         <li><a href="/events">Events</a></li>
+        <li><Link to="/membership">Membership</Link></li>
         <li><a href="/alumni">Alumni</a></li>
         <li><a href="/joinus">Join us</a></li>
         <li><a href="/resources">Resources</a></li>

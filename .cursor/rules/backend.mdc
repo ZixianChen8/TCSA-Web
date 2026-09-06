@@ -1,0 +1,16 @@
+---
+description: Django/DRF conventions for the TCSA API
+globs: backend/**/*.py
+alwaysApply: false
+---
+
+# Backend
+
+- Single app: `backend/api`. Put new models, serializers, views, urls, and admin there
+- New data: model → migration → register in `admin.py`
+- Public reads follow existing `*ListAPIView` / `AllowAny` patterns unless the task adds auth
+- `Member` is the exec org chart. Do not add paid-membership fields to it
+- `Registration` is anonymous RSVP with unique `(event, email)`. Extend carefully; keep public RSVP working
+- Never persist student number, SIN, passport, or full payment card data
+- No Django email backend exists yet; do not assume server-side mail is configured
+- Settings and secrets come from environment variables (`backend/.env.example`)

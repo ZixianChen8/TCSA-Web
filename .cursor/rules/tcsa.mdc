@@ -1,0 +1,25 @@
+---
+description: Core TCSA-Web map, naming collisions, and agent workflow
+alwaysApply: true
+---
+
+# TCSA-Web
+
+Before editing, read `AGENTS.md`. Specs live under `docs/` — start at `docs/README.md`.
+
+This repo is a public marketing site (React + Vite, Django/DRF, Postgres, S3). It is not a membership platform yet. The only API write path is `POST /api/events/<id>/register/`.
+
+## Do not overload these names
+
+- `Member` = exec org chart (`/api/members/`), not paying students
+- `/joinus` = exec recruitment via EmailJS, not membership join
+- `Registration` = anonymous event RSVP, not member-gated signup
+
+Paid membership needs new models and `/membership*` routes. See `docs/TCSA_Membership_System_Requirements.md`.
+
+## Working rules
+
+- Match existing file placement: pages in `frontend/src/pages/`, API in `backend/api/`
+- No secrets in source; use env vars
+- Do not refactor unrelated pages while shipping a feature
+- After UI/routing/state changes, verify in the browser

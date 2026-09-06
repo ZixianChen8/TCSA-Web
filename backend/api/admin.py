@@ -266,3 +266,6 @@ class OpenPositionAdmin(admin.ModelAdmin):
 class DesignAdmin(admin.ModelAdmin):
     list_display = ('title', 'type', 'image')
     search_fields = ('title', 'type')
+
+
+from . import membership_admin  # noqa: E402,F401 — registers membership models

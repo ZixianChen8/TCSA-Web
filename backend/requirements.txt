@@ -26,3 +26,4 @@ boto3==1.38.36
 django-storages==1.14.6
 boto3==1.38.37
 whitenoise==6.9.0
+django-import-export==4.3.7

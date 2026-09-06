@@ -12,6 +12,12 @@ import PageResources from './pages/PageResources/PageResources.jsx';
 import PrivacyPolicy from './pages/PrivacyPolicy/PrivacyPolicy.jsx';
 import PageDesigns from './pages/PageDesigns/PageDesigns.jsx';
 import PagePartnership from './pages/PagePartnership/PagePartnership.jsx';
+import PageMembership from './pages/PageMembership/PageMembership.jsx';
+import PageMembershipJoin from './pages/PageMembershipJoin/PageMembershipJoin.jsx';
+import PageMembershipEvents from './pages/PageMembershipEvents/PageMembershipEvents.jsx';
+import PageMembershipEventDetails from './pages/PageMembershipEventDetails/PageMembershipEventDetails.jsx';
+import PageMembershipFaq from './pages/PageMembershipFaq/PageMembershipFaq.jsx';
+import PageMembershipPolicies from './pages/PageMembershipPolicies/PageMembershipPolicies.jsx';
 
 import Navbar from "./components/Navbar/Navbar.jsx"
 
@@ -41,6 +47,12 @@ function App() {
         <Route path="/privacy-policy" element={<PrivacyPolicy />} />
         <Route path="/designs" element={<PageDesigns />} />
         <Route path="/partnerships" element={<PagePartnership />} />
+        <Route path="/membership" element={<PageMembership />} />
+        <Route path="/membership/join" element={<PageMembershipJoin />} />
+        <Route path="/membership/events" element={<PageMembershipEvents />} />
+        <Route path="/membership/events/:id" element={<PageMembershipEventDetails />} />
+        <Route path="/membership/faq" element={<PageMembershipFaq />} />
+        <Route path="/membership/policies" element={<PageMembershipPolicies />} />
 
 
 

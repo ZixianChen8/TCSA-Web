@@ -1,0 +1,16 @@
+---
+description: React page and styling conventions for the TCSA frontend
+globs: frontend/**/*.{js,jsx,css}
+alwaysApply: false
+---
+
+# Frontend
+
+- New pages: `frontend/src/pages/PageName/PageName.jsx` + CSS Module, then register in `frontend/src/App.jsx`
+- Colocate styles as `*.module.css` (Vite locals are camelCase)
+- Use MUI only where nearby code already does; do not introduce Tailwind
+- In-app navigation: React Router `<Link>`, not `<a href>`
+- Update `Navbar.jsx` and `Footer.jsx` together when adding a public route
+- Talk to the backend through `/api/...` (Vite proxies to Django in dev)
+- Keep EmailJS keys in `VITE_*` env vars
+- Event detail route is currently `events/:id` (no leading slash) — do not “fix” it unless that is the task

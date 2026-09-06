@@ -59,7 +59,8 @@ INSTALLED_APPS = [
     'api',
     'rest_framework',
     'corsheaders',
-    "storages"
+    "storages",
+    "import_export",
 ]
 
 
@@ -109,6 +110,7 @@ DATABASES = {
     'PORT': os.getenv('POSTGRES_PORT'),
   }
 }
+
 
 
 # Password validation
@@ -214,4 +216,19 @@ REST_FRAMEWORK = {
     'DEFAULT_RENDERER_CLASSES': [
         'rest_framework.renderers.JSONRenderer',
     ],
+    'DEFAULT_THROTTLE_RATES': {
+        'membership': '20/hour',
+    },
 }
+
+EMAIL_BACKEND = os.getenv(
+    'EMAIL_BACKEND',
+    'django.core.mail.backends.console.EmailBackend',
+)
+EMAIL_HOST = os.getenv('EMAIL_HOST', '')
+EMAIL_PORT = int(os.getenv('EMAIL_PORT', '587') or 587)
+EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER', '')
+EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD', '')
+EMAIL_USE_TLS = os.getenv('EMAIL_USE_TLS', 'True') == 'True'
+DEFAULT_FROM_EMAIL = os.getenv('DEFAULT_FROM_EMAIL', 'membership@tcsaofficial.com')
+MEMBERSHIP_CONTACT_EMAIL = os.getenv('MEMBERSHIP_CONTACT_EMAIL', 'membership@tcsaofficial.com')

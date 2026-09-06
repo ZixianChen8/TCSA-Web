@@ -1,0 +1,20 @@
+.wrap {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 2rem 1.25rem 4rem;
+  color: #333;
+  line-height: 1.65;
+}
+
+.wrap section {
+  margin-bottom: 1.75rem;
+}
+
+.wrap h2 {
+  font-size: 1.2rem;
+}
+
+.note {
+  font-style: italic;
+  color: #666;
+}

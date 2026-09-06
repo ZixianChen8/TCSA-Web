@@ -1,0 +1,44 @@
+.wrap {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 2rem 1.25rem 4rem;
+  color: #333;
+}
+
+.item {
+  margin-bottom: 1.5rem;
+}
+
+.item h2 {
+  font-size: 1.1rem;
+  margin-bottom: 0.35rem;
+}
+
+.lookup {
+  background: #f7f7f7;
+  padding: 1.25rem;
+  border-radius: 6px;
+  margin: 2rem 0;
+}
+
+.lookup form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.lookup input {
+  width: 100%;
+  padding: 0.65rem;
+  box-sizing: border-box;
+}
+
+.lookup button {
+  background: #8f001a;
+  color: #fff;
+  border: none;
+  padding: 0.7rem 1rem;
+  font-weight: 600;
+  border-radius: 4px;
+  width: fit-content;
+}

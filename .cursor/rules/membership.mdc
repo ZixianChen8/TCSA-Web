@@ -1,0 +1,20 @@
+---
+description: Paid membership PRD constraints — apply when building membership features
+globs: "{docs/**,frontend/src/pages/PageMembership*/**,backend/api/**}"
+alwaysApply: false
+---
+
+# Membership
+
+Read `docs/TCSA_Membership_System_Requirements.md` before implementing.
+
+Phase 1 flow: benefits → apply → pay/confirm → activate ID → event register → admin.
+
+- Suggested routes: `/membership`, `/membership/join`, `/membership/events`
+- New models only (`ClubMember` / application / payment / status log). Never reuse `Member`
+- Leave `/joinus` and `/events` public RSVP intact
+- v1 identity: uOttawa email + member ID (format `TCSA-26-0001`). No password login
+- Prices admin-configurable; e-transfer + VP Finance confirm is an acceptable v1 payment path
+- Do not auto-penalize no-shows; do not auto-admit members to Office Tours
+- Quote separately: login, digital card, QR check-in, auto refund, WeChat, i18n
+- Test on mobile, Safari, and WeChat in-app browser for membership pages

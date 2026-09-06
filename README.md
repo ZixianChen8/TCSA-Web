@@ -1,6 +1,8 @@
 # TCSA Web Application
 
-This is the web application for the Terfer Chinese Student Association. The project consists of a React frontend and Django backend.
+Public website for the Telfer Chinese Student Association ([tcsaofficial.com](https://tcsaofficial.com)). React frontend + Django backend.
+
+**Agents:** start at [AGENTS.md](AGENTS.md). Product specs are in [docs/](docs/README.md).
 
 ## Setup Instructions
 
