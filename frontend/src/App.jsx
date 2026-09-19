@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { BrowserRouter as Router, Routes, Route, useNavigate } from "react-router-dom"; // Import Router components
+import React from 'react';
+import { Routes, Route } from "react-router-dom";
 import './App.css'
 
 import Home from "./pages/PageHome/Home.jsx";
@@ -18,20 +18,14 @@ import PageMembershipEvents from './pages/PageMembershipEvents/PageMembershipEve
 import PageMembershipEventDetails from './pages/PageMembershipEventDetails/PageMembershipEventDetails.jsx';
 import PageMembershipFaq from './pages/PageMembershipFaq/PageMembershipFaq.jsx';
 import PageMembershipPolicies from './pages/PageMembershipPolicies/PageMembershipPolicies.jsx';
+import PageNotFound from './pages/PageNotFound/PageNotFound.jsx';
 
 import Navbar from "./components/Navbar/Navbar.jsx"
 
 function App() {
-
-  const navigate = useNavigate();
-  console.log("App is rendering");
-  console.log("Home Component:", Home);
-
-  const [message, setMessage] = useState("")
-
   return (
     <>
-      {/* Navbar */}
+      <a href="#main-content" className="skipLink">Skip to content</a>
       <section className="navbar">
         <Navbar />
       </section>
@@ -53,9 +47,7 @@ function App() {
         <Route path="/membership/events/:id" element={<PageMembershipEventDetails />} />
         <Route path="/membership/faq" element={<PageMembershipFaq />} />
         <Route path="/membership/policies" element={<PageMembershipPolicies />} />
-
-
-
+        <Route path="*" element={<PageNotFound />} />
       </Routes>
     </>
   );

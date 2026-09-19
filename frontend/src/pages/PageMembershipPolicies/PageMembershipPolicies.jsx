@@ -5,7 +5,7 @@ import Footer from '@/components/Footer/Footer.jsx';
 import styles from './PageMembershipPolicies.module.css';
 
 const PageMembershipPolicies = () => (
-  <main>
+  <main id="main-content">
     <Helmet>
       <title>Membership Policies - TCSA</title>
     </Helmet>

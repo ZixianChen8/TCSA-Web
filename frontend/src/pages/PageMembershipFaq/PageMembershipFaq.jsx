@@ -35,12 +35,13 @@ const PageMembershipFaq = () => {
   };
 
   return (
-    <main>
+    <main id="main-content">
       <Helmet>
         <title>Membership FAQ - TCSA</title>
       </Helmet>
       <SecHero2 title="MEMBERSHIP FAQ" subtitle="Common questions about TCSA membership" />
       <div className={styles.wrap}>
+        <div className={styles.faqGrid}>
         {FAQS.map(([q, a]) => (
           <section key={q} className={styles.item}>
             <h2>{q}</h2>
@@ -58,7 +59,8 @@ const PageMembershipFaq = () => {
           </form>
           {message && <p>{message}</p>}
         </section>
-        <p><Link to="/membership/join">Become a member</Link> · <Link to="/membership/policies">Policies</Link></p>
+        <p className={styles.footerLinks}><Link to="/membership/join">Become a member</Link> · <Link to="/membership/policies">Policies</Link></p>
+        </div>
       </div>
       <Footer />
     </main>

@@ -41,7 +41,7 @@ const PageMembershipEventDetails = () => {
   };
 
   return (
-    <main>
+    <main id="main-content">
       <Helmet>
         <title>{event ? `${event.title} - TCSA` : 'Member Event - TCSA'}</title>
       </Helmet>

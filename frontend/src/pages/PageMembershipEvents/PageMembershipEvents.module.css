@@ -1,8 +1,8 @@
 .wrap {
-  max-width: 900px;
+  max-width: var(--container-max);
   margin: 0 auto;
-  padding: 2rem 1.25rem 4rem;
-  color: #333;
+  padding: var(--space-10) var(--container-padding) var(--section-gap);
+  color: var(--color-ink);
 }
 
 .list {
@@ -10,37 +10,61 @@
   padding: 0;
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  gap: var(--space-4);
 }
 
 .card {
-  border: 1px solid #ddd;
-  border-radius: 6px;
-  padding: 1.25rem;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-6);
   display: flex;
   justify-content: space-between;
-  gap: 1rem;
+  gap: var(--space-6);
   align-items: center;
+  background: var(--color-surface);
+  transition: border-color var(--duration-normal) var(--ease-out),
+    box-shadow var(--duration-normal) var(--ease-out);
+}
+
+.card:hover {
+  border-color: var(--color-border-strong);
+  box-shadow: var(--shadow-soft);
 }
 
 .card h2 {
-  font-size: 1.2rem;
-  margin: 0 0 0.35rem;
+  font-size: var(--text-lg);
+  font-weight: 700;
+  margin: 0 0 var(--space-2);
+  color: var(--color-ink);
 }
 
 .status {
   font-weight: 600;
-  color: #8f001a;
+  color: var(--color-accent);
+  font-size: var(--text-sm);
 }
 
 .error {
-  color: #dc3545;
+  color: var(--color-error);
+  padding: var(--space-4);
+  background: rgba(180, 35, 24, 0.08);
+  border-radius: var(--radius-md);
 }
 
 .card a {
-  color: #8f001a;
+  color: var(--color-accent);
   font-weight: 600;
   white-space: nowrap;
+  padding: var(--space-3) var(--space-5);
+  border: 1px solid var(--color-accent);
+  border-radius: var(--radius-pill);
+  transition: background var(--duration-normal) var(--ease-out),
+    color var(--duration-normal) var(--ease-out);
+}
+
+.card a:hover {
+  background: var(--color-accent);
+  color: var(--color-on-accent);
 }
 
 @media (max-width: 600px) {

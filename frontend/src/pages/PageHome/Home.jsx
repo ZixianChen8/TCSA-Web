@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
+import { Link } from "react-router-dom";
 import SecHero from "@/components/SecHero/SecHero.jsx"
 import CardEvent from "@/components/CardEvent/CardEvent.jsx"
 import TeamPyramid from "@/components/PageHome/TeamPyramid/TeamPyramid.jsx"
@@ -8,13 +9,11 @@ import Btn3 from '@/components/Btn3/Btn3.jsx'
 import ChartRoadmap from '@/components/ChartRoadmap/ChartRoadmap.jsx'
 
 import axios from 'axios';
+import { parseLocalDate } from '@/utils/dates.js';
 import styles from "./Home.module.css";
 import emailjs from '@emailjs/browser'
 
-
-
 const Home = () => {
-  
   useEffect(() => {
     emailjs.init(import.meta.env.VITE_EMAILJS_PUBLIC_KEY);
   }, []);
@@ -28,7 +27,22 @@ const Home = () => {
   const [heroMedia, setHeroMedia] = useState(null);
   const [heroLoading, setHeroLoading] = useState(true);
   const [heroError, setHeroError] = useState(null);
-  // Fetch sponsors from the backend
+  const [galleryHeight, setGalleryHeight] = useState(400);
+  const [galleryBend, setGalleryBend] = useState(3);
+  const [formStatus, setFormStatus] = useState(null);
+  const [formSubmitting, setFormSubmitting] = useState(false);
+
+  useEffect(() => {
+    const updateGallery = () => {
+      const narrow = window.innerWidth <= 600;
+      setGalleryHeight(narrow ? 230 : 400);
+      setGalleryBend(narrow ? 7 : 3);
+    };
+    updateGallery();
+    window.addEventListener('resize', updateGallery, { passive: true });
+    return () => window.removeEventListener('resize', updateGallery);
+  }, []);
+
   useEffect(() => {
     const fetchSponsors = async () => {
       setSponsorsLoading(true);
@@ -68,24 +82,21 @@ const Home = () => {
     fetchHeroMedia();
   }, []);
 
-
-  // Fetch events from the backend
   useEffect(() => {
     const fetchEvents = async () => {
       try {
         const response = await axios.get('/api/events/');
         if (Array.isArray(response.data)) {
-          // Sort events by date and take the first 3
           const sortedEvents = response.data
-            .sort((a, b) => new Date(a.date) - new Date(b.date))
+            .sort((a, b) => parseLocalDate(a.start_date) - parseLocalDate(b.start_date))
             .slice(0, 3);
           setEvents(sortedEvents);
           setError(null);
         } else {
           setError('Invalid data format received from server');
         }
-      } catch (error) {
-        console.error('Error fetching events:', error);
+      } catch (fetchError) {
+        console.error('Error fetching events:', fetchError);
         setError('Failed to load events');
       } finally {
         setLoading(false);
@@ -95,31 +106,32 @@ const Home = () => {
     fetchEvents();
   }, []);
 
+  const form = useRef();
 
-    const form = useRef();
-  
-    const sendEmail = (e) => {
-      e.preventDefault();
-  
-      emailjs
-        .sendForm(
-          import.meta.env.VITE_EMAILJS_SERVICE_ID,
-          import.meta.env.VITE_EMAILJS_CONTACTUS_TEMPLATE_ID,
-          form.current,
-          import.meta.env.VITE_EMAILJS_PUBLIC_KEY
-        )
-        .then(
-          (result) => {
-            alert('Message sent successfully!');
-          },
-          (error) => {
-            console.error('EmailJS error:', error);
-            alert('An error occurred, please try again. See console for details.');
-          }
-        );
-  
-      e.target.reset();
-      }
+  const sendEmail = (e) => {
+    e.preventDefault();
+    setFormSubmitting(true);
+    setFormStatus(null);
+
+    emailjs
+      .sendForm(
+        import.meta.env.VITE_EMAILJS_SERVICE_ID,
+        import.meta.env.VITE_EMAILJS_CONTACTUS_TEMPLATE_ID,
+        form.current,
+        import.meta.env.VITE_EMAILJS_PUBLIC_KEY
+      )
+      .then(
+        () => {
+          setFormStatus({ type: 'success', message: 'Message sent. We will reply soon.' });
+          form.current.reset();
+        },
+        (sendError) => {
+          console.error('EmailJS error:', sendError);
+          setFormStatus({ type: 'error', message: 'Could not send your message. Please try again or email us directly.' });
+        }
+      )
+      .finally(() => setFormSubmitting(false));
+  };
 
   const roadmapData = [
     { year: '2023', events: 2, influenced: 3300 },
@@ -128,18 +140,14 @@ const Home = () => {
   ];
 
   return (
-    <div className={styles.container}>
-
-
-
-      {/* Hero Section with About Content */}
+    <div className={styles.page}>
       <section className={styles.hero}>
         <SecHero
           title="TELFER CHINESE STUDENT ASSOCIATION"
           message={
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
-              <div>Welcome to TCSA</div>
-              <div>TCSA supports Chinese students at the Telfer School of Management by offering academic guidance, cultural experiences, and networking opportunities to enhance their business knowledge and professional growth.</div>
+            <div className={styles.heroMessage}>
+              <p className={styles.heroLead}>Welcome to TCSA</p>
+              <p>TCSA supports Chinese students at the Telfer School of Management through academic guidance, cultural experiences, and networking opportunities.</p>
             </div>
           }
           btnText="Join us"
@@ -150,41 +158,49 @@ const Home = () => {
         />
       </section>
 
-      <main>
-        {/* Roadmap Chart */}
-        <section className={styles.roadmapChart}>
-          <h2>CLUB ROADMAP</h2>
-          <ChartRoadmap data={roadmapData} height={200} />
+      <main id="main-content">
+        <section className={styles.section} aria-labelledby="roadmap-heading">
+          <div className={styles.sectionHeader}>
+            <p className={styles.eyebrow}>Growth</p>
+            <h2 id="roadmap-heading" className={styles.sectionTitle}>Club roadmap</h2>
+          </div>
+          <div className={styles.roadmapChart}>
+            <ChartRoadmap data={roadmapData} height={200} />
+          </div>
         </section>
-        
 
-
-        {/* Team Pyramid */}
-        <section className={styles.teamPyramid}>
-          <h2>OUR TEAM STRUCTURE</h2>
+        <section className={styles.section} aria-labelledby="team-heading">
+          <div className={styles.sectionHeader}>
+            <p className={styles.eyebrow}>Leadership</p>
+            <h2 id="team-heading" className={styles.sectionTitle}>Our team structure</h2>
+          </div>
           <TeamPyramid />
         </section>
 
-        {/* Upcoming Events */}
-        <section className={styles.events}>
-
+        <section className={styles.section} aria-labelledby="events-heading">
           <div className={styles.eventsHeader}>
-            <h2>UPCOMING EVENTS</h2>
-            <div className={styles.moreEventsBtn}>
-              <a href="/events"> <Btn3 btnText='M O R E' /> </a>
-              
+            <div className={styles.sectionHeader}>
+              <p className={styles.eyebrow}>Calendar</p>
+              <h2 id="events-heading" className={styles.sectionTitle}>Upcoming events</h2>
             </div>
-            
+            <Link to="/events" className={styles.moreEventsBtn}>
+              <Btn3 btnText="View all" />
+            </Link>
           </div>
 
-
-          <div className={styles.eventList}>
-            {loading && <p className={styles.loading}>Loading events...</p>}
-            {error && <p className={styles.error}>{error}</p>}
-            {!loading && !error && events.length === 0 && (
-              <p className={styles.noEvents}>No upcoming events at the moment.</p>
+          <div className={styles.eventScroll}>
+            {loading && (
+              <div className={styles.skeletonRow} aria-hidden="true">
+                {[1, 2, 3].map((i) => (
+                  <div key={i} className={styles.skeletonCard} />
+                ))}
+              </div>
             )}
-            {!loading && !error && Array.isArray(events) && events.map((event) => (
+            {error && <p className={styles.error} role="alert">{error}</p>}
+            {!loading && !error && events.length === 0 && (
+              <p className={styles.empty}>No upcoming events at the moment.</p>
+            )}
+            {!loading && !error && events.map((event) => (
               <div key={event.id} className={styles.eventCardWrapper}>
                 <CardEvent event={event} />
               </div>
@@ -192,24 +208,30 @@ const Home = () => {
           </div>
         </section>
 
-        {/* Gallery Section */}
-        <section className={styles.Gallery}>
-          <div style={{
-            height: window.innerWidth <= 600 ? '230px' : '400px',
-            position: 'relative'
-          }}>
-            <CircularGallery bend={window.innerWidth <= 600 ? 7 : 3} textColor="#ffffff" borderRadius={0.05} />
+        <section className={styles.gallerySection} aria-label="Photo gallery">
+          <div
+            className={styles.galleryWrap}
+            style={{ height: `${galleryHeight}px` }}
+          >
+            <CircularGallery bend={galleryBend} textColor="#1c1412" borderRadius={0.05} />
           </div>
         </section>
-      
 
-        {/* Sponsors Section */}
-        <section className={styles.sponsors}>
-          <h2>Our Sponsors & Partners</h2>
+        <section className={styles.section} aria-labelledby="sponsors-heading">
+          <div className={styles.sectionHeader}>
+            <p className={styles.eyebrow}>Partners</p>
+            <h2 id="sponsors-heading" className={styles.sectionTitle}>Sponsors and partners</h2>
+          </div>
           <div className={styles.sponsorLogos}>
-            {sponsorsLoading && <p>Loading sponsors...</p>}
-            {sponsorsError && <p className={styles.error}>{sponsorsError}</p>}
-            {!sponsorsLoading && !sponsorsError && Array.isArray(sponsors) && sponsors.map((sponsor) => (
+            {sponsorsLoading && (
+              <div className={styles.skeletonRow} aria-hidden="true">
+                {[1, 2, 3, 4].map((i) => (
+                  <div key={i} className={styles.skeletonLogo} />
+                ))}
+              </div>
+            )}
+            {sponsorsError && <p className={styles.error} role="alert">{sponsorsError}</p>}
+            {!sponsorsLoading && !sponsorsError && sponsors.map((sponsor) => (
               <a key={sponsor.id} href={sponsor.link || '#'} target="_blank" rel="noopener noreferrer">
                 <img src={sponsor.logo_img} alt={sponsor.name} />
               </a>
@@ -217,43 +239,61 @@ const Home = () => {
           </div>
         </section>
 
-        {/* Contact Section */}
-        <section className={styles.contact}>
-          <h2>Contact</h2>
-          <div className={styles.contactContent}>
+        <section className={styles.contact} aria-labelledby="contact-heading">
+          <div className={styles.contactGrid}>
             <div className={styles.contactInfo}>
-              <h3>Get in touch with us</h3>
-              {/* <p>We'd love to hear from you! Whether you have questions, feedback, or just want to say hello, fill out the form below or send us an email. We'll get back to you as soon as possible!</p> */}
-              <p>📧 tcsaofficial@outlook.com</p>
+              <p className={styles.eyebrow}>Reach out</p>
+              <h2 id="contact-heading" className={styles.sectionTitle}>Contact</h2>
+              <p className={styles.contactLead}>Questions, feedback, or collaboration ideas — we read every message.</p>
+              <p className={styles.contactEmail}>
+                <a href="mailto:tcsaofficial@outlook.com">tcsaofficial@outlook.com</a>
+              </p>
             </div>
 
-            <form ref={form} onSubmit={sendEmail} className={styles.contactForm}>
-              <input
-                type="text"
-                name="sender_name"
-                placeholder="Enter your name"
-                required
-              />
-              <input
-                type="email"
-                name="sender_email"
-                placeholder="Enter your email"
-                required
-              />
-              <textarea name="message" placeholder="Enter your message" required></textarea>
-              <button type="submit" className={styles.button}>Send</button>
+            <form ref={form} onSubmit={sendEmail} className={styles.contactForm} noValidate>
+              <div className={styles.field}>
+                <label htmlFor="contact-name">Name</label>
+                <input
+                  id="contact-name"
+                  type="text"
+                  name="sender_name"
+                  required
+                  autoComplete="name"
+                />
+              </div>
+              <div className={styles.field}>
+                <label htmlFor="contact-email">Email</label>
+                <input
+                  id="contact-email"
+                  type="email"
+                  name="sender_email"
+                  required
+                  autoComplete="email"
+                />
+              </div>
+              <div className={styles.field}>
+                <label htmlFor="contact-message">Message</label>
+                <textarea id="contact-message" name="message" required rows={5} />
+              </div>
+              {formStatus && (
+                <p
+                  className={formStatus.type === 'error' ? styles.formError : styles.formSuccess}
+                  role="alert"
+                >
+                  {formStatus.message}
+                </p>
+              )}
+              <button type="submit" className={styles.submitBtn} disabled={formSubmitting}>
+                {formSubmitting ? 'Sending...' : 'Send message'}
+              </button>
             </form>
-
           </div>
         </section>
       </main>
 
-
-
-      {/* Footer */}
       <Footer />
     </div>
   );
 };
 
-  export default Home;
+export default Home;

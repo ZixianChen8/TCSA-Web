@@ -5,6 +5,7 @@ import { BrowserRouter } from 'react-router-dom';
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 
+import './styles/tokens.css'
 import './index.css'
 import App from './App.jsx'
 
@@ -12,31 +13,28 @@ const theme = createTheme({
   palette: {
     mode: 'light',
     primary: {
-      main: "#1976d2",
-      light: "#42a5f5",
-      dark: "#1565c0",
-      contrastText: "#ffffff",
+      main: "#8f001a",
+      light: "#b3263a",
+      dark: "#6d0014",
+      contrastText: "#fffdf8",
     },
     secondary: {
-      main: "#dc004e",
-      light: "#ff4081",
-      dark: "#9a0036",
-      contrastText: "#ffffff",
+      main: "#1c1412",
+      light: "#6b5e58",
+      dark: "#1c1412",
+      contrastText: "#fffdf8",
     },
     background: {
-      default: "white",
-      paper: "#ffffff",
+      default: "#f6f1ea",
+      paper: "#fffdf8",
     },
   },
   typography: {
     fontFamily: [
-      'Poppins',
+      'Outfit',
       '-apple-system',
       'BlinkMacSystemFont',
       '"Segoe UI"',
-      'Roboto',
-      '"Helvetica Neue"',
-      'Arial',
       'sans-serif',
     ].join(','),
     h1: {

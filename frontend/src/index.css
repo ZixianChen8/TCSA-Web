@@ -1,48 +1,94 @@
-/* index.css - Global Styles */
+/* index.css - Global styles driven by design tokens */
 
-/* Reset basic styles */
-* {
+*,
+*::before,
+*::after {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: 'Poppins', sans-serif;
 }
 
-/* Set default font and background */
+html {
+  scroll-behavior: smooth;
+}
+
 body {
-  background-color: white;
-  color: #333;
-  line-height: 1.6;
+  font-family: var(--font-body);
+  background-color: var(--color-canvas);
+  color: var(--color-ink);
+  line-height: var(--leading-relaxed);
+  min-height: 100dvh;
 }
 
-/* Improve text selection appearance */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: var(--z-grain);
+  opacity: 0.035;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+}
+
 ::selection {
-  background: rgba(0, 0, 0, 0.1);
+  background: var(--color-accent-soft);
+  color: var(--color-ink);
 }
 
-/* Links */
 a {
   text-decoration: none;
-  color: #007bff;
-  transition: color 0.3s ease-in-out;
+  color: var(--color-accent);
+  transition: color var(--duration-normal) var(--ease-out);
 }
 
 a:hover {
-  color: #0056b3;
+  color: var(--color-accent-hover);
 }
 
-/* Default button styles */
 button {
   cursor: pointer;
   border: none;
-  padding: 10px 15px;
-  font-size: 16px;
-  border-radius: 5px;
+  font-family: inherit;
+  background: none;
 }
 
 button:disabled {
   opacity: 0.5;
   cursor: not-allowed;
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 3px;
+}
+
+.skipLink {
+  position: absolute;
+  left: var(--space-4);
+  top: var(--space-4);
+  z-index: var(--z-overlay);
+  padding: var(--space-3) var(--space-5);
+  background: var(--color-ink);
+  color: var(--color-on-accent);
+  border-radius: var(--radius-pill);
+  clip-path: inset(50%);
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.skipLink:focus {
+  clip-path: none;
+  width: auto;
+  height: auto;
+  overflow: visible;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
 }
 
 .theme-light {

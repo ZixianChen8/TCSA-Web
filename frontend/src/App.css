@@ -2,9 +2,9 @@
 
 /* Center content and set max width */
 .container {
-  max-width: 1200px;
+  max-width: var(--container-max, 1200px);
   margin: 0 auto;
-  padding: 200px;
+  padding: var(--container-padding, 1.5rem);
 }
 
 /* Flexbox utility class */

@@ -1,59 +1,25 @@
 import React from 'react';
 import styled from 'styled-components';
 
-const Logo = () => {
-  return (
-    <StyledWrapper>
-      <button className="button" data-text="Awesome">
-        <span className="actual-text">&nbsp;TCSA&nbsp;</span>
-        <span aria-hidden="true" className="hover-text">&nbsp;TCSA&nbsp;</span>
-      </button>
-    </StyledWrapper>
-  );
-}
+const Logo = () => (
+  <StyledWrapper>
+    <span className="logo">TCSA</span>
+  </StyledWrapper>
+);
 
 const StyledWrapper = styled.div`
-  /* === removing default button style ===*/
-  .button {
-    margin: 0;
-    height: auto;
-    background: transparent;
-    padding: 0;
-    border: none;
-    cursor: pointer;
+  .logo {
+    font-family: var(--font-display, 'Outfit', sans-serif);
+    font-size: 1.375rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    color: var(--color-ink, #1c1412);
+    transition: color 280ms cubic-bezier(0.32, 0.72, 0, 1);
   }
 
-  /* button styling */
-  .button {
-    --border-right: 6px;
-    --text-stroke-color: black;
-    --animation-color: #8F001A;
-    --fs-size: 1.5em;
-    letter-spacing: 4px;
-    text-decoration: none;
-    font-size: var(--fs-size);
-    font-family: "Arial";
-    position: relative;
-    text-transform: uppercase;
-    -webkit-text-stroke: 2.3px var(--text-stroke-color);
+  a:hover & .logo {
+    color: var(--color-accent, #8f001a);
   }
-  /* this is the text, when you hover on button */
-  .hover-text {
-    position: absolute;
-    box-sizing: border-box;
-    content: attr(data-text);
-    color: var(--animation-color);
-    width: 0%;
-    inset: 0;
-    border-right: var(--border-right) solid var(--animation-color);
-    overflow: hidden;
-    transition: 0.5s;
-    -webkit-text-stroke: 2.3px var(--animation-color);
-  }
-  /* hover */
-  .button:hover .hover-text {
-    width: 100%;
-    filter: drop-shadow(0 0 23px var(--animation-color))
-  }`;
+`;
 
 export default Logo;

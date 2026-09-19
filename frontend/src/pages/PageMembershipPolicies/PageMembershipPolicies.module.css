@@ -1,20 +1,28 @@
 .wrap {
-  max-width: 800px;
+  max-width: 720px;
   margin: 0 auto;
-  padding: 2rem 1.25rem 4rem;
-  color: #333;
-  line-height: 1.65;
+  padding: var(--space-10) var(--container-padding) var(--section-gap);
+  color: var(--color-ink);
+  line-height: var(--leading-relaxed);
 }
 
 .wrap section {
-  margin-bottom: 1.75rem;
+  margin-bottom: var(--space-8);
 }
 
 .wrap h2 {
-  font-size: 1.2rem;
+  font-size: var(--text-lg);
+  font-weight: 700;
+  color: var(--color-ink);
+  margin-bottom: var(--space-3);
+}
+
+.wrap p {
+  color: var(--color-muted);
 }
 
 .note {
   font-style: italic;
-  color: #666;
+  color: var(--color-muted);
+  font-size: var(--text-sm);
 }

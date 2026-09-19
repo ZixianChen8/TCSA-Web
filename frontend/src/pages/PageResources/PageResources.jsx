@@ -3,7 +3,6 @@ import { useState, useEffect } from 'react';
 import { Helmet } from 'react-helmet';
 import axios from 'axios';
 import styles from './PageResources.module.css';
-import Navbar from '../../components/Navbar/Navbar';
 import SecHero2 from "@/components/SecHero2/SecHero2.jsx"
 import Footer from '@/components/Footer/Footer.jsx'
 import CardResource from '@/components/CardResource/CardResource.jsx'

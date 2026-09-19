@@ -3,7 +3,6 @@ import { Helmet } from 'react-helmet';
 import SponsorCard from '@/components/CardSponsor/CardSponsor.jsx'; 
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
-import Navbar from '@/components/Navbar/Navbar';
 import Footer from '@/components/Footer/Footer.jsx'
 import SectionService from '@/components/SectionService/SectionService';
 import emailjs from '@emailjs/browser';

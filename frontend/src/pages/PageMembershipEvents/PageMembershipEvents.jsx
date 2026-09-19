@@ -29,7 +29,7 @@ const PageMembershipEvents = () => {
   }, []);
 
   return (
-    <main>
+    <main id="main-content">
       <Helmet>
         <title>Member Events - TCSA</title>
       </Helmet>

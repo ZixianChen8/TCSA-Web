@@ -25,7 +25,7 @@ const PageMembership = () => {
   }, []);
 
   return (
-    <main>
+    <main id="main-content">
       <Helmet>
         <title>Membership - TCSA</title>
       </Helmet>
@@ -47,8 +47,11 @@ const PageMembership = () => {
 
         <h2 className={styles.h2}>Pricing</h2>
         <div className={styles.cards}>
-          {types.map((t) => (
-            <article key={t.id} className={styles.card}>
+          {types.map((t, index) => (
+            <article
+              key={t.id}
+              className={`${styles.card} ${index === 0 ? styles.cardFeatured : ''}`}
+            >
               <h3>{t.name}</h3>
               <p className={styles.price}>CAD ${t.price_cad}</p>
               {(t.valid_from || t.valid_until) && (

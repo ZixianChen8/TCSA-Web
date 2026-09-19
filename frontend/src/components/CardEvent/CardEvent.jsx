@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom';
 
 import Icon from "@/components/Icon/Icon.jsx"; // Import reusable Icon component
 
+import { formatLocalDate, parseLocalDate } from '@/utils/dates.js';
+
 import styles from './CardEvent.module.css';
 
 const CardEvent = ({ event }) => {
@@ -32,23 +34,13 @@ const CardEvent = ({ event }) => {
       return text.length > maxLength ? text.slice(0, maxLength) + "..." : text;
     };
 
-    // Format a date or date range (accepts Date objects or strings)
     const formatDateRange = (startDateInput, endDateInput) => {
       if (!startDateInput) return "Date not specified";
       try {
-        const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-        const parse = (v) => {
-          if (!v) return null;
-          const d = v instanceof Date ? v : new Date(v);
-          return isNaN(d.getTime()) ? null : d;
-        };
-        const startDate = parse(startDateInput);
-        if (!startDate) return String(startDateInput);
-        const formattedStart = startDate.toLocaleDateString('en-US', options);
-
-        const endDate = parse(endDateInput);
+        const formattedStart = formatLocalDate(startDateInput);
+        const endDate = parseLocalDate(endDateInput);
         if (endDate) {
-          const formattedEnd = endDate.toLocaleDateString('en-US', options);
+          const formattedEnd = formatLocalDate(endDateInput);
           return `${formattedStart} – ${formattedEnd}`;
         }
         return formattedStart;

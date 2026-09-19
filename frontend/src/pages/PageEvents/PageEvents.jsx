@@ -5,7 +5,6 @@ import CardEvent from '@/components/CardEvent/CardEvent.jsx'
 
 import { Helmet } from 'react-helmet';
 
-import Navbar from "@/components/Navbar/Navbar.jsx"
 import SecHero2 from "@/components/SecHero2/SecHero2.jsx" 
 import Footer from '@/components/Footer/Footer.jsx'
 
@@ -66,7 +65,7 @@ const PageEvents = () => {
     }, [events]);
 
     return (
-        <main>
+        <main id="main-content">
             <Helmet>
                 <title>Events - TCSA</title>
             </Helmet>
@@ -88,18 +87,7 @@ const PageEvents = () => {
                     {!loading && !error && events.map(event => {
                         console.log('Rendering event:', event);
                         return (
-                            <CardEvent 
-                                key={event.id} 
-                                event={{
-                                    id: event.id,
-                                    title: event.title,
-                                    description: event.description,
-                                    date: event.date,
-                                    location: event.location,
-                                    organizer: event.organizer,
-                                    image: event.thumbnail_link || '/default-event-image.jpg'
-                                }} 
-                            />
+                            <CardEvent key={event.id} event={event} />
                         );
                     })}
                 </div>

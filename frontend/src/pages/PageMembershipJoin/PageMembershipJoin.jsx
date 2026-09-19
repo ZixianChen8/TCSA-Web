@@ -91,7 +91,7 @@ const PageMembershipJoin = () => {
   };
 
   return (
-    <main>
+    <main id="main-content">
       <Helmet>
         <title>Join Membership - TCSA</title>
       </Helmet>

@@ -2,221 +2,74 @@ import React from 'react';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 
-const Button = () => {
+const Btn1 = ({ children = 'Join us', href = '/joinus' }) => {
   const navigate = useNavigate();
+
+  const handleClick = () => {
+    if (href.startsWith('http')) {
+      window.location.href = href;
+    } else {
+      navigate(href);
+    }
+  };
+
   return (
     <StyledWrapper>
-      <button onClick={() => navigate('/joinus')}>
-        Join Now
-        <div className="star-1">
-          <svg xmlns="http://www.w3.org/2000/svg" xmlSpace="preserve" version="1.1" style={{shapeRendering: 'geometricPrecision', textRendering: 'geometricPrecision', imageRendering: 'optimizeQuality', fillRule: 'evenodd', clipRule: 'evenodd'}} viewBox="0 0 784.11 815.53" xmlnsXlink="http://www.w3.org/1999/xlink">
-            <defs />
-            <g id="Layer_x0020_1">
-              <metadata id="CorelCorpID_0Corel-Layer" />
-              <path className="fil0" d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,407.78 207.96,29.37 371.12,197.68 392.05,407.74 20.93,-210.06 184.09,-378.37 392.05,-407.74 -207.98,-29.38 -371.16,-197.69 -392.06,-407.78z" />
-            </g>
+      <button type="button" onClick={handleClick}>
+        <span className="label">{children}</span>
+        <span className="iconWrap" aria-hidden="true">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M7 17L17 7M17 7H7M17 7V17" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
           </svg>
-        </div>
-        <div className="star-2">
-          <svg xmlns="http://www.w3.org/2000/svg" xmlSpace="preserve" version="1.1" style={{shapeRendering: 'geometricPrecision', textRendering: 'geometricPrecision', imageRendering: 'optimizeQuality', fillRule: 'evenodd', clipRule: 'evenodd'}} viewBox="0 0 784.11 815.53" xmlnsXlink="http://www.w3.org/1999/xlink">
-            <defs />
-            <g id="Layer_x0020_1">
-              <metadata id="CorelCorpID_0Corel-Layer" />
-              <path className="fil0" d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,407.78 207.96,29.37 371.12,197.68 392.05,407.74 20.93,-210.06 184.09,-378.37 392.05,-407.74 -207.98,-29.38 -371.16,-197.69 -392.06,-407.78z" />
-            </g>
-          </svg>
-        </div>
-        <div className="star-3">
-          <svg xmlns="http://www.w3.org/2000/svg" xmlSpace="preserve" version="1.1" style={{shapeRendering: 'geometricPrecision', textRendering: 'geometricPrecision', imageRendering: 'optimizeQuality', fillRule: 'evenodd', clipRule: 'evenodd'}} viewBox="0 0 784.11 815.53" xmlnsXlink="http://www.w3.org/1999/xlink">
-            <defs />
-            <g id="Layer_x0020_1">
-              <metadata id="CorelCorpID_0Corel-Layer" />
-              <path className="fil0" d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,407.78 207.96,29.37 371.12,197.68 392.05,407.74 20.93,-210.06 184.09,-378.37 392.05,-407.74 -207.98,-29.38 -371.16,-197.69 -392.06,-407.78z" />
-            </g>
-          </svg>
-        </div>
-        <div className="star-4">
-          <svg xmlns="http://www.w3.org/2000/svg" xmlSpace="preserve" version="1.1" style={{shapeRendering: 'geometricPrecision', textRendering: 'geometricPrecision', imageRendering: 'optimizeQuality', fillRule: 'evenodd', clipRule: 'evenodd'}} viewBox="0 0 784.11 815.53" xmlnsXlink="http://www.w3.org/1999/xlink">
-            <defs />
-            <g id="Layer_x0020_1">
-              <metadata id="CorelCorpID_0Corel-Layer" />
-              <path className="fil0" d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,407.78 207.96,29.37 371.12,197.68 392.05,407.74 20.93,-210.06 184.09,-378.37 392.05,-407.74 -207.98,-29.38 -371.16,-197.69 -392.06,-407.78z" />
-            </g>
-          </svg>
-        </div>
-        <div className="star-5">
-          <svg xmlns="http://www.w3.org/2000/svg" xmlSpace="preserve" version="1.1" style={{shapeRendering: 'geometricPrecision', textRendering: 'geometricPrecision', imageRendering: 'optimizeQuality', fillRule: 'evenodd', clipRule: 'evenodd'}} viewBox="0 0 784.11 815.53" xmlnsXlink="http://www.w3.org/1999/xlink">
-            <defs />
-            <g id="Layer_x0020_1">
-              <metadata id="CorelCorpID_0Corel-Layer" />
-              <path className="fil0" d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,407.78 207.96,29.37 371.12,197.68 392.05,407.74 20.93,-210.06 184.09,-378.37 392.05,-407.74 -207.98,-29.38 -371.16,-197.69 -392.06,-407.78z" />
-            </g>
-          </svg>
-        </div>
-        <div className="star-6">
-          <svg xmlns="http://www.w3.org/2000/svg" xmlSpace="preserve" version="1.1" style={{shapeRendering: 'geometricPrecision', textRendering: 'geometricPrecision', imageRendering: 'optimizeQuality', fillRule: 'evenodd', clipRule: 'evenodd'}} viewBox="0 0 784.11 815.53" xmlnsXlink="http://www.w3.org/1999/xlink">
-            <defs />
-            <g id="Layer_x0020_1">
-              <metadata id="CorelCorpID_0Corel-Layer" />
-              <path className="fil0" d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,407.78 207.96,29.37 371.12,197.68 392.05,407.74 20.93,-210.06 184.09,-378.37 392.05,-407.74 -207.98,-29.38 -371.16,-197.69 -392.06,-407.78z" />
-            </g>
-          </svg>
-        </div>
+        </span>
       </button>
     </StyledWrapper>
   );
-}
+};
 
 const StyledWrapper = styled.div`
   button {
-    position: relative;
-    padding: 12px 35px;
-    background: #8F001A;
-    font-size: 17px;
-    font-weight: 500;
-    color: white;
-    border: 3px solid #8F001A;
-    border-radius: 50px;
-    box-shadow: 0 0 0 #ff4d6d;
-    transition: all 0.3s ease-in-out;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.875rem 1.5rem 0.875rem 1.75rem;
+    background: var(--color-accent, #8f001a);
+    color: var(--color-on-accent, #fffdf8);
+    font-family: var(--font-body, 'Outfit', sans-serif);
+    font-size: 1rem;
+    font-weight: 600;
+    border: none;
+    border-radius: 9999px;
     cursor: pointer;
-    color: #FFFDEF;
-  }
-
-  .star-1 {
-    position: absolute;
-    top: 20%;
-    left: 20%;
-    width: 25px;
-    height: auto;
-    filter: drop-shadow(0 0 0 #ff4d6d);
-    z-index: -5;
-    transition: all 1s cubic-bezier(0.05, 0.83, 0.43, 0.96);
-  }
-
-  .star-2 {
-    position: absolute;
-    top: 45%;
-    left: 45%;
-    width: 15px;
-    height: auto;
-    filter: drop-shadow(0 0 0 #ff4d6d);
-    z-index: -5;
-    transition: all 1s cubic-bezier(0, 0.4, 0, 1.01);
-  }
-
-  .star-3 {
-    position: absolute;
-    top: 40%;
-    left: 40%;
-    width: 5px;
-    height: auto;
-    filter: drop-shadow(0 0 0 #ff4d6d);
-    z-index: -5;
-    transition: all 1s cubic-bezier(0, 0.4, 0, 1.01);
-  }
-
-  .star-4 {
-    position: absolute;
-    top: 20%;
-    left: 40%;
-    width: 8px;
-    height: auto;
-    filter: drop-shadow(0 0 0 #ff4d6d);
-    z-index: -5;
-    transition: all 0.8s cubic-bezier(0, 0.4, 0, 1.01);
-  }
-
-  .star-5 {
-    position: absolute;
-    top: 25%;
-    left: 45%;
-    width: 15px;
-    height: auto;
-    filter: drop-shadow(0 0 0 #ff4d6d);
-    z-index: -5;
-    transition: all 0.6s cubic-bezier(0, 0.4, 0, 1.01);
-  }
-
-  .star-6 {
-    position: absolute;
-    top: 5%;
-    left: 50%;
-    width: 5px;
-    height: auto;
-    filter: drop-shadow(0 0 0 #ff4d6d);
-    z-index: -5;
-    transition: all 0.8s ease;
+    transition: background 280ms cubic-bezier(0.32, 0.72, 0, 1),
+      transform 150ms cubic-bezier(0.32, 0.72, 0, 1),
+      box-shadow 280ms cubic-bezier(0.32, 0.72, 0, 1);
+    box-shadow: 0 4px 16px -4px rgba(143, 0, 26, 0.35);
   }
 
   button:hover {
-    background: transparent;
-    color: white;
-    box-shadow: 0 0 25px #ff4d6d;
+    background: var(--color-accent-hover, #6d0014);
+    box-shadow: 0 8px 24px -6px rgba(143, 0, 26, 0.4);
   }
 
-  button:hover .star-1 {
-    position: absolute;
-    top: -80%;
-    left: -30%;
-    width: 25px;
-    height: auto;
-    filter: drop-shadow(0 0 10px #ff4d6d);
-    z-index: 2;
+  button:active {
+    transform: scale(0.98);
   }
 
-  button:hover .star-2 {
-    position: absolute;
-    top: -25%;
-    left: 10%;
-    width: 15px;
-    height: auto;
-    filter: drop-shadow(0 0 10px #ff4d6d);
-    z-index: 2;
+  .iconWrap {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2rem;
+    height: 2rem;
+    border-radius: 50%;
+    background: rgba(255, 253, 248, 0.15);
+    transition: transform 280ms cubic-bezier(0.32, 0.72, 0, 1);
   }
 
-  button:hover .star-3 {
-    position: absolute;
-    top: 55%;
-    left: 25%;
-    width: 5px;
-    height: auto;
-    filter: drop-shadow(0 0 10px #ff4d6d);
-    z-index: 2;
+  button:hover .iconWrap {
+    transform: translate(2px, -1px);
   }
+`;
 
-  button:hover .star-4 {
-    position: absolute;
-    top: 30%;
-    left: 80%;
-    width: 8px;
-    height: auto;
-    filter: drop-shadow(0 0 10px #ff4d6d);
-    z-index: 2;
-  }
-
-  button:hover .star-5 {
-    position: absolute;
-    top: 25%;
-    left: 115%;
-    width: 15px;
-    height: auto;
-    filter: drop-shadow(0 0 10px #ff4d6d);
-    z-index: 2;
-  }
-
-  button:hover .star-6 {
-    position: absolute;
-    top: 5%;
-    left: 60%;
-    width: 5px;
-    height: auto;
-    filter: drop-shadow(0 0 10px #ff4d6d);
-    z-index: 2;
-  }
-
-  .fil0 {
-    fill: #ff4d6d; 
-  }`;
-
-export default Button;
+export default Btn1;

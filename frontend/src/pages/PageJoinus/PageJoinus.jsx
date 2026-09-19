@@ -5,7 +5,6 @@ import axios from 'axios';
 import CardJob from '@/components/CardJob/CardJob.jsx';
 // import CardBenefit from '@/components/CardBenefit/CardBenefit.jsx';
 
-import Navbar from "@/components/Navbar/Navbar.jsx"
 import SecHero2 from "@/components/SecHero2/SecHero2.jsx"
 import Footer from '@/components/Footer/Footer.jsx'
 import SubmitBtn from '@/components/BtnStar2/BtnStar2.jsx'
@@ -14,15 +13,8 @@ import { Helmet } from 'react-helmet';
 
 // import { FaLock } from 'react-icons/fa';
 
+import { parseLocalDate } from '@/utils/dates.js';
 import styles from "./PageJoinus.module.css"
-
-// Helper to parse a date string as a local date to avoid UTC shift
-const parseLocalDate = (isoDate) => {
-  const [year, month, day] = isoDate.split('-').map(Number);
-  return new Date(year, month - 1, day);
-};
-
-
 
 const PageJoinus = () => {
     const [benefitImages, setBenefitImages] = useState([]);
@@ -140,7 +132,7 @@ const PageJoinus = () => {
 
     return (
 
-        <main>
+        <main id="main-content">
             <Helmet>
               <title>Join Our Team - TCSA</title>
             </Helmet>

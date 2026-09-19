@@ -27,20 +27,9 @@ axios.defaults.withCredentials = true;
 
 emailjs.init(import.meta.env.VITE_EMAILJS_PUBLIC_KEY);
 
-import Navbar from "@/components/Navbar/Navbar.jsx";
 import SecHero from "@/components/SecHero/SecHero.jsx";
+import { formatLocalDate } from '@/utils/dates.js';
 import styles from "./PageEventDetails.module.css";
-
-// Format a date string to human-friendly format
-const formatDate = (dateString) => {
-  if (!dateString) return "Date not specified";
-  try {
-    const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-    return new Date(dateString).toLocaleDateString('en-US', options);
-  } catch {
-    return dateString;
-  }
-};
 
 // Format a time string to human-friendly format
 const formatTime = (timeString) => {
@@ -191,9 +180,7 @@ const PageEventDetails = () => {
   }
 
   return (
-    <div className={styles.container}>
-      <Navbar />
-
+    <main id="main-content" className={styles.container}>
       <Helmet>
         <title>{event?.title ? `${event.title} - TCSA` : 'Event Details - TCSA'}</title>
       </Helmet>
@@ -216,7 +203,7 @@ const PageEventDetails = () => {
           <div className={styles.eventDetails}>
             <p><strong>Date & Time:</strong></p>
             <p>
-              {formatDate(event.start_date)}{' '}
+              {formatLocalDate(event.start_date)}{' '}
               {formatTime(event.start_time)}
             </p>
             <p><strong>Location:</strong></p>
@@ -298,7 +285,7 @@ const PageEventDetails = () => {
 
 
       </div>
-    </div>
+    </main>
   );
 };
 

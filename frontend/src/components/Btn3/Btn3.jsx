@@ -1,110 +1,67 @@
 import React from 'react';
 import styled from 'styled-components';
 
-const Btn3 = ({btnText}) => {
-  return (
-    <StyledWrapper>
-      <button className="animated-button">
-        <svg xmlns="http://www.w3.org/2000/svg" className="arr-2" viewBox="0 0 24 24">
-          <path d="M16.1716 10.9999L10.8076 5.63589L12.2218 4.22168L20 11.9999L12.2218 19.778L10.8076 18.3638L16.1716 12.9999H4V10.9999H16.1716Z" />
+const Btn3 = ({ btnText }) => (
+  <StyledWrapper>
+    <button type="button" className="btn">
+      <span className="text">{btnText}</span>
+      <span className="iconWrap" aria-hidden="true">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M5 12H19M19 12L13 6M19 12L13 18" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
         </svg>
-        <span className="text">{btnText}</span>
-        <span className="circle" />
-        <svg xmlns="http://www.w3.org/2000/svg" className="arr-1" viewBox="0 0 24 24">
-          <path d="M16.1716 10.9999L10.8076 5.63589L12.2218 4.22168L20 11.9999L12.2218 19.778L10.8076 18.3638L16.1716 12.9999H4V10.9999H16.1716Z" />
-        </svg>
-      </button>
-    </StyledWrapper>
-  );
-}
+      </span>
+    </button>
+  </StyledWrapper>
+);
 
 const StyledWrapper = styled.div`
-  .animated-button {
-    position: relative;
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.75rem 1.25rem 0.75rem 1.5rem;
+    background: transparent;
+    color: var(--color-ink, #1c1412);
+    font-family: var(--font-body, 'Outfit', sans-serif);
+    font-size: 0.875rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    border: 1.5px solid var(--color-border-strong, rgba(28, 20, 18, 0.18));
+    border-radius: 9999px;
+    cursor: pointer;
+    transition: background 280ms cubic-bezier(0.32, 0.72, 0, 1),
+      color 280ms cubic-bezier(0.32, 0.72, 0, 1),
+      border-color 280ms cubic-bezier(0.32, 0.72, 0, 1),
+      transform 150ms cubic-bezier(0.32, 0.72, 0, 1);
+  }
+
+  .btn:hover {
+    background: var(--color-accent, #8f001a);
+    color: var(--color-on-accent, #fffdf8);
+    border-color: var(--color-accent, #8f001a);
+  }
+
+  .btn:active {
+    transform: scale(0.98);
+  }
+
+  .iconWrap {
     display: flex;
     align-items: center;
-    gap: 4px;
-    padding: 10px 30px;
-    border: 4px solid;
-    border-color: transparent;
-    font-size: 16px;
-    background-color: ;
-    border-radius: 100px;
-    font-weight: 600;
-    color:rgb(0, 0, 0);
-    box-shadow: 0 0 0 2px #ffffff;
-    cursor: pointer;
-    overflow: hidden;
-    transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
-  }
-
-  .animated-button svg {
-    position: absolute;
-    width: 24px;
-    fill:rgb(0, 0, 0);
-    z-index: 9;
-    transition: all 0.8s cubic-bezier(0.23, 1, 0.32, 1);
-  }
-
-  .animated-button .arr-1 {
-    right: 16px;
-  }
-
-  .animated-button .arr-2 {
-    left: -25%;
-  }
-
-  .animated-button .circle {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 20px;
-    height: 20px;
-    background-color: #8F001A;
+    justify-content: center;
+    width: 1.75rem;
+    height: 1.75rem;
     border-radius: 50%;
-    opacity: 0;
-    transition: all 0.8s cubic-bezier(0.23, 1, 0.32, 1);
+    background: var(--color-accent-soft, rgba(143, 0, 26, 0.08));
+    transition: background 280ms cubic-bezier(0.32, 0.72, 0, 1),
+      transform 280ms cubic-bezier(0.32, 0.72, 0, 1);
   }
 
-  .animated-button .text {
-    position: relative;
-    z-index: 1;
-    transform: translateX(-12px);
-    transition: all 0.8s cubic-bezier(0.23, 1, 0.32, 1);
+  .btn:hover .iconWrap {
+    background: rgba(255, 253, 248, 0.2);
+    transform: translateX(2px);
   }
-
-  .animated-button:hover {
-    box-shadow: 0 0 0 12px transparent;
-    color: #FFFDEF;
-    border-radius: 12px;
-  }
-
-  .animated-button:hover .arr-1 {
-    right: -25%;
-  }
-
-  .animated-button:hover .arr-2 {
-    left: 16px;
-  }
-
-  .animated-button:hover .text {
-    transform: translateX(12px);
-  }
-
-  .animated-button:hover svg {
-    fill: #FFFDEF;
-  }
-
-  .animated-button:active {
-    scale: 0.95;
-    box-shadow: 0 0 0 4px greenyellow;
-  }
-
-  .animated-button:hover .circle {
-    width: 220px;
-    height: 220px;
-    opacity: 1;
-  }`;
+`;
 
 export default Btn3;
